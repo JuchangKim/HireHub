@@ -1,0 +1,31 @@
+/* Ensure you import this CSS file in your App.js or index.js */
+nav {
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+nav div {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+nav button {
+  margin-left: 10px;
+}
+
+input.form-control {
+  border-radius: 0;
+  border-width: 2px;
+  border-color: #007bff;
+}
+
+button.btn-lg {
+  padding: 10px 20px;
+}
