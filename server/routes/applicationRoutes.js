@@ -1,9 +1,14 @@
-
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { getApplications, applyToJob } = require('../controllers/applicationController');
+const {
+  getApplications,
+  applyToJob,
+} = require("../controllers/applicationController");
 
-router.get('/', getApplications);
-router.post('/apply', applyToJob);
+// Get all applications
+router.get("/", getApplications);
+
+// Apply to job
+router.post("/apply", applyToJob);
 
 module.exports = router;
