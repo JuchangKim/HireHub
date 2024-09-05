@@ -27,24 +27,13 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-              <Link className="nav-link" to="/job/:id">Job Details</Link>
-=======
-              <Link className="nav-link" to="/jobs">Job Listings</Link>
->>>>>>> 6e2832b29e7485e3efcd287b35cad20ba95099b3
+              <Link className="nav-link" to="/jobs">
+                Job Listings
+              </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/applications">Applications</Link>
-=======
               <Link className="nav-link" to="/applications">
                 Applications
-              </Link>
->>>>>>> Stashed changes
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/my-profile">
-                my-profile
               </Link>
             </li>
             <li className="nav-item">
