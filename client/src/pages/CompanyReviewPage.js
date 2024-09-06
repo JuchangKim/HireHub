@@ -8,6 +8,17 @@ const CompanyReviewPage = () => {
     const [rating, setRating] = useState('');
     const [reviewText, setReviewText] = useState('');
 
+    // Caculating average rating score in company
+    const calculateAverageRating = (companyName) => {
+        
+        const companyReviews = reviews.filter((review) => review.companyName === companyName);
+        
+        if (companyReviews.length === 0) return 0;
+        
+        const totalRating = companyReviews.reduce((sum, review) => sum + parseInt(review.rating), 0);
+        return (totalRating / companyReviews.length).toFixed(1); // Round to 1 decimal place
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const newReview = {
@@ -86,14 +97,18 @@ const CompanyReviewPage = () => {
 
             <h2>Latest Reviews</h2>
             <ListGroup>
-                {reviews.map((review, index) => (
-                    <ListGroup.Item key={index}>
+            {reviews.map((review, index) => {
+                    const averageRating = calculateAverageRating(review.companyName);
+                    return (
+                        <ListGroup.Item key={index}>
                         <h4>{review.companyName}</h4>
                         <h5>Reviewed by: {review.reviewerName}</h5>
                         <p>Rating: {review.rating}</p>
+                        <p>Average Rating: {averageRating}</p>
                         <p>{review.reviewText}</p>
                     </ListGroup.Item>
-                ))}
+                    );
+                })}
             </ListGroup>
         </Container>
     );
