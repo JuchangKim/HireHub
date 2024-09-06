@@ -1,0 +1,43 @@
+name: Test - filters feature
+
+on:
+  push:
+    branches:
+      - main
+      - filters
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.16.0' # Update to your Node.js version
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Run tests
+      - name: Run tests
+        run: npm test -- --watchAll=false
+
+      # Build the application
+      - name: Build
+        run: npm run build
+
+      # (Optional) Run linting or other checks here
+      - name: Lint code
+        run: npm run lint
+
+    
