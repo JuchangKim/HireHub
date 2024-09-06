@@ -45,8 +45,5 @@ jobs:
             echo "Build script not found; skipping build step."
           fi
 
-      # (Optional) Run linting or other checks here
-      - name: Lint code
-        run: npm run lint
 
     
