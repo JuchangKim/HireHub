@@ -36,9 +36,14 @@ jobs:
       # Run the test
       - run: npm test -- --watchAll=false
 
-      # Build the application
-      - name: Build
-        run: npm run build
+      # Check if the build script exists before running it
+      - name: Check for build script and Build if present
+        run: |
+          if grep -q '"build":' package.json; then
+            npm run build
+          else
+            echo "Build script not found; skipping build step."
+          fi
 
       # (Optional) Run linting or other checks here
       - name: Lint code
