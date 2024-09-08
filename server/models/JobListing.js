@@ -1,4 +1,3 @@
-
 // server/models/JobListing.js
 const mongoose = require('mongoose');
 
@@ -10,6 +9,7 @@ const jobListingSchema = new mongoose.Schema({
     sector: { type: String, required: true },
     workType: { type: String, required: true },
     description: { type: String, required: true},
+    datePosted: { type: Date, required: true } // Added datePosted field
 });
 
 const JobListing = mongoose.model('JobListing', jobListingSchema);

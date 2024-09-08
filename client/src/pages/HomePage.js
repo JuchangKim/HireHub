@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button, Form, Card } from 'react-bootstrap';
+import { Container, Row, Col, Button, Form, Card, Dropdown } from 'react-bootstrap';
 import axios from 'axios';
 import './HomePage.css'; // Import custom CSS for additional styling
 
 function HomePage() {
     const [latestJobs, setLatestJobs] = useState([]);
     const [searchKeyword, setSearchKeyword] = useState('');
+    const [sortOption, setSortOption] = useState('date'); // Default sort by date
 
     // Fetch latest jobs
     useEffect(() => {
         const fetchLatestJobs = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/jobs');
+                const response = await axios.get('http://localhost:5000/api/jobs', {
+                    params: { sort: sortOption }
+                });
                 setLatestJobs(response.data);
             } catch (error) {
                 console.error('Error fetching latest jobs:', error);
@@ -19,7 +22,7 @@ function HomePage() {
         };
 
         fetchLatestJobs();
-    }, []);
+    }, [sortOption]);
 
     const handleSearchChange = (e) => {
         setSearchKeyword(e.target.value);
@@ -28,12 +31,31 @@ function HomePage() {
     const handleSearch = async () => {
         try {
             const response = await axios.get('http://localhost:5000/api/jobs', {
-                params: { keyword: searchKeyword }
+                params: { keyword: searchKeyword, sort: sortOption }
             });
             setLatestJobs(response.data);
         } catch (error) {
             console.error('Error searching jobs:', error);
         }
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleSearch();
+        }
+    };
+
+    const handleSort = (option) => {
+        setSortOption(option);
+    };
+
+    const highlightText = (text, keyword) => {
+        if (!keyword) return text;
+        const regex = new RegExp(`(${keyword})`, 'gi');
+        return text.split(regex).map((part, index) =>
+            regex.test(part) ? <mark key={index}>{part}</mark> : part
+        );
     };
 
     return (
@@ -43,16 +65,29 @@ function HomePage() {
                     <div className="text-center mt-4 mb-5">
                         <h1 className="display-4">Find Your Next Job</h1>
                         <Form>
-                            <Form.Group controlId="searchKeyword">
-                                <Form.Control
-                                    type="text"
-                                    value={searchKeyword}
-                                    onChange={handleSearchChange}
-                                    placeholder="Search jobs, companies, salaries..."
-                                    className="search-bar"
-                                />
-                            </Form.Group>
-                            <Button variant="primary" size="lg" onClick={handleSearch} className="mt-3">Search</Button>
+                            <div className="d-flex align-items-center">
+                                <Form.Group controlId="searchKeyword" className="mb-0 flex-grow-1">
+                                    <Form.Control
+                                        type="text"
+                                        value={searchKeyword}
+                                        onChange={handleSearchChange}
+                                        onKeyPress={handleKeyPress}
+                                        placeholder="Search jobs, companies, salaries..."
+                                        className="search-bar"
+                                    />
+                                </Form.Group>
+                                <Button variant="primary" size="lg" onClick={handleSearch} className="ml-3">Search</Button>
+                                <Dropdown className="ml-3">
+                                    <Dropdown.Toggle variant="primary" id="dropdown-sort">
+                                        Sort by {sortOption.charAt(0).toUpperCase() + sortOption.slice(1)}
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item onClick={() => handleSort('date')}>Date</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => handleSort('salary')}>Salary</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => handleSort('title')}>Title</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </div>
                         </Form>
                     </div>
                     <Row>
@@ -61,13 +96,17 @@ function HomePage() {
                                 <Col xs={12} md={6} lg={4} key={job._id} className="mb-4">
                                     <Card className="job-card">
                                         <Card.Body>
-                                            <Card.Title>{job.title}</Card.Title>
-                                            <Card.Subtitle className="mb-2 text-muted">{job.company}</Card.Subtitle>
+                                            <Card.Title>{highlightText(job.title, searchKeyword)}</Card.Title>
+                                            <Card.Subtitle className="mb-2 text-muted">
+                                                {highlightText(job.company, searchKeyword)}
+                                            </Card.Subtitle>
                                             <Card.Text>
                                                 <strong>Location:</strong> {job.location}<br />
                                                 <strong>Salary:</strong> {job.salary}<br />
                                                 <strong>Sector:</strong> {job.sector}<br />
-                                                <strong>Work Type:</strong> {job.workType}
+                                                <strong>Work Type:</strong> {job.workType}<br />
+                                                <strong>Description:</strong> {job.description.substring(0, 100)}...<br />
+                                                <strong>Date Posted:</strong> {new Date(job.datePosted).toLocaleDateString()} {/* Display datePosted */}
                                             </Card.Text>
                                             <Button variant="primary" href={`/job/${job._id}`}>View Details</Button>
                                         </Card.Body>
@@ -76,7 +115,7 @@ function HomePage() {
                             ))
                         ) : (
                             <Col xs={12} className="text-center">
-                                <p>No job postings available at the moment.</p>
+                                <p>No job postings match your search criteria. Please try a different keyword.</p>
                             </Col>
                         )}
                     </Row>
