@@ -24,6 +24,7 @@ function App() {
         <Route path="/signup" element={<RegisterPage />} />
         <Route path="/company-reviews" element={<CompanyReviewPage />} />
         <Route path="/my-profile" element={<Profile />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </Router>
   );
