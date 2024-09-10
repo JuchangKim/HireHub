@@ -9,6 +9,7 @@ app.use(express.json());
 // In-memory data stores (for demo purposes)
 let jobListings = [];
 let users = [];
+let companyReviews = []; // In-memory storage for company reviews
 
 // Routes
 
@@ -34,6 +35,18 @@ app.post('/api/users', (req, res) => {
     const user = req.body;
     users.push(user);
     res.status(201).json(user);
+});
+
+// Get all company reviews
+app.get('/api/reviews', (req, res) => {
+    res.json(companyReviews);
+});
+
+// Add a new company review
+app.post('/api/reviews', (req, res) => {
+    const review = req.body;
+    companyReviews.push(review);
+    res.status(201).json({ message: 'Review added successfully', review });
 });
 
 // Default route
