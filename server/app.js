@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const authRoutes = require('./routes/authRoutes'); // Import auth routes
 
 // Middleware
 app.use(cors());
@@ -12,6 +13,7 @@ let users = [];
 let companyReviews = []; // In-memory storage for company reviews
 
 // Routes
+app.use('/api/users', authRoutes);
 
 // Get all job listings
 app.get('/api/jobs', (req, res) => {
@@ -29,6 +31,7 @@ app.post('/api/jobs', (req, res) => {
 app.get('/api/users', (req, res) => {
     res.json(users);
 });
+
 
 // Register a new user
 app.post('/api/users', (req, res) => {
