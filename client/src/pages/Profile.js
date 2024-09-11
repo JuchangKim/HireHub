@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Container, Form, Button, Alert, Card } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  Button,
+  Alert,
+  Card,
+  Row,
+  Col,
+} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 function Profile() {
@@ -13,7 +21,8 @@ function Profile() {
 
   const [message, setMessage] = useState("");
   const [resumeError, setResumeError] = useState(""); // State to handle errors
-  const [resumeURL, setResumeURL] = useState(null); // Store resume URL
+  const [resumeURL, setResumeURL] = useState(""); // Store resume URL
+  const [formErrors, setFormErrors] = useState({}); // State for form errors
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,9 +36,31 @@ function Profile() {
         phoneNumber: currentUser.phoneNumber,
         password: currentUser.password,
       });
-      setResumeURL(currentUser.resume || null); // Load resume URL if exists
+      setResumeURL(currentUser.resume || ""); // Load resume URL if exists
     }
   }, []);
+
+  const validateForm = () => {
+    const errors = {};
+    const nameRegex = /^[a-zA-Z\s]+$/; // Only alphabets and spaces
+    const phoneRegex = /^[0-9]+$/; // Only digits
+
+    if (!formData.fullName || !nameRegex.test(formData.fullName)) {
+      errors.fullName = "Full Name must contain only alphabets and spaces.";
+    }
+    if (!formData.phoneNumber || !phoneRegex.test(formData.phoneNumber)) {
+      errors.phoneNumber = "Phone Number must contain only digits.";
+    }
+    if (!formData.email) {
+      errors.email = "Email is required.";
+    }
+    if (!formData.password) {
+      errors.password = "Password is required.";
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,14 +70,7 @@ function Profile() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Basic validation
-    if (
-      !formData.fullName ||
-      !formData.email ||
-      !formData.phoneNumber ||
-      !formData.password
-    ) {
-      setMessage("All fields are required.");
+    if (!validateForm()) {
       return;
     }
 
@@ -60,43 +84,63 @@ function Profile() {
         : user
     );
 
-    // Save updated users list and set current user
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
-    localStorage.setItem(
-      "currentUser",
-      JSON.stringify({ ...formData, resume: resumeURL })
-    );
+    try {
+      // Save updated users list and set current user
+      localStorage.setItem("users", JSON.stringify(updatedUsers));
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify({ ...formData, resume: resumeURL })
+      );
 
-    setMessage("Profile updated successfully!");
+      setMessage("Profile updated successfully!");
 
-    // Redirect to login page after 2 seconds
-    setTimeout(() => {
-      navigate("/login");
-    }, 2000); // 2000 ms = 2 seconds
+      // Redirect to login page after 2 seconds
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000); // 2000 ms = 2 seconds
+    } catch (e) {
+      setMessage("Failed to update profile: Storage quota exceeded.");
+    }
   };
 
-  const handleResumeUpload = (e) => {
+  const handleResumeUpload = async (e) => {
     const file = e.target.files[0];
     if (file && file.type === "application/pdf") {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onloadend = () => {
-        const resumeData = fileReader.result;
-        setResumeURL(resumeData);
-        setResumeError("");
+      if (file.size > 5 * 1024 * 1024) {
+        // Limit file size to 5MB
+        setResumeError("File size exceeds 5MB.");
+        return;
+      }
 
-        // Update localStorage for the current user
-        const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-        const updatedUser = { ...currentUser, resume: resumeData };
-        localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+      // Simulate uploading to a cloud storage and get URL
+      // Replace this with actual upload logic
+      try {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onloadend = () => {
+          // Simulate URL from cloud storage
+          const resumeData = fileReader.result;
+          setResumeURL(resumeData);
+          setResumeError("");
 
-        // Update the users array in localStorage
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-        const updatedUsers = users.map((user) =>
-          user.username === currentUser.username ? updatedUser : user
-        );
-        localStorage.setItem("users", JSON.stringify(updatedUsers));
-      };
+          // Simulate saving to localStorage
+          const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+          const updatedUser = { ...currentUser, resume: resumeData };
+
+          try {
+            localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+            const updatedUsers = users.map((user) =>
+              user.username === currentUser.username ? updatedUser : user
+            );
+            localStorage.setItem("users", JSON.stringify(updatedUsers));
+          } catch (e) {
+            setResumeError("Failed to save resume: Storage quota exceeded.");
+          }
+        };
+      } catch (e) {
+        setResumeError("Failed to read file.");
+      }
     } else {
       setResumeError("Only PDF files are allowed.");
     }
@@ -109,6 +153,11 @@ function Profile() {
         `<iframe width="100%" height="100%" src="${resumeURL}"></iframe>`
       );
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("currentUser");
+    navigate("/login");
   };
 
   return (
@@ -127,7 +176,11 @@ function Profile() {
                 onChange={handleChange}
                 placeholder="Enter full name"
                 className="mb-3"
+                isInvalid={!!formErrors.fullName}
               />
+              <Form.Control.Feedback type="invalid">
+                {formErrors.fullName}
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group controlId="formUsername">
               <Form.Label>Username</Form.Label>
@@ -149,7 +202,11 @@ function Profile() {
                 onChange={handleChange}
                 placeholder="Enter email"
                 className="mb-3"
+                isInvalid={!!formErrors.email}
               />
+              <Form.Control.Feedback type="invalid">
+                {formErrors.email}
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group controlId="formPhoneNumber">
               <Form.Label>Phone Number</Form.Label>
@@ -160,7 +217,11 @@ function Profile() {
                 onChange={handleChange}
                 placeholder="Enter phone number"
                 className="mb-3"
+                isInvalid={!!formErrors.phoneNumber}
               />
+              <Form.Control.Feedback type="invalid">
+                {formErrors.phoneNumber}
+              </Form.Control.Feedback>
             </Form.Group>
             <Form.Group controlId="formPassword">
               <Form.Label>Password</Form.Label>
@@ -171,7 +232,11 @@ function Profile() {
                 onChange={handleChange}
                 placeholder="Enter password"
                 className="mb-4"
+                isInvalid={!!formErrors.password}
               />
+              <Form.Control.Feedback type="invalid">
+                {formErrors.password}
+              </Form.Control.Feedback>
             </Form.Group>
 
             {/* Upload Resume Section */}
@@ -186,18 +251,27 @@ function Profile() {
               {resumeError && <Alert variant="danger">{resumeError}</Alert>}
             </Form.Group>
 
-            {resumeURL && (
-              <Button
-                variant="primary" // Use the same variant as "Update Profile"
-                className="w-100 mb-3"
-                onClick={handleViewResume}
-              >
-                View Uploaded Resume
-              </Button>
-            )}
+            <Row className="mb-3">
+              <Col>
+                <Button variant="primary" type="submit" className="w-100">
+                  Update Profile
+                </Button>
+              </Col>
+              <Col>
+                {resumeURL && (
+                  <Button
+                    variant="primary"
+                    className="w-100"
+                    onClick={handleViewResume}
+                  >
+                    View Resume
+                  </Button>
+                )}
+              </Col>
+            </Row>
 
-            <Button variant="primary" type="submit" className="w-100">
-              Update Profile
+            <Button variant="danger" className="w-100" onClick={handleLogout}>
+              Logout
             </Button>
           </Form>
         </Card.Body>

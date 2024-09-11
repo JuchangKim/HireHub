@@ -15,6 +15,24 @@ function RegisterPage() {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
+  const validateForm = () => {
+    const { fullName, phoneNumber } = formData;
+    const nameRegex = /^[A-Za-z\s]+$/;
+    const phoneRegex = /^\d+$/;
+
+    if (!nameRegex.test(fullName)) {
+      setMessage("Full name can only contain alphabets.");
+      return false;
+    }
+
+    if (!phoneRegex.test(phoneNumber)) {
+      setMessage("Phone number can only contain digits.");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -34,18 +52,33 @@ function RegisterPage() {
       return;
     }
 
+    if (!validateForm()) {
+      return;
+    }
+
     const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
 
+    // Check if email already exists
     if (existingUsers.some((user) => user.email === formData.email)) {
       setMessage("User with this email already exists.");
       return;
     }
 
+    // Check if username already exists
+    if (existingUsers.some((user) => user.username === formData.username)) {
+      setMessage("User with this username already exists.");
+      return;
+    }
+
+    // Save new user
     existingUsers.push(formData);
     localStorage.setItem("users", JSON.stringify(existingUsers));
 
+    // Set the current user
     localStorage.setItem("currentUser", JSON.stringify(formData));
     setMessage("User registered successfully!");
+
+    // Clear the form
     setFormData({
       fullName: "",
       username: "",
