@@ -1,21 +1,46 @@
+const JobListing = require('../models/JobListing');
 
-const jobs = [ // In-memory job listings
-    { id: 1, title: 'Software Engineer', company: 'Tech Corp', description: 'Develop and maintain software applications.' },
-    { id: 2, title: 'Data Scientist', company: 'Data Inc.', description: 'Analyze data and build predictive models.' }
-  ];
-  
-  const getJobs = (req, res) => {
-    res.json(jobs);
-  };
-  
-  const getJobById = (req, res) => {
-    const job = jobs.find(job => job.id === parseInt(req.params.id));
-    if (job) {
-      res.json(job);
-    } else {
-      res.status(404).json({ message: 'Job not found' });
+// Function to create and store a new job listing
+exports.createJobListing = async (req, res) => {
+    const { title, description, company, location, salary, jobType, companyWebsite, deadline } = req.body;
+
+    try {
+        const job = new JobListing({
+            title,
+            description,
+            company,
+            location,
+            salary,
+            jobType,
+            companyWebsite,
+            deadline,
+        });
+        await job.save();  // Store the job in MongoDB
+        res.status(201).json({ message: 'Job posted successfully', job });
+    } catch (error) {
+        res.status(500).json({ error: 'Server error. Please try again later.' });
     }
-  };
-  
-  module.exports = { getJobs, getJobById };
-  
+};
+
+// Function to get all job listings
+exports.getJobs = async (req, res) => {
+    try {
+        const jobs = await JobListing.find();  // Fetch all jobs from MongoDB
+        res.status(200).json(jobs);
+    } catch (error) {
+        res.status(500).json({ error: 'Server error. Could not retrieve jobs.' });
+    }
+};
+
+// Function to get a job by ID
+exports.getJobById = async (req, res) => {
+    try {
+        const job = await JobListing.findById(req.params.id);  // Fetch the job by ID from MongoDB
+        if (!job) {
+            return res.status(404).json({ error: 'Job not found' });
+        }
+        res.status(200).json(job);
+    } catch (error) {
+        res.status(500).json({ error: 'Server error. Could not retrieve the job.' });
+    }
+};

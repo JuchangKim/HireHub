@@ -1,0 +1,33 @@
+.company-list-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.company-list-container h1 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.company-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.company-list li {
+    margin-bottom: 15px;
+}
+
+.company-link {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 1.2em;
+}
+
+.company-link:hover {
+    text-decoration: underline;
+}
