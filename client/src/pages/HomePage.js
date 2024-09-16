@@ -8,46 +8,40 @@ function HomePage() {
     const [searchKeyword, setSearchKeyword] = useState('');
     const [sortOption, setSortOption] = useState('date'); // Default sort by date
 
-    // Fetch latest jobs
-    useEffect(() => {
-        const fetchLatestJobs = async () => {
-            try {
-                const response = await axios.get('http://localhost:5000/api/jobs', {
-                    params: { sort: sortOption }
-                });
-                setLatestJobs(response.data);
-            } catch (error) {
-                console.error('Error fetching latest jobs:', error);
-            }
-        };
-
-        fetchLatestJobs();
-    }, [sortOption]);
-
-    const handleSearchChange = (e) => {
-        setSearchKeyword(e.target.value);
-    };
-
-    const handleSearch = async () => {
+    // Fetch latest jobs based on search and sort options
+    const fetchJobs = async () => {
         try {
             const response = await axios.get('http://localhost:5000/api/jobs', {
                 params: { keyword: searchKeyword, sort: sortOption }
             });
             setLatestJobs(response.data);
         } catch (error) {
-            console.error('Error searching jobs:', error);
+            console.error('Error fetching jobs:', error);
         }
+    };
+
+    // Fetch jobs whenever sort option changes or search is triggered
+    useEffect(() => {
+        fetchJobs();
+    }, [sortOption]); // Fetch jobs when the sort option changes
+
+    const handleSearchChange = (e) => {
+        setSearchKeyword(e.target.value);
+    };
+
+    const handleSearch = () => {
+        fetchJobs(); // Trigger search with current sort option
     };
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            handleSearch();
+            handleSearch(); // Trigger search on Enter key press
         }
     };
 
     const handleSort = (option) => {
-        setSortOption(option);
+        setSortOption(option); // Update sort option and trigger a new fetch
     };
 
     const highlightText = (text, keyword) => {
