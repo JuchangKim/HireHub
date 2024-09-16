@@ -65,3 +65,75 @@
 9. Scripts
 
 •webscraper.py: Python script for scraping job data from external websites. This script can be triggered by the Node.js server or run independently.
+
+
+
+```
+HireHub-jialin
+├─ client
+│  ├─ package-lock.json
+│  ├─ package.json
+│  ├─ public
+│  │  ├─ index.html
+│  │  ├─ manifest.json
+│  │  └─ robots.txt
+│  ├─ README.md
+│  └─ src
+│     ├─ App.css
+│     ├─ App.js
+│     ├─ App.test.js
+│     ├─ components
+│     │  ├─ CompanyInfo.js
+│     │  ├─ Navbar.js
+│     │  └─ PostJobForm.js
+│     ├─ index.css
+│     ├─ index.js
+│     ├─ pages
+│     │  ├─ ApplicationsPage.js
+│     │  ├─ CompanyInfo.css
+│     │  ├─ CompanyInfoPage.js
+│     │  ├─ CompanyListPage.css
+│     │  ├─ CompanyListPage.js
+│     │  ├─ CompanyReviewPage.js
+│     │  ├─ HomePage.js
+│     │  ├─ JobDetailsPage.js
+│     │  ├─ LoginPage.js
+│     │  ├─ PostJobPage.js
+│     │  └─ RegisterPage.js
+│     ├─ reportWebVitals.js
+│     ├─ setupTests.js
+│     └─ styles.css
+├─ package-lock.json
+├─ package.json
+├─ README.md
+├─ scripts
+│  └─ webscraper.py
+└─ server
+   ├─ app.js
+   ├─ config
+   │  ├─ auth.js
+   │  └─ db.js
+   ├─ controllers
+   │  ├─ applicationController.js
+   │  ├─ authController.js
+   │  ├─ companyController.js
+   │  ├─ jobController.js
+   │  └─ userController.js
+   ├─ middleware
+   │  ├─ authMiddleware.js
+   │  └─ errorHandler.js
+   ├─ models
+   │  ├─ Application.js
+   │  ├─ Company.js
+   │  ├─ JobListing.js
+   │  └─ User.js
+   ├─ routes
+   │  ├─ applicationRoutes.js
+   │  ├─ authRoutes.js
+   │  ├─ companyRoutes.js
+   │  ├─ jobRoutes.js
+   │  └─ userRoutes.js
+   └─ utils
+      └─ scraper.js
+
+```
