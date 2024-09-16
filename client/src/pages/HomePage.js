@@ -23,6 +23,7 @@ function HomePage() {
     // Fetch jobs whenever sort option changes or search is triggered
     useEffect(() => {
         fetchJobs();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortOption]); // Fetch jobs when the sort option changes
 
     const handleSearchChange = (e) => {
