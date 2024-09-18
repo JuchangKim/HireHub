@@ -94,6 +94,11 @@ function Profile() {
       );
 
       setMessage("Profile updated successfully!");
+
+      // Hide the message after 2 seconds
+      setTimeout(() => {
+        setMessage("");
+      }, 2000);
     } catch (e) {
       setMessage("Failed to update profile: Storage quota exceeded.");
     }
@@ -119,6 +124,11 @@ function Profile() {
           setResumeURL(resumeData);
           setResumeError("");
           setResumeSuccessMessage("Resume uploaded successfully!"); // Set success message
+
+          // Hide the success message after 2 seconds
+          setTimeout(() => {
+            setResumeSuccessMessage("");
+          }, 2000);
 
           // Simulate saving to localStorage
           const currentUser = JSON.parse(localStorage.getItem("currentUser"));
