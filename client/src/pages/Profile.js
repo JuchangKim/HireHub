@@ -22,6 +22,7 @@ function Profile() {
   const [message, setMessage] = useState("");
   const [resumeError, setResumeError] = useState(""); // State to handle errors
   const [resumeURL, setResumeURL] = useState(""); // Store resume URL
+  const [resumeSuccessMessage, setResumeSuccessMessage] = useState(""); // Success message for resume
   const [formErrors, setFormErrors] = useState({}); // State for form errors
   const navigate = useNavigate();
 
@@ -93,11 +94,6 @@ function Profile() {
       );
 
       setMessage("Profile updated successfully!");
-
-      // Redirect to login page after 2 seconds
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000); // 2000 ms = 2 seconds
     } catch (e) {
       setMessage("Failed to update profile: Storage quota exceeded.");
     }
@@ -122,6 +118,7 @@ function Profile() {
           const resumeData = fileReader.result;
           setResumeURL(resumeData);
           setResumeError("");
+          setResumeSuccessMessage("Resume uploaded successfully!"); // Set success message
 
           // Simulate saving to localStorage
           const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -249,6 +246,9 @@ function Profile() {
                 className="mb-3"
               />
               {resumeError && <Alert variant="danger">{resumeError}</Alert>}
+              {resumeSuccessMessage && (
+                <Alert variant="success">{resumeSuccessMessage}</Alert>
+              )}
             </Form.Group>
 
             <Row className="mb-3">
