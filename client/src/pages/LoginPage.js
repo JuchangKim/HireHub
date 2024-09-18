@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import { Container, Form, Button, Alert, Card } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  Button,
+  Alert,
+  Card,
+  Row,
+  Col,
+} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "./LoginPage.css"; // Make sure to create and import this CSS file
+import "./LoginPage.css";
 
 function LoginPage() {
   const [formData, setFormData] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -20,7 +28,7 @@ function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.email || !formData.password) {
+    if (!formData.username || !formData.password) {
       setMessage("All fields are required.");
       return;
     }
@@ -29,7 +37,8 @@ function LoginPage() {
 
     const user = existingUsers.find(
       (user) =>
-        user.email === formData.email && user.password === formData.password
+        user.username === formData.username &&
+        user.password === formData.password
     );
 
     if (user) {
@@ -37,25 +46,34 @@ function LoginPage() {
       localStorage.setItem("currentUser", JSON.stringify(user));
       navigate("/my-profile");
     } else {
-      setMessage("Invalid email or password.");
+      setMessage("Invalid username or password.");
     }
+  };
+
+  const handleRegisterRedirect = () => {
+    navigate("/register");
   };
 
   return (
     <Container className="d-flex justify-content-center align-items-center min-vh-100 p-4">
       <Card className="login-card p-4">
         <Card.Body>
+          {/* Add a styled div as a logo */}
+          <div className="logo-container text-center mb-4">
+            <h1 className="logo-text">HireHub</h1>
+            <p className="logo-subtext">Connecting Talent with Opportunity</p>
+          </div>
           <h2 className="text-center mb-4">Login</h2>
           {message && <Alert variant="info">{message}</Alert>}
           <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formEmail">
-              <Form.Label>Email</Form.Label>
+            <Form.Group controlId="formUsername">
+              <Form.Label>Username</Form.Label>
               <Form.Control
-                type="email"
-                name="email"
-                value={formData.email}
+                type="text"
+                name="username"
+                value={formData.username}
                 onChange={handleChange}
-                placeholder="Enter email"
+                placeholder="Enter username"
                 className="mb-3"
               />
             </Form.Group>
@@ -70,9 +88,23 @@ function LoginPage() {
                 className="mb-4"
               />
             </Form.Group>
-            <Button variant="primary" type="submit" className="w-100">
-              Login
-            </Button>
+
+            <Row>
+              <Col>
+                <Button variant="primary" type="submit" className="w-100">
+                  Login
+                </Button>
+              </Col>
+              <Col>
+                <Button
+                  variant="primary"
+                  className="w-100"
+                  onClick={handleRegisterRedirect}
+                >
+                  Register
+                </Button>
+              </Col>
+            </Row>
           </Form>
         </Card.Body>
       </Card>
