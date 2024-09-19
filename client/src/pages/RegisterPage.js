@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
+import axios from 'axios';
 
-function SignUpPage() {
+function RegisterPage() {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -10,6 +11,7 @@ function SignUpPage() {
         confirmPassword: '',
     });
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const handleChange = (e) => {
         setFormData({
@@ -18,14 +20,29 @@ function SignUpPage() {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (formData.password !== formData.confirmPassword) {
             setError('Passwords do not match');
             return;
         }
-        // Add your form submission logic here
-        console.log('Form submitted:', formData);
+        try {
+            await axios.post('http://localhost:5000/api/register', {
+                username: formData.email, // Using email as username for simplicity
+                password: formData.password,
+            });
+            setSuccess('Registration successful. You can now log in.');
+            setFormData({
+                firstName: '',
+                lastName: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+            });
+        } catch (err) {
+            console.error('Registration error:', err); // Log the error for debugging
+            setError(err.response?.data || 'Registration failed');
+        }
     };
 
     return (
@@ -34,6 +51,7 @@ function SignUpPage() {
                 <Col xs={12} md={8} lg={6}>
                     <h2 className="text-center mb-4">Sign Up</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
+                    {success && <Alert variant="success">{success}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formFirstName" className="mb-3">
                             <Form.Label>First Name</Form.Label>
@@ -105,4 +123,4 @@ function SignUpPage() {
     );
 }
 
-export default SignUpPage;
+export default RegisterPage;
