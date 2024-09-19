@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage';
 import CompanyReviewPage from './pages/CompanyReviewPage';
 import JobListingPage from './pages/JobListingPage';
 import LogoutPage from './pages/LogoutPage';
+import PostJobPage from './pages/PostJobPage';
 
 import Navbar from './components/Navbar';
 
@@ -27,6 +28,7 @@ function App() {
                     <Route path="/signup" element={<RegisterPage />} />
                     <Route path="/company-reviews" element={<CompanyReviewPage />} />
                     <Route path="/logout" element={<LogoutPage />} />
+                    <Route path="/post-job" element={<PostJobPage />} />
                 </Routes>
             </Router>
         </AuthProvider>

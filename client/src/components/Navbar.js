@@ -28,6 +28,9 @@ function Navbar() {
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/company-reviews">Company Reviews</Link>
                                 </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/post-job">Post Job</Link>
+                                </li>
                             </>
                         )}
                         {isAuthenticated ? (
