@@ -3,11 +3,10 @@ name: Test - filters feature
 on:
   push:
     branches:
-      - main
-      - filters
+      - Company_Information
   pull_request:
     branches:
-      - Company_Information
+      - main
 
 jobs:
   test:
@@ -43,7 +42,3 @@ jobs:
             npm run build
           else
             echo "Build script not found; skipping build step."
-          fi
-
-
-    
