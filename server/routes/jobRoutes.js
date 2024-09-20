@@ -1,25 +1,98 @@
 const express = require('express');
 const router = express.Router();
+const JobListing = require('../models/JobListing');
+const { authenticateToken } = require('../middleware/authenticateToken'); // Import authentication middleware
 
-// Mock job listings
-const jobs = [
-  { id: 1, title: 'Software Engineer', company: 'Tech Corp', location: 'New York', description: 'Build amazing software!' },
-  { id: 2, title: 'Product Manager', company: 'Biz Inc.', location: 'San Francisco', description: 'Lead product development!' },
-];
+// Route to get all jobs with filters and sorting
+router.get('/jobs', async (req, res) => {
+    try {
+        const { keyword, region, sector, payRange, workType, sort } = req.query;
 
-// Get all jobs
-router.get('/', (req, res) => {
-  res.json(jobs);
+        let filter = {};
+
+        if (keyword) {
+            filter.$or = [
+                { title: { $regex: keyword, $options: 'i' } },
+                { company: { $regex: keyword, $options: 'i' } },
+                { location: { $regex: keyword, $options: 'i' } }
+            ];
+        }
+
+        if (region) {
+            filter.location = region;
+        }
+
+        if (sector) {
+            filter.sector = sector;
+        }
+
+        if (payRange) {
+            filter.salary = payRange;
+        }
+
+        if (workType) {
+            filter.workType = workType;
+        }
+
+        // Default sort option
+        let sortOption = { datePosted: -1 }; // Descending by default
+
+        if (sort) {
+            if (sort === 'salary') {
+                sortOption = { salary: -1 }; // Descending by salary
+            } else if (sort === 'title') {
+                sortOption = { title: 1 }; // Ascending by title
+            } else if (sort === 'datePosted') {
+                sortOption = { datePosted: -1 }; // Descending by date posted
+            }
+        }
+
+        const jobs = await JobListing.find(filter).sort(sortOption);
+        res.json(jobs);
+    } catch (error) {
+        console.error('Server error:', error); // Log error details
+        res.status(500).json({ message: 'Server error' });
+    }
 });
 
-// Get job by ID
-router.get('/:id', (req, res) => {
-  const job = jobs.find(j => j.id === parseInt(req.params.id));
-  if (job) {
-    res.json(job);
-  } else {
-    res.status(404).json({ message: 'Job not found' });
-  }
+// Route to get job details by ID
+router.get('/jobs/:id', async (req, res) => {
+    try {
+        const job = await JobListing.findById(req.params.id);
+        if (!job) {
+            return res.status(404).json({ message: 'Job not found' });
+        }
+        res.json(job);
+    } catch (error) {
+        console.error('Server error:', error); // Log error details
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+// Route to post a new job listing
+router.post('/jobs', async (req, res) => {
+    try {
+        const { title, company, location, salary, sector, workType, description } = req.body;
+
+        // Create a new job listing
+        const newJob = new JobListing({
+            title,
+            company,
+            location,
+            salary,
+            sector,
+            workType,
+            description,
+        });
+
+        // Save the new job listing to the database
+        await newJob.save();
+
+        res.status(201).json({ message: 'Job opening posted successfully', job: newJob });
+    } catch (error) {
+        console.error('Error posting job:', error); // Log error details
+        res.status(500).json({ message: 'Error posting job' });
+    }
 });
 
 module.exports = router;
