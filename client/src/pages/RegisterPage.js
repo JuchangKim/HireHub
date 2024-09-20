@@ -104,131 +104,124 @@ function RegisterPage() {
   };
 
   return (
-    <div style={styles.background}>
-      <Container className="d-flex align-items-center justify-content-center min-vh-100">
-        <Card style={styles.card}>
-          <Card.Body>
-            <h2 className="text-center mb-4">Sign Up</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
-            {success && <Alert variant="success">{success}</Alert>}
-            <Form onSubmit={handleSubmit}>
-              <Row>
-                <Col md={6}>
-                  <Form.Group controlId="formFirstName" className="mb-3">
-                    <Form.Label>First Name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleChange}
-                      placeholder="Enter your first name"
-                      required
-                      style={styles.input}
-                    />
-                  </Form.Group>
-                </Col>
-                <Col md={6}>
-                  <Form.Group controlId="formLastName" className="mb-3">
-                    <Form.Label>Last Name</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleChange}
-                      placeholder="Enter your last name"
-                      required
-                      style={styles.input}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-              <Form.Group controlId="formEmail" className="mb-3">
-                <Form.Label>Email Address</Form.Label>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Enter your email"
-                  required
-                  style={styles.input}
-                />
-              </Form.Group>
+    <Container className="d-flex align-items-center justify-content-center min-vh-100">
+      <Card style={styles.card}>
+        <Card.Body>
+          <h2 className="text-center mb-4">Sign Up</h2>
+          {error && <Alert variant="danger">{error}</Alert>}
+          {success && <Alert variant="success">{success}</Alert>}
+          <Form onSubmit={handleSubmit}>
+            <Row>
+              <Col md={6}>
+                <Form.Group controlId="formFirstName" className="mb-3">
+                  <Form.Label>First Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    placeholder="Enter your first name"
+                    required
+                    style={styles.input}
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group controlId="formLastName" className="mb-3">
+                  <Form.Label>Last Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    placeholder="Enter your last name"
+                    required
+                    style={styles.input}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Form.Group controlId="formEmail" className="mb-3">
+              <Form.Label>Email Address</Form.Label>
+              <Form.Control
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
+                required
+                style={styles.input}
+              />
+            </Form.Group>
 
-              <Form.Group controlId="formPhoneNumber" className="mb-3">
-                <Form.Label>Phone Number</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="phoneNumber"
-                  value={formData.phoneNumber}
-                  onChange={handleChange}
-                  placeholder="Enter your phone number"
-                  required
-                  style={styles.input}
-                />
-              </Form.Group>
+            <Form.Group controlId="formPhoneNumber" className="mb-3">
+              <Form.Label>Phone Number</Form.Label>
+              <Form.Control
+                type="text"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                placeholder="Enter your phone number"
+                required
+                style={styles.input}
+              />
+            </Form.Group>
 
-              <Form.Group controlId="formUsername" className="mb-3">
-                <Form.Label>Username</Form.Label>
-                <Form.Control
-                  type="text"
-                  name="username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  placeholder="Enter your username"
-                  required
-                  style={styles.input}
-                />
-              </Form.Group>
+            <Form.Group controlId="formUsername" className="mb-3">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                placeholder="Enter your username"
+                required
+                style={styles.input}
+              />
+            </Form.Group>
 
-              <Form.Group controlId="formPassword" className="mb-3">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  placeholder="Enter a password"
-                  required
-                  style={styles.input}
-                />
-              </Form.Group>
+            <Form.Group controlId="formPassword" className="mb-3">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Enter a password"
+                required
+                style={styles.input}
+              />
+            </Form.Group>
 
-              <Form.Group controlId="formConfirmPassword" className="mb-3">
-                <Form.Label>Confirm Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  placeholder="Confirm your password"
-                  required
-                  style={styles.input}
-                />
-              </Form.Group>
+            <Form.Group controlId="formConfirmPassword" className="mb-3">
+              <Form.Label>Confirm Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                placeholder="Confirm your password"
+                required
+                style={styles.input}
+              />
+            </Form.Group>
 
-              <div className="d-flex justify-content-center">
-                <Button variant="primary" type="submit" style={styles.button}>
-                  Sign Up
-                </Button>
-              </div>
-            </Form>
-            <div className="text-center mt-3">
-              <Link to="/login">Take me back to login</Link>{" "}
+            <div className="d-flex justify-content-center">
+              <Button variant="primary" type="submit" style={styles.button}>
+                Sign Up
+              </Button>
             </div>
-          </Card.Body>
-        </Card>
-      </Container>
-    </div>
+          </Form>
+          <div className="text-center mt-3">
+            <Link to="/login">Take me back to login</Link>
+          </div>
+        </Card.Body>
+      </Card>
+    </Container>
   );
 }
 
 const styles = {
-  background: {
-    backgroundImage: "linear-gradient(to right, #6a11cb, #2575fc)",
-    height: "100vh",
-    padding: "20px",
-  },
   card: {
     width: "100%",
     maxWidth: "900px",
