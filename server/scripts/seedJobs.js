@@ -17,7 +17,8 @@ const jobs = [
         salary: '80-100k',
         sector: 'IT',
         workType: 'Full-Time',
-        description: 'Analyze financial data and create financial models for decision support. Report on financial performance and prepare for regular leadership reviews.',
+        description: 'Develop and maintain software applications. Work closely with product teams to deliver high-quality software solutions.',
+        datePosted: new Date('2024-09-01')
     },
     {
         title: 'Financial Analyst',
@@ -27,6 +28,7 @@ const jobs = [
         sector: 'Finance',
         workType: 'Full-Time',
         description: 'Analyze financial data and create financial models for decision support. Report on financial performance and prepare for regular leadership reviews.',
+        datePosted: new Date('2024-08-15')
     },
     {
         title: 'Registered Nurse',
@@ -35,7 +37,8 @@ const jobs = [
         salary: '40-60k',
         sector: 'Health',
         workType: 'Part-Time',
-        description: 'Analyze financial data and create financial models for decision support. Report on financial performance and prepare for regular leadership reviews.',
+        description: 'Provide patient care and support in a healthcare facility. Collaborate with healthcare professionals to deliver quality patient care.',
+        datePosted: new Date('2024-08-20')
     },
     // Add more job entries as needed
 ];

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Card, Button } from 'react-bootstrap';
 import axios from 'axios';
 
+
 function JobListingPage() {
     const [jobs, setJobs] = useState([]);
     const [filters, setFilters] = useState({
@@ -103,7 +104,7 @@ function JobListingPage() {
                                 <option value="Part-Time">Part-Time</option>
                             </Form.Control>
                         </Form.Group>
-                        <Button variant="secondary" onClick={handleClearFilters}>Clear Filters</Button>
+                        <Button variant="secondary" onClick={handleClearFilters} className="mt-3">Clear Filters</Button>
                     </Form>
                 </Col>
                 <Col xs={12} md={8} lg={9}>
@@ -120,7 +121,8 @@ function JobListingPage() {
                                                 <strong>Salary:</strong> {job.salary}<br />
                                                 <strong>Sector:</strong> {job.sector}<br />
                                                 <strong>Work Type:</strong> {job.workType}<br />
-                                                <strong>Description:</strong> {job.description.substring(0, 100)}...  {/* Show brief description */}
+                                                <strong>Description:</strong> {job.description.substring(0, 100)}...<br />
+                                                <strong>Date Posted:</strong> {new Date(job.datePosted).toLocaleDateString()} {/* Display datePosted */}
                                             </Card.Text>
                                             <Button variant="primary" href={`/job/${job._id}`}>View Details</Button>
                                         </Card.Body>

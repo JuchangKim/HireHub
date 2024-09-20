@@ -1,17 +1,34 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import JobDetailsPage from "./pages/JobDetailsPage";
-import ApplicationsPage from "./pages/ApplicationsPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import CompanyReviewPage from "./pages/CompanyReviewPage";
-import JobListingPage from "./pages/JobListingPage";
-import Profile from "./pages/Profile";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import JobDetailsPage from './pages/JobDetailsPage';
+import ApplicationsPage from './pages/ApplicationsPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import CompanyReviewPage from './pages/CompanyReviewPage';
 
-import Navbar from "./components/Navbar";
+import CompanyListPage from './pages/CompanyListPage';
+import CompyProfilePage from './pages/CompanyInfoPage';
 
+
+
+import PostJobPage from './pages/PostJobPage';  
+
+import JobListingPage from './pages/JobListingPage';
+
+
+import Navbar from './components/Navbar';
+
+  
 function App() {
+  
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
+    const handleLogout = () => {
+      // Simply set isAuthenticated to false on logout
+      setIsAuthenticated(false);
+    };
+  
   return (
     <Router>
       <Navbar />
@@ -23,7 +40,14 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<RegisterPage />} />
         <Route path="/company-reviews" element={<CompanyReviewPage />} />
-        <Route path="/my-profile" element={<Profile />} />
+
+        <Route path="/company" element={<CompanyListPage />} />
+        <Route path="/company-profile" element={<CompyProfilePage />} /> 
+
+
+
+        <Route path="/post-job" element={<PostJobPage />} /> 
+
       </Routes>
     </Router>
   );
