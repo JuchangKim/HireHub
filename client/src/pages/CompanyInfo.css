@@ -1,36 +1,19 @@
-.company-info-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+.card {
+    height: 100%; /* Ensure full height for all cards */
 }
 
-.company-info-container h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space out the content evenly */
+}
+
+.card-title {
+    font-size: 1.5rem; /* Customize title size */
     text-align: center;
 }
 
-.company-info-container p {
-    font-size: 1.1em;
-    margin-bottom: 20px;
-}
-
-.company-info-container h3 {
-    font-size: 1.5em;
-    margin-top: 30px;
-}
-
-.company-info-container ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.company-info-container ul li {
-    background-color: #f1f1f1;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
+.embed-responsive {
+    margin-top: auto; /* Video stays aligned at the bottom */
 }

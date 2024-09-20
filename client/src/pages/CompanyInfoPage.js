@@ -1,77 +1,162 @@
-// client/src/pages/CompanyInfoPage.js
-import React, { useEffect, useState } from 'react';
-import CompanyInfo from '../components/CompanyInfo';
-import { useParams } from 'react-router-dom';
-import './CompanyInfo.css';
+import React, { useState } from 'react';
+import { Container, Row, Col, Form, Card, Alert } from 'react-bootstrap';
 
-// Example company data with detailed information
-const exampleCompanies = [
+
+const companiesData = [
     {
-        id: '1',
-        name: 'Tech Corp',
-        location: 'San Francisco, CA',
-        description: 'Tech Corp is a leading technology company focused on AI, machine learning, and cloud computing solutions. Their innovative approach helps solve complex industry challenges across sectors.',
-        reviews: ['Excellent work-life balance', 'Innovative projects', 'Cutting-edge technology', 'Competitive salaries', 'Diverse and inclusive culture'],
-        Culture: ['Innovative, inclusive, and employee-focused company with an emphasis on creativity and problem-solving.'],
-        ContactInfo: ['email: info@techcorp.com', 'phone: 123-456-7890', 'address: 123 Main St, San Francisco, CA 94105']
+        id: 1,
+        name: 'Xero',
+        phone: '04-901-5050',
+        email: 'info@xero.com',
+        location: 'Level 1, 20 Customhouse Quay, Wellington',
+        background: 'Xero is a New Zealand-based software company that develops cloud-based accounting software.',
+        mission: 'To make life better for small businesses.',
+        benefits: 'Health insurance, Flexible working hours, Employee stock options.',
+        culture: 'Xero promotes a culture of inclusivity and innovation.',
+        testimonials: [
+            '“Xero is a great place for growth!” - Jane Smith, Software Engineer',
+            '“The team spirit here is unbeatable.” - John Doe, Customer Support'
+        ],
+        image: 'https://www.a2xaccounting.com/img/content/xero.jpg',
+        video: 'https://www.youtube.com/embed/QwmGlkomnLs' 
     },
     {
-        id: '2',
-        name: 'Web Solutions',
-        location: 'Austin, TX',
-        description: 'Web Solutions is a web development company that creates dynamic, responsive websites and applications for businesses of all sizes. They are known for delivering user-friendly and high-quality products.',
-        reviews: ['Friendly work environment', 'Opportunities for career growth', 'Flexible working hours', 'Health and wellness programs', 'Team-oriented culture'],
-        Culture: ['Team-oriented, collaborative environment that prioritizes work-life balance and career development.'],
-        ContactInfo: ['email: info@websolutions.com', 'phone: 987-654-3210', 'address: 456 Elm St, Austin, TX 73301']
+        id: 2,
+        name: 'Fisher & Paykel Healthcare',
+        phone: '09-574-0100',
+        email: 'info@fphcare.co.nz',
+        location: '15 Maurice Paykel Place, East Tamaki, Auckland',
+        background: 'Fisher & Paykel Healthcare is a leader in the design and manufacture of innovative products for respiratory care.',
+        mission: 'To improve the lives of patients worldwide.',
+        benefits: 'Paid parental leave, Health and wellness programs, Professional development opportunities.',
+        culture: 'We embrace diversity and encourage employee growth.',
+        testimonials: [
+            '“The innovation here is inspiring!” - Alice Brown, Product Manager',
+            '“A supportive and dynamic workplace.” - Mark Wilson, R&D Specialist'
+        ],
+        image: 'https://connect-assets.prosple.com/cdn/ff/rIVrNCdceKs6-Sc-TVF6E8U9Zt_jcpQfKqYxbGRJ19w/1715665898/public/styles/scale_and_crop_center_890x320/public/2024-05/Banner%20%2831%29.jpg?itok=Mqn7-aHx',
+        video: 'https://www.youtube.com/embed/6Tfg_Puj-jI'
     },
     {
-        id: '3',
-        name: 'Backend Inc.',
-        location: 'New York, NY',
-        description: 'Backend Inc. provides robust server-side solutions, including APIs, database management, and microservices. Their expertise spans finance, healthcare, and retail industries globally.',
-        reviews: ['Great learning opportunities', 'Strong focus on backend technologies', 'Supportive management', 'Remote work options', 'Competitive retirement plans'],
-        Culture: ['Fast-paced, tech-driven environment that values continuous learning and backend innovation.'],
-        ContactInfo: ['email: info@backendinc.com', 'phone: 212-555-0100', 'address: 789 Broadway, New York, NY 10003']
+        id: 3,
+        name: 'Air New Zealand',
+        phone: '0800 737 000',
+        email: 'customer.service@airnz.co.nz',
+        location: 'Private Bag 92007, Auckland Airport, Auckland',
+        background: 'Air New Zealand is the national airline and flag carrier of New Zealand.',
+        mission: 'To be New Zealand’s most loved airline.',
+        benefits: 'Travel discounts, Health insurance, Employee recognition programs.',
+        culture: 'We focus on safety and customer service while fostering a friendly work environment.',
+        testimonials: [
+            '“Flying with Air New Zealand feels like home!” - Sarah Johnson, Cabin Crew',
+            '“Fantastic team and amazing experiences!” - Tom Green, Pilot'
+        ],
+        image: 'https://flywith.virginatlantic.com/content/dam/HelpCentre/banner-air-new-zealand.jpg.transform/1280x708/image.jpg',
+        video: 'https://www.youtube.com/embed/X84SuT5gAV0' 
     },
     {
-        id: '4',
-        name: 'DevOps Hub',
-        location: 'Seattle, WA',
-        description: 'DevOps Hub builds scalable DevOps infrastructure for enterprises, specializing in CI/CD pipelines, cloud management, and automation. They enhance operational efficiency and innovation in IT environments.',
-        reviews: ['Collaborative teams', 'Advanced DevOps tools and practices', 'Work-from-home flexibility', 'Generous vacation policies', 'Focus on professional development'],
-        Culture: ['Innovation-driven and collaborative environment that empowers employees to experiment with cutting-edge tools.'],
-        ContactInfo: ['email: contact@devopshub.com', 'phone: 206-555-1234', 'address: 1234 Pine St, Seattle, WA 98101']
-    },
-    {
-        id: '5',
-        name: 'Tracking',
-        location: 'Chicago, IL',
-        description: 'Tracking is a logistics and supply chain management company that specializes in real-time tracking solutions for shipments, inventory management, and fleet management. Their cutting-edge technologies optimize logistics workflows for businesses worldwide.',
-        reviews: ['Fast-paced and exciting projects', 'Focus on logistics innovation', 'Employee stock options', 'Comprehensive health insurance', 'Friendly and supportive coworkers'],
-        Culture: ['A fast-moving and innovative company that emphasizes logistics efficiency and operational excellence.'],
-        ContactInfo:['email: support@tracking.com','phone: 312-555-9876','address: 567 Wacker Dr, Chicago, IL 60601']
+        id: 4,
+        name: 'Rocket Lab',
+        phone: '0800 762 538',
+        email: 'info@rocketlabusa.com',
+        location: '13 Seddon Street, Mt Wellington, Auckland',
+        background: 'Rocket Lab is a private American aerospace manufacturer and small satellite launch service.',
+        mission: 'To open access to space for small satellites.',
+        benefits: 'Comprehensive health benefits, Team outings, Career development opportunities.',
+        culture: 'Rocket Lab fosters a culture of innovation and collaboration.',
+        testimonials: [
+            '“Working at Rocket Lab is a dream come true for any space enthusiast!” - Lisa White, Mission Manager',
+            '“The environment here is fast-paced and inspiring.” - David Brown, Engineer'
+        ],
+        image: 'https://gohireher.com/wp-content/uploads/2023/08/RL_Logo_2022_-_Twitter_Banner_1-1692067200-1140x400.jpg',
+        video: 'https://www.youtube.com/embed/PKVaOht_stI' 
     }
 ];
 
-const CompanyInfoPage = () => {
-    const { companyId } = useParams();
-    const [companyData, setCompanyData] = useState(null);
-
-    useEffect(() => {
-        // Simulating fetching company data by ID
-        const company = exampleCompanies.find(company => company.id === companyId);
-        setCompanyData(company);
-    }, [companyId]);
+function CompyProfilePage() {
+    const [searchTerm, setSearchTerm] = useState('');
+    const filteredCompanies = companiesData.filter(company =>
+        company.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     return (
-        <div>
-            {companyData ? (
-                <CompanyInfo company={companyData} />
-            ) : (
-                <p>Company information not found.</p>
-            )}
-        </div>
-    );
-};
+        <Container className="mt-5">
+            <h2 className="text-center mb-4">Company Profiles</h2>
+            <Form className="mb-4">
+                <Form.Group controlId="search">
+                    <Form.Control
+                        type="text"
+                        placeholder="Search for companies..."
+                        value={searchTerm}
+                        onChange={e => setSearchTerm(e.target.value)}
+                        style={{ maxWidth: '500px', margin: '0 auto' }}
+                    />
+                </Form.Group>
+            </Form>
 
-export default CompanyInfoPage;
+            {filteredCompanies.length > 0 ? (
+                <Row>
+                    {filteredCompanies.map(company => (
+                        <Col md={6} key={company.id} className="mb-4 d-flex align-items-stretch">
+                            <Card className="w-100">
+                                <Card.Img variant="top" src={company.image} />
+                                <Card.Body>
+                                    <Card.Title className="mb-3">{company.name}</Card.Title>
+                                    <Card.Text>
+                                       
+                                            <strong>Contact Information:</strong>
+                                            <br />
+                                                Phone: {company.phone}<br />
+                                                Email: {company.email}<br />
+                                                Location: {company.location}
+                                            
+                                    </Card.Text>
+                                    <Card.Text>
+                                        
+                                        <strong>Background:</strong><br />
+                                        {company.background}<br /><br />
+                                        
+                                        <strong>Mission:</strong><br /> 
+                                        {company.mission}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        <strong>Employee Benefits:</strong><br />
+                                        {company.benefits}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        <strong>Company Culture:</strong><br />
+                                        {company.culture}
+                                    </Card.Text>
+                                    <Card.Text>
+                                        <strong>Testimonials:</strong><br />
+                                        {company.testimonials.map((test, index) => (
+                                            <p key={index} style={{ marginBottom: '0.5rem' }}>{test}</p>
+                                        ))}
+                                    </Card.Text>
+                                    {company.video && (
+                                        <div className="mt-3">
+                                            <strong>Watch our video:</strong>
+                                            <iframe
+                                                width="100%"
+                                                height="200"
+                                                src={company.video}
+                                                title={`Video about ${company.name}`}
+                                                frameBorder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                            ></iframe>
+                                        </div>
+                                    )}
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    ))}
+                </Row>
+            ) : (
+                <Alert variant="warning">No companies found matching your search.</Alert>
+            )}
+        </Container>
+    );
+}
+
+export default CompyProfilePage;

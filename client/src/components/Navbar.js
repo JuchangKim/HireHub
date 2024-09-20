@@ -21,7 +21,7 @@ function Navbar() {
               <Link className="nav-link" to="/company-reviews">Company Reviews</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/company">Company Info</Link>
+              <Link className="nav-link" to="/company">Company Profile</Link>
             </li>
 
             <li className="nav-item">

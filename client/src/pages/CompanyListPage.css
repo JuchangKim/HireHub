@@ -1,33 +1,18 @@
-.company-list-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.card {
+    height: 100%; /* Ensure full height for all cards */
 }
 
-.company-list-container h1 {
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space out the content evenly */
+}
+
+.card-title {
+    font-size: 1.5rem; /* Customize title size */
     text-align: center;
-    font-size: 2em;
-    margin-bottom: 20px;
 }
 
-.company-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-.company-list li {
-    margin-bottom: 15px;
-}
-
-.company-link {
-    text-decoration: none;
-    color: #007bff;
-    font-size: 1.2em;
-}
-
-.company-link:hover {
-    text-decoration: underline;
+.embed-responsive {
+    margin-top: auto; /* Video stays aligned at the bottom */
 }

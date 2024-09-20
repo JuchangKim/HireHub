@@ -7,7 +7,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CompanyReviewPage from './pages/CompanyReviewPage';
 import CompanyListPage from './pages/CompanyListPage';
-import CompanyInfoPage from './pages/CompanyInfoPage';  
+import CompyProfilePage from './pages/CompanyInfoPage';
 
 import Navbar from './components/Navbar';
 
@@ -23,7 +23,7 @@ function App() {
         <Route path="/signup" element={<RegisterPage />} />
         <Route path="/company-reviews" element={<CompanyReviewPage />} />
         <Route path="/company" element={<CompanyListPage />} />
-        <Route path="/company/:companyId" element={<CompanyInfoPage />} /> 
+        <Route path="/company-profile" element={<CompyProfilePage />} /> 
 
       </Routes>
     </Router>
