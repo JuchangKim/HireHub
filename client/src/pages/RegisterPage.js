@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
+import axios from 'axios';
 
 function SignUpPage() {
     const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ function SignUpPage() {
         confirmPassword: '',
     });
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
 
     const handleChange = (e) => {
         setFormData({
@@ -18,14 +20,27 @@ function SignUpPage() {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        setError('');  // Reset error message
+        setSuccess(''); // Reset success message
         if (formData.password !== formData.confirmPassword) {
             setError('Passwords do not match');
             return;
         }
         // Add your form submission logic here
-        console.log('Form submitted:', formData);
+        // Check for existing email and attempt registration
+        try {
+            const response = await axios.post('http://localhost:5000/api/users/register', formData);
+            setSuccess('Registration successful! You can now log in.');  // Set the success message
+            console.log('Registration successful:', response.data);
+        } catch (err) {
+            if (err.response && err.response.status === 400) {
+                setError('User with this email already exists'); // Backend returns 400 for duplicate email
+            } else {
+                setError('An error occurred during registration'); // General error
+            }
+        }
     };
 
     return (
@@ -34,6 +49,7 @@ function SignUpPage() {
                 <Col xs={12} md={8} lg={6}>
                     <h2 className="text-center mb-4">Sign Up</h2>
                     {error && <Alert variant="danger">{error}</Alert>}
+                    {success && <Alert variant="success">{success}</Alert>}
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formFirstName" className="mb-3">
                             <Form.Label>First Name</Form.Label>

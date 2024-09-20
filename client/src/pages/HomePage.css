@@ -1,0 +1,62 @@
+/* HomePage.css */
+
+.search-bar {
+    width: 100%;
+    max-width: 1000px; /* Adjust width as needed */
+}
+
+.job-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.job-card .card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.job-card .card-body .card-text {
+    flex-grow: 1;
+}
+
+.card-title, .card-subtitle {
+    margin-bottom: 0.5rem;
+}
+
+.card-text {
+    font-size: 0.9rem;
+}
+
+.card-text strong {
+    display: inline-block;
+    width: 120px; /* Adjust width to align the labels and values */
+}
+
+.card-text br {
+    margin-bottom: 0.5rem;
+}
+
+/* Align dropdown and search button */
+.dropdown-toggle::after {
+    display: none; /* Hide default dropdown arrow */
+}
+
+.d-flex {
+    display: flex;
+    align-items: center;
+}
+
+.ml-3 {
+    margin-left: 1rem;
+}
+
+.search-bar {
+    flex-grow: 1;
+}
+
+button {
+    flex-shrink: 0;
+}
