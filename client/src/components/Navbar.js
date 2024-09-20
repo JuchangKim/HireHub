@@ -17,12 +17,18 @@ function Navbar({ isAuthenticated, handleLogout }) {
             <li className="nav-item">
               <Link className="nav-link" to="/jobs">Job Listings</Link>
             </li>
+
+            <li className="nav-item">
+              <Link className="nav-link" to="/post-job">Post a New Job</Link>
+            </li>
             <li className="nav-item">
               <Link className="nav-link" to="/applications">Applications</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/company-reviews">Company Reviews</Link>
             </li>
+
+
             {isAuthenticated ? (
               <>
                 <li className="nav-item">

@@ -1,5 +1,18 @@
+// server/routes/jobRoutes.js
 const express = require('express');
 const router = express.Router();
+
+const jobController = require('../controllers/jobController');
+
+// Get all job listings
+router.get('/', jobController.getJobs);
+
+// Create a new job listing
+router.post('/', jobController.createJobListing);
+
+// Get a single job by ID
+router.get('/:id', jobController.getJobById);
+
 const JobListing = require('../models/JobListing');
 
 // Route to get all jobs with filters and sorting
@@ -70,5 +83,6 @@ router.get('/jobs/:id', async (req, res) => {
         res.status(500).json({ message: 'Server error' });
     }
 });
+
 
 module.exports = router;

@@ -6,6 +6,10 @@ import ApplicationsPage from './pages/ApplicationsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CompanyReviewPage from './pages/CompanyReviewPage';
+
+
+import PostJobPage from './pages/PostJobPage';  
+
 import JobListingPage from './pages/JobListingPage';
 
 import Navbar from './components/Navbar';
@@ -31,6 +35,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<RegisterPage />} />
         <Route path="/company-reviews" element={<CompanyReviewPage />} />
+
+        <Route path="/post-job" element={<PostJobPage />} /> 
       </Routes>
     </Router>
   );

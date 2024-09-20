@@ -1,4 +1,8 @@
+
+// server/app.js
+
 require('dotenv').config();
+
 const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors');
@@ -6,6 +10,16 @@ const jobRoutes = require('./routes/jobRoutes');
 
 // Connect to MongoDB
 connectDB();
+
+// Import routes
+const jobRoutes = require('./routes/jobRoutes');
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+
+// Use routes
+app.use('/api/jobs', jobRoutes);
 
 const app = express();
 app.use(cors());
@@ -42,6 +56,7 @@ app.post('/api/users', (req, res) => {
     res.status(201).json(user);
 });
 
+
 // Get all company reviews
 app.get('/api/reviews', (req, res) => {
     res.json(companyReviews);
@@ -62,7 +77,7 @@ app.get('/', (req, res) => {
 // Error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).send('Something went wrong!');
+    res.status(500).json({ error: 'Internal Server Error' });
 });
 
 // Define routes here
