@@ -70,7 +70,12 @@
 
 
 ```
+HireHub-jialin
+
+
+```
 PostJob_jialin
+
 ├─ client
 │  ├─ package-lock.json
 │  ├─ package.json
@@ -84,13 +89,25 @@ PostJob_jialin
 │     ├─ App.js
 │     ├─ App.test.js
 │     ├─ components
+
+│     │  ├─ CompanyInfo.js
+│     │  ├─ Navbar.js
+
 │     │  ├─ Navbar.js
 │     │  ├─ PostJobForm.css
-│     │  └─ PostJobForm.js
+
+h│     │  └─ PostJobForm.js
 │     ├─ index.css
 │     ├─ index.js
 │     ├─ pages
 │     │  ├─ ApplicationsPage.js
+
+│     │  ├─ CompanyInfo.css
+│     │  ├─ CompanyInfoPage.js
+│     │  ├─ CompanyListPage.css
+│     │  ├─ CompanyListPage.js
+
+
 │     │  ├─ CompanyReviewPage.js
 │     │  ├─ HomePage.js
 │     │  ├─ JobDetailsPage.js

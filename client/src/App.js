@@ -7,10 +7,15 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CompanyReviewPage from './pages/CompanyReviewPage';
 
+import CompanyListPage from './pages/CompanyListPage';
+import CompyProfilePage from './pages/CompanyInfoPage';
+
+
 
 import PostJobPage from './pages/PostJobPage';  
 
 import JobListingPage from './pages/JobListingPage';
+
 
 import Navbar from './components/Navbar';
 
@@ -36,7 +41,13 @@ function App() {
         <Route path="/signup" element={<RegisterPage />} />
         <Route path="/company-reviews" element={<CompanyReviewPage />} />
 
+        <Route path="/company" element={<CompanyListPage />} />
+        <Route path="/company-profile" element={<CompyProfilePage />} /> 
+
+
+
         <Route path="/post-job" element={<PostJobPage />} /> 
+
       </Routes>
     </Router>
   );

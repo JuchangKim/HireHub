@@ -1,7 +1,11 @@
 // client/src/pages/PostJobPage.js
 import React from 'react';
 import PostJobForm from '../components/PostJobForm';
+
+import '../components/PostJobForm.css';  
+
 import '../components/PostJobForm.css';
+
 
 const PostJobPage = () => {
     return (
