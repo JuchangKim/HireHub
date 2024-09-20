@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Card, ListGroup } from 'react-bootstrap';
 
 const CompanyReviewPage = () => {
@@ -8,20 +8,66 @@ const CompanyReviewPage = () => {
     const [rating, setRating] = useState('');
     const [reviewText, setReviewText] = useState('');
 
-    const handleSubmit = (e) => {
+    // Calculating average rating score for a company
+    const calculateAverageRating = (companyName) => {
+        const companyReviews = reviews.filter((review) => review.companyName === companyName);
+        if (companyReviews.length === 0) return 0;
+        const totalRating = companyReviews.reduce((sum, review) => sum + parseInt(review.rating), 0);
+        return (totalRating / companyReviews.length).toFixed(1); // Round to 1 decimal place
+    };
+
+    // Fetch the company reviews from the server
+    const fetchReviews = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/api/reviews');
+            const data = await response.json();
+            setReviews(data);
+        } catch (error) {
+            console.error('Error fetching reviews:', error);
+        }
+    };
+
+    // Handle form submission and save the review with a timestamp
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const newReview = {
             companyName,
             reviewerName,
             rating,
             reviewText,
+            timestamp: new Date().toISOString(), // Add timestamp here
         };
-        setReviews([...reviews, newReview]);
-        setCompanyName('');
-        setReviewerName('');
-        setRating('');
-        setReviewText('');
+
+        try {
+            const response = await fetch('http://localhost:5000/api/reviews', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newReview),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to add review');
+            }
+
+            const result = await response.json();
+            console.log(result.message);
+
+            // Update state with the new review and reset the form
+            setReviews((prevReviews) => [newReview, ...prevReviews]);
+            setCompanyName('');
+            setReviewerName('');
+            setRating('');
+            setReviewText('');
+        } catch (error) {
+            console.error('Error adding review:', error);
+        }
     };
+
+    useEffect(() => {
+        fetchReviews();
+    }, []);
 
     return (
         <Container className="mt-5">
@@ -86,14 +132,45 @@ const CompanyReviewPage = () => {
 
             <h2>Latest Reviews</h2>
             <ListGroup>
-                {reviews.map((review, index) => (
-                    <ListGroup.Item key={index}>
-                        <h4>{review.companyName}</h4>
-                        <h5>Reviewed by: {review.reviewerName}</h5>
-                        <p>Rating: {review.rating}</p>
-                        <p>{review.reviewText}</p>
-                    </ListGroup.Item>
-                ))}
+                {reviews.map((review, index) => {
+                    const averageRating = calculateAverageRating(review.companyName);
+                    const reviewDate = new Date(review.timestamp).toLocaleDateString(); // Format the date
+
+                    return (
+                        <ListGroup.Item key={index} className="mb-3">
+                            <Card className="p-3">
+                                <Card.Body>
+                                    {/* Create a row to divide the card into two columns */}
+                                    <div className="row">
+                                        {/* Left side with company name and average rating */}
+                                        <div className="col-md-4 border-end">
+                                            <h4 className="mb-2">{review.companyName}</h4>
+                                            <div className="d-flex align-items-center">
+                                                <span className="me-2"><h5>Average Rating: {averageRating}</h5></span>
+                                            </div>
+                                        </div>
+
+                                        {/* Right side with reviewer information and review text */}
+                                        <div className="col-md-8">
+                                            <div className="d-flex justify-content-between mb-2">
+                                                <h5>Name: {review.reviewerName}</h5>
+                                                <h6 style={{ fontStyle: 'italic', color: 'gray' }}>
+                                                    Reviewed on: {reviewDate}
+                                                </h6>
+                                            </div>
+                                            <div className="d-flex align-items-center mb-2">
+                                                <h5>Rate: {review.rating}</h5>
+                                            </div>
+                                            <Card.Text>
+                                                <h5>Review</h5><p>{review.reviewText}</p>
+                                            </Card.Text>
+                                        </div>
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        </ListGroup.Item>
+                    );
+                })}
             </ListGroup>
         </Container>
     );

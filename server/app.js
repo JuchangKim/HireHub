@@ -3,7 +3,8 @@ const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors');
 const jobRoutes = require('./routes/jobRoutes');
-const userRoutes = require('./routes/userRoutes'); // Import userRoutes
+const userRoutes = require('./routes/userRoutes'); 
+const reviewRoutes = require('./routes/reviewRoutes'); 
 
 // Connect to MongoDB
 connectDB();
@@ -14,7 +15,8 @@ app.use(express.json());
 
 // Define routes here
 app.use('/api', jobRoutes);
-app.use('/api', userRoutes);      // Prefix for user routes
+app.use('/api', userRoutes); 
+app.use('/api', reviewRoutes); 
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
