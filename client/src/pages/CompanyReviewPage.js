@@ -8,19 +8,15 @@ const CompanyReviewPage = () => {
     const [rating, setRating] = useState('');
     const [reviewText, setReviewText] = useState('');
 
-    // Caculating average rating score in company
+    // Calculating average rating score for a company
     const calculateAverageRating = (companyName) => {
-        
         const companyReviews = reviews.filter((review) => review.companyName === companyName);
-        
         if (companyReviews.length === 0) return 0;
-        
         const totalRating = companyReviews.reduce((sum, review) => sum + parseInt(review.rating), 0);
         return (totalRating / companyReviews.length).toFixed(1); // Round to 1 decimal place
     };
 
-    // It fetch the company.js in server file which is stored the company reviews.
-    // Then the company reviews presents in the company review page.
+    // Fetch the company reviews from the server
     const fetchReviews = async () => {
         try {
             const response = await fetch('http://localhost:5000/api/reviews');
@@ -31,9 +27,7 @@ const CompanyReviewPage = () => {
         }
     };
 
-
-    // Handling summit function when the summit review button clicked.
-    // It make store the review in Compnay.js in server.
+    // Handle form submission and save the review with a timestamp
     const handleSubmit = async (e) => {
         e.preventDefault();
         const newReview = {
@@ -41,26 +35,26 @@ const CompanyReviewPage = () => {
             reviewerName,
             rating,
             reviewText,
+            timestamp: new Date().toISOString(), // Add timestamp here
         };
-    
+
         try {
-            // Send the review data to the backend
             const response = await fetch('http://localhost:5000/api/reviews', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json', // Ensure proper content-type is set
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(newReview),
             });
-    
+
             if (!response.ok) {
                 throw new Error('Failed to add review');
             }
-    
+
             const result = await response.json();
-            console.log(result.message); // Output success message
-            
-            // Update the state with the new review and sort by timestamp
+            console.log(result.message);
+
+            // Update state with the new review and reset the form
             setReviews((prevReviews) => [newReview, ...prevReviews]);
             setCompanyName('');
             setReviewerName('');
@@ -71,12 +65,10 @@ const CompanyReviewPage = () => {
         }
     };
 
-    
-        
     useEffect(() => {
         fetchReviews();
     }, []);
-    
+
     return (
         <Container className="mt-5">
             <h1>Company Reviews</h1>
@@ -140,43 +132,46 @@ const CompanyReviewPage = () => {
 
             <h2>Latest Reviews</h2>
             <ListGroup>
-        {reviews.map((review, index) => {
-        const averageRating = calculateAverageRating(review.companyName);
-        const reviewDate = new Date(review.timestamp).toLocaleString();
+                {reviews.map((review, index) => {
+                    const averageRating = calculateAverageRating(review.companyName);
+                    const reviewDate = new Date(review.timestamp).toLocaleDateString(); // Format the date
 
-        return (
-            <ListGroup.Item key={index} className="mb-3">
-                <Card className="p-3">
-                    <Card.Body>
-                        {/* Create a row to divide the card into two columns */}
-                        <div className="row">
-                            {/* Left side with company name and average rating */}
-                            <div className="col-md-4 border-end">
-                                <h4 className="mb-2">{review.companyName}</h4>
-                                <div className="d-flex align-items-center">
-                                    <span className="me-2"><h5>Average Rating: {averageRating}</h5></span>
-                                </div>
-                            </div>
+                    return (
+                        <ListGroup.Item key={index} className="mb-3">
+                            <Card className="p-3">
+                                <Card.Body>
+                                    {/* Create a row to divide the card into two columns */}
+                                    <div className="row">
+                                        {/* Left side with company name and average rating */}
+                                        <div className="col-md-4 border-end">
+                                            <h4 className="mb-2">{review.companyName}</h4>
+                                            <div className="d-flex align-items-center">
+                                                <span className="me-2"><h5>Average Rating: {averageRating}</h5></span>
+                                            </div>
+                                        </div>
 
-                            {/* Right side with reviewer information and review text */}
-                            <div className="col-md-8">
-                                <div className="d-flex justify-content-between mb-2">
-                                    <h5>Name : {review.reviewerName}</h5>
-                                </div>
-                                <div className="d-flex align-items-center mb-2">
-                                    <h5>Rate : {review.rating}</h5>
-                                </div>
-                                <Card.Text>
-                                    <h5>Review</h5><p>{review.reviewText}</p>
-                                </Card.Text>
-                            </div>
-                        </div>
-                    </Card.Body>
-                </Card>
-            </ListGroup.Item>
-        );
-    })}
-</ListGroup>
+                                        {/* Right side with reviewer information and review text */}
+                                        <div className="col-md-8">
+                                            <div className="d-flex justify-content-between mb-2">
+                                                <h5>Name: {review.reviewerName}</h5>
+                                                <h6 style={{ fontStyle: 'italic', color: 'gray' }}>
+                                                    Reviewed on: {reviewDate}
+                                                </h6>
+                                            </div>
+                                            <div className="d-flex align-items-center mb-2">
+                                                <h5>Rate: {review.rating}</h5>
+                                            </div>
+                                            <Card.Text>
+                                                <h5>Review</h5><p>{review.reviewText}</p>
+                                            </Card.Text>
+                                        </div>
+                                    </div>
+                                </Card.Body>
+                            </Card>
+                        </ListGroup.Item>
+                    );
+                })}
+            </ListGroup>
         </Container>
     );
 };

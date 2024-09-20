@@ -1,175 +1,204 @@
 import React, { useState } from "react";
-import { Container, Form, Button, Alert, Card } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import "./RegisterPage.css"; // Ensure this CSS file is properly created and imported
+import { Container, Row, Col, Form, Button, Alert, Card } from "react-bootstrap";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 function RegisterPage() {
   const [formData, setFormData] = useState({
-    fullName: "",
-    username: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phoneNumber: "",
+    username: "",
     password: "",
+    confirmPassword: "",
   });
-
-  const [message, setMessage] = useState("");
-  const navigate = useNavigate();
-
-  const validateForm = () => {
-    const { fullName, phoneNumber } = formData;
-    const nameRegex = /^[A-Za-z\s]+$/;
-    const phoneRegex = /^\d+$/;
-
-    if (!nameRegex.test(fullName)) {
-      setMessage("Full name can only contain alphabets.");
-      return false;
-    }
-
-    if (!phoneRegex.test(phoneNumber)) {
-      setMessage("Phone number can only contain digits.");
-      return false;
-    }
-
-    return true;
-  };
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    if (
-      !formData.fullName ||
-      !formData.username ||
-      !formData.email ||
-      !formData.phoneNumber ||
-      !formData.password
-    ) {
-      setMessage("All fields are required.");
-      return;
-    }
-
-    if (!validateForm()) {
-      return;
-    }
-
-    const existingUsers = JSON.parse(localStorage.getItem("users")) || [];
-
-    // Check if email already exists
-    if (existingUsers.some((user) => user.email === formData.email)) {
-      setMessage("User with this email already exists.");
-      return;
-    }
-
-    // Check if username already exists
-    if (existingUsers.some((user) => user.username === formData.username)) {
-      setMessage("User with this username already exists.");
-      return;
-    }
-
-    // Save new user
-    existingUsers.push(formData);
-    localStorage.setItem("users", JSON.stringify(existingUsers));
-
-    // Set the current user
-    localStorage.setItem("currentUser", JSON.stringify(formData));
-    setMessage("User registered successfully!");
-
-    // Clear the form
     setFormData({
-      fullName: "",
-      username: "",
-      email: "",
-      phoneNumber: "",
-      password: "",
+      ...formData,
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleLoginRedirect = () => {
-    navigate("/login"); // Redirect to the login page
+  const validateForm = () => {
+    const {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      username,
+      password,
+      confirmPassword,
+    } = formData;
+
+    if (!firstName || !lastName || !email || !phoneNumber || !username || !password || !confirmPassword) {
+      setError("All fields are required.");
+      return false;
+    }
+
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.");
+      return false;
+    }
+
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      setError("Invalid email format.");
+      return false;
+    }
+
+    if (!/^\d{10}$/.test(phoneNumber)) {
+      setError("Phone number must be 10 digits.");
+      return false;
+    }
+
+    setError("");
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+
+    try {
+      await axios.post("http://localhost:5000/api/register", {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phoneNumber: formData.phoneNumber,
+        username: formData.username,
+        password: formData.password,
+      });
+      setSuccess("Registration successful. You can now log in.");
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phoneNumber: "",
+        username: "",
+        password: "",
+        confirmPassword: "",
+      });
+    } catch (err) {
+      console.error("Registration error:", err);
+      setError(err.response?.data || "Registration failed");
+    }
   };
 
   return (
-    <Container className="d-flex justify-content-center align-items-center min-vh-100 p-4">
-      <Card className="register-card p-4">
+    <Container className="d-flex align-items-center justify-content-center min-vh-100">
+      <Card className="p-4 shadow" style={{ width: "100%", maxWidth: "600px", borderRadius: "12px" }}>
         <Card.Body>
-          {/* Add a styled div as a logo */}
-          <div className="logo-container text-center mb-4">
-            <h1 className="logo-text">HireHub</h1>
-            <p className="logo-subtext">Join the Network</p>
-          </div>
-          <h2 className="text-center mb-4">Register</h2>
-          {message && <Alert variant="info">{message}</Alert>}
+          <h2 className="text-center mb-4">Sign Up</h2>
+          {error && <Alert variant="danger">{error}</Alert>}
+          {success && <Alert variant="success">{success}</Alert>}
           <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="formFullName">
-              <Form.Label>Full Name</Form.Label>
-              <Form.Control
-                type="text"
-                name="fullName"
-                value={formData.fullName}
-                onChange={handleChange}
-                placeholder="Enter full name"
-                className="mb-3"
-              />
-            </Form.Group>
-            <Form.Group controlId="formUsername">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-                placeholder="Enter username"
-                className="mb-3"
-              />
-            </Form.Group>
-            <Form.Group controlId="formEmail">
-              <Form.Label>Email</Form.Label>
+            <Row>
+              <Col md={6}>
+                <Form.Group controlId="formFirstName" className="mb-3">
+                  <Form.Label>First Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    placeholder="Enter your first name"
+                    required
+                    className="input-field"
+                  />
+                </Form.Group>
+              </Col>
+              <Col md={6}>
+                <Form.Group controlId="formLastName" className="mb-3">
+                  <Form.Label>Last Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    placeholder="Enter your last name"
+                    required
+                    className="input-field"
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Form.Group controlId="formEmail" className="mb-3">
+              <Form.Label>Email Address</Form.Label>
               <Form.Control
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="Enter email"
-                className="mb-3"
+                placeholder="Enter your email"
+                required
+                className="input-field"
               />
             </Form.Group>
-            <Form.Group controlId="formPhoneNumber">
+
+            <Form.Group controlId="formPhoneNumber" className="mb-3">
               <Form.Label>Phone Number</Form.Label>
               <Form.Control
                 type="text"
                 name="phoneNumber"
                 value={formData.phoneNumber}
                 onChange={handleChange}
-                placeholder="Enter phone number"
-                className="mb-3"
+                placeholder="Enter your phone number"
+                required
+                className="input-field"
               />
             </Form.Group>
-            <Form.Group controlId="formPassword">
+
+            <Form.Group controlId="formUsername" className="mb-3">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="text"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                placeholder="Enter your username"
+                required
+                className="input-field"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formPassword" className="mb-3">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                placeholder="Enter password"
-                className="mb-4"
+                placeholder="Enter a password"
+                required
+                className="input-field"
               />
             </Form.Group>
-            <Button variant="primary" type="submit" className="w-100 mb-2">
-              Register
-            </Button>
-            <Button
-              variant="link"
-              className="w-100 text-center"
-              onClick={handleLoginRedirect}
-            >
-              Take me back to login page
-            </Button>
+
+            <Form.Group controlId="formConfirmPassword" className="mb-3">
+              <Form.Label>Confirm Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                placeholder="Confirm your password"
+                required
+                className="input-field"
+              />
+            </Form.Group>
+
+            <div className="d-flex justify-content-center">
+              <Button variant="primary" type="submit" className="w-100">
+                Sign Up
+              </Button>
+            </div>
           </Form>
+          <div className="text-center mt-3">
+            <Link to="/login">Already have an account? Log in</Link>
+          </div>
         </Card.Body>
       </Card>
     </Container>

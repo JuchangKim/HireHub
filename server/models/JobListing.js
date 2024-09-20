@@ -9,7 +9,7 @@ const jobListingSchema = new mongoose.Schema({
     sector: { type: String, required: true },
     workType: { type: String, required: true },
     description: { type: String, required: true},
-    datePosted: { type: Date, required: true } // Added datePosted field
+    datePosted: { type: Date, default: Date.now } // Set default value to current date
 });
 
 const JobListing = mongoose.model('JobListing', jobListingSchema);

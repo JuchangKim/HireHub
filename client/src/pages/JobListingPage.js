@@ -61,6 +61,11 @@ function JobListingPage() {
                                 <option value="Auckland">Auckland</option>
                                 <option value="Wellington">Wellington</option>
                                 <option value="Christchurch">Christchurch</option>
+                                <option value="Dunedin">Dunedin</option>
+                                <option value="Napier">Napier</option>
+                                <option value="Hamilton">Hamilton</option>
+                                <option value="Tauranga">Tauranga</option>
+                                <option value="Queenstown">Queenstown</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formSector">
@@ -75,6 +80,9 @@ function JobListingPage() {
                                 <option value="IT">IT</option>
                                 <option value="Finance">Finance</option>
                                 <option value="Health">Health</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Trades">Trades</option>
+                                <option value="Engineering">Engineering</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formPayRange">
@@ -86,9 +94,14 @@ function JobListingPage() {
                                 onChange={handleFilterChange}
                             >
                                 <option value="">Select pay range</option>
-                                <option value="40-60k">40-60k</option>
-                                <option value="60-80k">60-80k</option>
-                                <option value="80-100k">80-100k</option>
+                                <option value="20-30k">20-30k</option>
+                                <option value="30-40k">30-40k</option>
+                                <option value="40-50k">40-50k</option>
+                                <option value="50-60k">50-60k</option>
+                                <option value="60-70k">60-70k</option>
+                                <option value="70-80k">70-80k</option>
+                                <option value="80-90k">80-90k</option>
+                                <option value="90-100k">90-100k</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group controlId="formWorkType">
