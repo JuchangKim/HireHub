@@ -56,9 +56,9 @@ function HomePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortOption]); // Fetch jobs when the sort option changes
 
-    const handleSearchChange = (e) => {
-        setSearchKeyword(e.target.value);
-    };
+  const handleSearchChange = (e) => {
+    setSearchKeyword(e.target.value);
+  };
 
     const handleSearch = () => {
         fetchJobs(); // Trigger search with current sort option

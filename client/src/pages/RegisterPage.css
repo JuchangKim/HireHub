@@ -1,0 +1,23 @@
+/* RegisterPage.css */
+.register-card {
+  max-width: 500px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.register-card .card-body {
+  padding: 2rem;
+}
+
+.register-card h2 {
+  font-weight: bold;
+}
+
+.register-card .form-control {
+  border-radius: 4px;
+}
+
+.register-card .btn-primary {
+  border-radius: 4px;
+}
