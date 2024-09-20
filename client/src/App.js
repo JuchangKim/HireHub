@@ -6,6 +6,8 @@ import ApplicationsPage from './pages/ApplicationsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CompanyReviewPage from './pages/CompanyReviewPage';
+import JobListingPage from './pages/JobListingPage';
+
 import Navbar from './components/Navbar';
 
 function App() {
@@ -15,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/job/:id" element={<JobDetailsPage />} />
+        <Route path="/jobs" element={<JobListingPage />} />
         <Route path="/applications" element={<ApplicationsPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<RegisterPage />} />
