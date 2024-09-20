@@ -40,14 +40,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<RegisterPage />} />
         <Route path="/company-reviews" element={<CompanyReviewPage />} />
-
-        <Route path="/company" element={<CompanyListPage />} />
-        <Route path="/company-profile" element={<CompyProfilePage />} /> 
-
-
-
-        <Route path="/post-job" element={<PostJobPage />} /> 
-
+        <Route path="/my-profile" element={<Profile />} />
+        <Route path="/register" element={<RegisterPage />} />
       </Routes>
     </Router>
   );
