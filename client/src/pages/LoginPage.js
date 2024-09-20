@@ -1,15 +1,39 @@
 // LoginPage.js
 import React, { useState } from 'react';
-import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import { Container, Row, Col, Button, Form, Alert } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-function LoginPage() {
+function LoginPage({ setIsAuthenticated }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+  
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     // Handle login
-    console.log('Login with:', email, password);
+    setError('');
+
+    try {
+      // Send login request to the backend
+      const response = await axios.post('http://localhost:5000/api/users/login', { email, password });
+
+      // Assuming the backend returns a 200 status for success and 401 for failure
+      if (response.status === 200) {
+        // Login successful
+        setIsAuthenticated(true);  // Update the authentication state
+        navigate('/');  // Redirect to homepage
+      }
+    } catch (err) {
+      // Show error message if login fails
+      if (err.response && err.response.status === 401) {
+        setError('Invalid email or password');
+      } else {
+        setError('An error occurred. Please try again.');
+      }
+    }
   };
 
   return (
@@ -17,6 +41,7 @@ function LoginPage() {
       <Row>
         <Col>
           <h2>Login</h2>
+          {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="formEmail">
               <Form.Label>Email</Form.Label>
