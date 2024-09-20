@@ -3,7 +3,6 @@ import { Container, Row, Col, Form, Button, Alert, Card } from 'react-bootstrap'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import './LoginPage.css'; 
 
 function LoginPage() {
     const [formData, setFormData] = useState({
@@ -39,7 +38,7 @@ function LoginPage() {
         <Container className="mt-5">
             <Row className="justify-content-center">
                 <Col xs={12} md={8} lg={6}>
-                    <Card className="p-4 shadow-sm">
+                    <Card className="p-4 shadow" style={{ borderRadius: '12px' }}>
                         <h2 className="text-center mb-4">Login to Your Account</h2>
                         {error && <Alert variant="danger">{error}</Alert>}
                         {success && <Alert variant="success">{success}</Alert>}
@@ -53,6 +52,7 @@ function LoginPage() {
                                     onChange={handleChange}
                                     placeholder="Enter your username"
                                     required
+                                    style={{ height: '50px', fontSize: '16px' }}
                                 />
                             </Form.Group>
 
@@ -65,12 +65,24 @@ function LoginPage() {
                                     onChange={handleChange}
                                     placeholder="Enter your password"
                                     required
+                                    style={{ height: '50px', fontSize: '16px' }}
                                 />
                             </Form.Group>
 
-                            <Button variant="primary" type="submit" className="w-100">
+                            <Button variant="primary" type="submit" className="w-100" style={{ padding: '12px' }}>
                                 Login
                             </Button>
+
+                            <div className="text-center mt-3 d-flex justify-content-center">
+                                <span>Don't have an account? </span>
+                                <Button 
+                                    variant="link" 
+                                    onClick={() => navigate('/signup')} 
+                                    style={{ padding: '0', marginLeft: '5px' }}
+                                >
+                                    Register here
+                                </Button>
+                            </div>
                         </Form>
                     </Card>
                 </Col>
