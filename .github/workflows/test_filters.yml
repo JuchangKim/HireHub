@@ -7,7 +7,7 @@ on:
       - filters
   pull_request:
     branches:
-      - main
+      - Company_Information
 
 jobs:
   test:
