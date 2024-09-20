@@ -9,12 +9,24 @@ import {
   Col,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import {
+  Container,
+  Form,
+  Button,
+  Alert,
+  Card,
+  Row,
+  Col,
+} from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const [formData, setFormData] = useState({
     fullName: "",
+    fullName: "",
     username: "",
     email: "",
+    phoneNumber: "",
     phoneNumber: "",
     password: "",
   });
@@ -32,14 +44,38 @@ function Profile() {
     if (currentUser) {
       setFormData({
         fullName: currentUser.fullName,
+        fullName: currentUser.fullName,
         username: currentUser.username,
         email: currentUser.email,
+        phoneNumber: currentUser.phoneNumber,
         phoneNumber: currentUser.phoneNumber,
         password: currentUser.password,
       });
       setResumeURL(currentUser.resume || ""); // Load resume URL if exists
     }
   }, []);
+
+  const validateForm = () => {
+    const errors = {};
+    const nameRegex = /^[a-zA-Z\s]+$/; // Only alphabets and spaces
+    const phoneRegex = /^[0-9]+$/; // Only digits
+
+    if (!formData.fullName || !nameRegex.test(formData.fullName)) {
+      errors.fullName = "Full Name must contain only alphabets and spaces.";
+    }
+    if (!formData.phoneNumber || !phoneRegex.test(formData.phoneNumber)) {
+      errors.phoneNumber = "Phone Number must contain only digits.";
+    }
+    if (!formData.email) {
+      errors.email = "Email is required.";
+    }
+    if (!formData.password) {
+      errors.password = "Password is required.";
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
 
   const validateForm = () => {
     const errors = {};
@@ -71,6 +107,7 @@ function Profile() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!validateForm()) {
     if (!validateForm()) {
       return;
     }
