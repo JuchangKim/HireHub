@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, Alert, Card } from "react-bootstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import JobPreferences from "./JobPreferences"; // Import the new component
 
 function RegisterPage() {
   const [formData, setFormData] = useState({
@@ -12,16 +13,37 @@ function RegisterPage() {
     username: "",
     password: "",
     confirmPassword: "",
+    jobPreferences: {   // Initialize jobPreferences object properly
+      jobTitle: "",
+      location: "",
+      industry: "",
+      salary: ""
+    }
   });
+
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+    const { name, value } = e.target;
+
+    // Handle changes for jobPreferences fields separately
+    if (["jobTitle", "location", "industry", "salary"].includes(name)) {
+      setFormData({
+        ...formData,
+        jobPreferences: {
+          ...formData.jobPreferences,
+          [name]: value, // Update the relevant jobPreferences field
+        },
+      });
+    } else {
+      // For other fields outside jobPreferences
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+};
 
   const validateForm = () => {
     const {
@@ -58,9 +80,14 @@ function RegisterPage() {
     return true;
   };
 
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
+
+    // Debug: Log the formData before sending the request
+    console.log(formData);
 
     try {
       await axios.post("http://localhost:5000/api/register", {
@@ -70,6 +97,12 @@ function RegisterPage() {
         phoneNumber: formData.phoneNumber,
         username: formData.username,
         password: formData.password,
+        jobPreferences: {
+          jobTitle: formData.jobPreferences.jobTitle,  // Access jobPreferences fields correctly
+          location: formData.jobPreferences.location,
+          industry: formData.jobPreferences.industry,
+          salary: formData.jobPreferences.salary,
+        }
       });
       setSuccess("Registration successful. You can now log in.");
       setFormData({
@@ -80,10 +113,21 @@ function RegisterPage() {
         username: "",
         password: "",
         confirmPassword: "",
+        jobPreferences: {
+          jobTitle: "",
+          location: "",
+          industry: "",
+          salary: ""
+        }
       });
     } catch (err) {
-      console.error("Registration error:", err);
-      setError(err.response?.data || "Registration failed");
+      // Show specific error if username is already taken
+      if (err.response && err.response.status === 400) {
+        setError("Username is already existed");
+      } else {
+        console.error("Registration error:", err);
+        setError("Registration failed");
+      }
     }
   };
 
@@ -189,6 +233,8 @@ function RegisterPage() {
                 className="input-field"
               />
             </Form.Group>
+
+            <JobPreferences formData={formData} handleChange={handleChange} />
 
             <div className="d-flex justify-content-center">
               <Button variant="primary" type="submit" className="w-100">

@@ -7,12 +7,36 @@ const { authenticateToken } = require('../middleware/authenticateToken');
 
 // Register route
 router.post('/register', async (req, res) => {
-    const { firstName, lastName, email, phoneNumber, username, password } = req.body;
+    console.log(req.body);  // Add this to check the request payload
+    const { firstName, lastName, email, phoneNumber, username, password, jobPreferences} = req.body;
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = new User({ firstName, lastName, email, phoneNumber, username, password: hashedPassword });
+        
+        // Check if the username already exists
+        const existingUser = await User.findOne({ username });
+        if (existingUser) {
+            return res.status(400).send('Username is already existed');
+        }
+
+        const newUser = new User({
+            firstName,
+            lastName,
+            email,
+            phoneNumber,
+            username,
+            password: hashedPassword,
+            jobPreferences: {
+                jobTitle: jobPreferences?.jobTitle || "",
+                location: jobPreferences?.location || "",
+                industry: jobPreferences?.industry || "",
+                salary: jobPreferences?.salary || "",
+            }
+        });
+
         await newUser.save();
         res.status(201).send('User registered');
+        // Debug to check registering in backend
+        console.log("Successful to register");
     } catch (error) {
         console.error('Registration error:', error);
         res.status(500).send('Error registering user');
@@ -51,7 +75,7 @@ router.get('/profile', authenticateToken, async (req, res) => {
 
 // Update user profile
 router.put('/profile', authenticateToken, async (req, res) => {
-    const { firstName, lastName, email, phoneNumber, resume } = req.body; // Include resume in destructuring
+    const { firstName, lastName, email, phoneNumber, resume, jobPreferences } = req.body; // Include resume in destructuring
     try {
         const user = await User.findById(req.user.id);
         if (!user) return res.status(404).send('User not found');
@@ -62,7 +86,13 @@ router.put('/profile', authenticateToken, async (req, res) => {
         user.email = email || user.email;
         user.phoneNumber = phoneNumber || user.phoneNumber;
         user.resume = resume || user.resume; // Update resume
-
+         // Update job preferences
+        user.jobPreferences = {
+            jobTitle: jobPreferences?.jobTitle || user.jobPreferences.jobTitle,
+            location: jobPreferences?.location || user.jobPreferences.location,
+            salary: jobPreferences?.salary || user.jobPreferences.salary,
+            industry: jobPreferences?.industry || user.jobPreferences.industry,
+        };
         await user.save(); // Save the updated user
         res.json({ message: 'Profile updated successfully' });
     } catch (error) {

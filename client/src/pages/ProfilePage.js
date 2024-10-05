@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Form, Button, Alert, Card, Row, Col } from "react-bootstrap";
+import JobPreferences from "./JobPreferences"; // Import the new component
 
 const Profile = () => {
   const [error, setError] = useState(null);
@@ -10,6 +11,12 @@ const Profile = () => {
     email: "",
     phoneNumber: "",
     resume: "",
+    jobPreferences: {
+      salary: "",
+      location: "",
+      industry: "",
+      jobTitle: ""
+    } // Updating job preference
   });
   const [resumeFileName, setResumeFileName] = useState("");
   const [message, setMessage] = useState("");
@@ -38,6 +45,13 @@ const Profile = () => {
           email: response.data.email,
           phoneNumber: response.data.phoneNumber,
           resume: response.data.resume || "",
+          jobPreferences: {
+            jobTitle: response.data.jobPreferences?.jobTitle || "",
+            location: response.data.jobPreferences?.location || "",
+            salary: response.data.jobPreferences?.salary || "",
+            industry: response.data.jobPreferences?.industry || "",
+          },
+
         });
         setResumeFileName(response.data.resumeFileName || "");
       } catch (err) {
@@ -73,7 +87,23 @@ const Profile = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    
+    
+    if (['salary', 'location', 'industry', 'jobTitle'].includes(name)) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        jobPreferences: {
+          ...prevFormData.jobPreferences,
+          [name]: value
+        }
+      }));
+    } else {
+      // For other fields outside jobPreferences
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -88,8 +118,16 @@ const Profile = () => {
     try {
       await axios.put(
         "http://localhost:5000/api/profile",
-        formData,
         {
+          ...formData,
+        jobPreferences: { 
+          jobTitle: formData.jobPreferences.jobTitle || "", 
+          location: formData.jobPreferences.location || "", 
+          industry: formData.jobPreferences.industry || "", 
+          salary: formData.jobPreferences.salary || ""
+        }
+      },
+      {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -168,6 +206,7 @@ const Profile = () => {
           <h2 className="text-center mb-4">Profile</h2>
           {message && <Alert variant="info">{message}</Alert>}
           <Form onSubmit={handleSubmit}>
+            
             <Form.Group controlId="formFirstName">
               <Form.Label>First Name</Form.Label>
               <Form.Control
@@ -228,6 +267,9 @@ const Profile = () => {
                 {formErrors.phoneNumber}
               </Form.Control.Feedback>
             </Form.Group>
+
+            <JobPreferences formData={formData} handleChange={handleChange} />
+            
             <Form.Group controlId="formResume">
               <Form.Label>Upload Resume (10MB PDF Only)</Form.Label>
               <Form.Control
