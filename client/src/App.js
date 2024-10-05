@@ -6,6 +6,10 @@ import ApplicationsPage from './pages/ApplicationsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CompanyReviewPage from './pages/CompanyReviewPage';
+// import IndustryNewsPage
+import IndustryNewsPage from './pages/IndustryNewsPage';
+import IndustryNewsDetailsPage from './pages/IndustryNewsDetailsPage';
+
 import JobListingPage from './pages/JobListingPage';
 import LogoutPage from './pages/LogoutPage';
 import PostJobPage from './pages/PostJobPage';
@@ -29,6 +33,10 @@ function App() {
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/signup" element={<RegisterPage />} />
                     <Route path="/company-reviews" element={<CompanyReviewPage />} />
+
+                    <Route path="/industry-news" element={<IndustryNewsPage />} />
+                    <Route path="/industry-news/:id" element={<IndustryNewsDetailsPage />} />
+                    
                     <Route path="/logout" element={<LogoutPage />} />
                     <Route path="/post-job" element={<PostJobPage />} />
                     <Route path="/company-profile" element={<CompyProfilePage />} />

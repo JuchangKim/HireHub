@@ -36,6 +36,10 @@ function Navbar() {
                                     <Link className="nav-link" to="/company-profile">Company Profile</Link>
                                 </li>
                                 
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/industry-news">Industry News</Link>
+                                </li>
+
                             </>
                         )}
                         {isAuthenticated ? (
