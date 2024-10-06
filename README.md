@@ -6,11 +6,21 @@ HireHub is the best place to find a job and grow your career. HireHub is committ
 
 ## Getting Started
 
-### Dependencies
 
-* Recent version of Windows<img src="https://img.icons8.com/?size=100&id=gXoJoyTtYXFg&format=png&color=000000" style="vertical-align: middle; margin-left: 8px;" width="30" height="30"/>
-* Recent version of [Node.js](https://nodejs.org/en/)<img src="https://img.icons8.com/?size=100&id=54087&format=png&color=000000" style="vertical-align: -3px; margin-left: 8px;" width="50" height="50"/>
-* Recent version of React using npm<img src="https://img.icons8.com/?size=100&id=123603&format=png&color=000000" style="vertical-align: middle; margin-left: 6px;"  width="30" height="30"/>
+|Dependencies                 |![Package Icon](https://img.icons8.com/?size=40&id=sv4jxkTtS0tm&format=png&color=000000)|
+|-----------------------------------|-------------------------------------------------------------------------------------------|
+| Recent version of Windows          | ![Windows Icon](https://img.icons8.com/?size=40&id=gXoJoyTtYXFg&format=png&color=000000) |
+| Recent version of [Node.js](https://nodejs.org/en/) | ![Node.js Icon](https://img.icons8.com/?size=40&id=54087&format=png&color=000000) |
+| Recent version of React using npm  | ![React Icon](https://img.icons8.com/?size=40&id=123603&format=png&color=000000) |
+
+
+
+
+
+
+
+
+
 
 
 ### Installation
@@ -41,9 +51,17 @@ npm run
 
 ## Authors
 
+7. Enter `http://localhost:3000` in your favorite browser (Chrome is recommended) or your `http://your IP address:3000` on your network
+
+8. Enjoy
+
+
+## Authors
+
 | Name               | GitHub Link                                                                                                                       |
 |--------------------|-----------------------------------------------------------------------------------------------------------------------------------|
-| Abdulmalik Alnasra | <div style="display: flex; align-items: center;"> <a href="https://github.com/Abdul-was-here">GitHub</a> <img src="https://img.icons8.com/?size=100&id=16318&format=png&color=000000" alt="Icon" width="30" height="30" style="margin-left: 5px;"/> </div> |
-| Akshay Silswal     | <div style="display: flex; align-items: center;"> <a href="https://github.com/AkkiSilswal">GitHub</a> <img src="https://img.icons8.com/?size=100&id=16318&format=png&color=000000" alt="Icon" width="30" height="30" style="margin-left: 5px;"/> </div> |
-| David Li           | <div style="display: flex; align-items: center;"> <a href="https://github.com/ljld12315">GitHub</a> <img src="https://img.icons8.com/?size=100&id=16318&format=png&color=000000" alt="Icon" width="30" height="30" style="margin-left: 5px;"/> </div> |
-| Jc Kim             | <div style="display: flex; align-items: center;"> <a href="https://github.com/JuchangKim">GitHub</a> <img src="https://img.icons8.com/?size=100&id=16318&format=png&color=000000" alt="Icon" width="30" height="30" style="margin-left: 5px;"/> </div> |
+| Abdulmalik Alnasra | [GitHub](https://github.com/Abdul-was-here) ![GitHub Icon](https://img.icons8.com/?size=25&id=16318&format=png&color=000000) |
+| Akshay Silswal     | [GitHub](https://github.com/AkkiSilswal) ![GitHub Icon](https://img.icons8.com/?size=25&id=16318&format=png&color=000000) |
+| David Li           | [GitHub](https://github.com/ljld12315) ![GitHub Icon](https://img.icons8.com/?size=25&id=16318&format=png&color=000000) |
+| Jc Kim             | [GitHub](https://github.com/JuchangKim) ![GitHub Icon](https://img.icons8.com/?size=25&id=16318&format=png&color=000000) |
+
