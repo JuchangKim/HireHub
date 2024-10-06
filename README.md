@@ -13,16 +13,6 @@ HireHub is the best place to find a job and grow your career. HireHub is committ
 | Recent version of [Node.js](https://nodejs.org/en/) | ![Node.js Icon](https://img.icons8.com/?size=40&id=54087&format=png&color=000000) |
 | Recent version of React using npm  | ![React Icon](https://img.icons8.com/?size=40&id=123603&format=png&color=000000) |
 
-
-
-
-
-
-
-
-
-
-
 ### Installation
 
 #### Windows
@@ -47,14 +37,6 @@ npm run
 7. Enter ` http://localhost:3000` in your favorite browser (Chrome is recommended) or your `http://your IP address:3000` on your network
 
 8. Enjoy
-
-
-## Authors
-
-7. Enter `http://localhost:3000` in your favorite browser (Chrome is recommended) or your `http://your IP address:3000` on your network
-
-8. Enjoy
-
 
 ## Authors
 
