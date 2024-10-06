@@ -9,7 +9,7 @@ HireHub is the best place to find a job and grow your career. HireHub is committ
 ### Dependencies
 
 * Recent version of Windows<img src="https://img.icons8.com/?size=100&id=gXoJoyTtYXFg&format=png&color=000000" style="vertical-align: middle; margin-left: 8px;" width="30" height="30"/>
-* Recent version of [Node.js](https://nodejs.org/en/)<img src="https://img.icons8.com/?size=100&id=54087&format=png&color=000000" style="vertical-align: 3px; margin-left: 8px;" width="50" height="50"/>
+* Recent version of [Node.js](https://nodejs.org/en/)<img src="https://img.icons8.com/?size=100&id=54087&format=png&color=000000" style="vertical-align: middle; margin-left: 8px;" width="50" height="50"/>
 * Recent version of React using npm<img src="https://img.icons8.com/?size=100&id=123603&format=png&color=000000" style="vertical-align: middle; margin-left: 6px;"  width="30" height="30"/>
 
 
