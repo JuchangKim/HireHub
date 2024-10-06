@@ -1,67 +1,52 @@
-1. Node.js Server
+# HireHub
 
-•app.js: The entry point of your Node.js application. It sets up the server, connects to MongoDB, and initializes middleware and routes.
+HireHub is the best place to find a job and grow your career. HireHub is committed to connecting job seekers with top businesses, and it provides a seamless and efficient platform geared to your professional goals. Whether you're looking for your first job, want to advance your career, or want to change careers entirely, HireHub has comprehensive resources, professional advice, and an easy-to-use design to help you succeed. Discover the greatest job prospects, improve your skills, and achieve your professional objectives with HireHub—where no one does it better.
 
-2. Config
+![alt text](https://imgur.com/jdZqRUV.png "HireHub homepage")
 
-•db.js: Contains the MongoDB connection setup.
+## Getting Started
 
-•auth.js: Manages authentication configurations, including JWT secret keys.
+### Dependencies
 
-3. Models
+* Recent version of Windows<img src="https://img.icons8.com/?size=100&id=gXoJoyTtYXFg&format=png&color=000000" style="vertical-align: middle; margin-left: 8px;" width="30" height="30"/>
+* Recent version of [Node.js](https://nodejs.org/en/)<img src="https://img.icons8.com/?size=100&id=54087&format=png&color=000000" style="vertical-align: middle; margin-left: 8px;" width="50" height="50"/>
+* Recent version of React using npm<img src="https://img.icons8.com/?size=100&id=123603&format=png&color=000000" style="vertical-align: middle; margin-left: 6px;"  width="30" height="30"/>
 
-•User.js: Defines the user schema, including fields like username, password, email, profile, etc.
 
-•JobListing.js: Defines the job listing schema, including fields like title, description, company, location, salary, etc.
+### Installation
 
-•Application.js: Manages job applications, linking users to job listings and tracking application status.
+#### Windows
+1. Clone the repo
+```
+https://github.com/JuchangKim/HireHub.git
+```
+2. Open a terminal window and cd to `Hirehub/server`
+3. Open another terminal window and cd to `Hirehub/client`
+4. Install npm packages in both directories
+```
+npm install
+```
+5. In the `Hirehub/server` directory 
+```
+node .\app.js
+```
+6. In the `Hirehub/client` directory 
+```
+npm run
+```
+7. Enter ` http://localhost:3000` in your favorite browser (Chrome is recommended) or your `http://your IP address:3000` on your network
 
-•Company.js: Defines company-related data, including name, location, description, reviews, etc.
+8. Enjoy
 
-4. Routes
 
-•authRoutes.js: Handles authentication routes like registration, login, and logout.
+## Authors
 
-•userRoutes.js: Manages user-related routes, such as profile updates and retrieving user data.
+| Name               | GitHub Link                                                                                                                       |
+|--------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| Abdulmalik Alnasra | <div style="display: flex; align-items: center;"> <a href="https://github.com/Abdul-was-here">GitHub</a> <img src="https://img.icons8.com/?size=100&id=16318&format=png&color=000000" alt="Icon" width="30" height="30" style="margin-left: 5px;"/> </div> |
+| Akshay Silswal     | <div style="display: flex; align-items: center;"> <a href="https://github.com/AkkiSilswal">GitHub</a> <img src="https://img.icons8.com/?size=100&id=16318&format=png&color=000000" alt="Icon" width="30" height="30" style="margin-left: 5px;"/> </div> |
+| David Li           | <div style="display: flex; align-items: center;"> <a href="https://github.com/ljld12315">GitHub</a> <img src="https://img.icons8.com/?size=100&id=16318&format=png&color=000000" alt="Icon" width="30" height="30" style="margin-left: 5px;"/> </div> |
+| Jc Kim             | <div style="display: flex; align-items: center;"> <a href="https://github.com/JuchangKim">GitHub</a> <img src="https://img.icons8.com/?size=100&id=16318&format=png&color=000000" alt="Icon" width="30" height="30" style="margin-left: 5px;"/> </div> |
 
-•jobRoutes.js: Routes for creating, updating, and retrieving job listings.
 
-•applicationRoutes.js: Handles job application processes.
 
-5. Controllers
-
-•authController.js: Contains the logic for handling authentication-related tasks.
-
-•userController.js: Manages user operations like profile updates and retrieving user data.
-
-•jobController.js: Controls the creation, updating, and retrieval of job listings.
-
-•applicationController.js: Handles job applications, tracking status, and managing related data.
-
-6. Middleware
-
-•authMiddleware.js: Middleware for protecting routes that require authentication.
-
-•errorHandler.js: Global error handling middleware.
-
-7. Utils
-
-•scraper.js: Contains utility functions for scraping job data from external websites, potentially using the Python script.
-
-8. Client
-
-•public/: Static files for the front end.
-
-•src/: Source files for the front-end React application.
-
-•components/: Reusable React components.
-
-•pages/: Different pages of the application (e.g., home, job listings, profile, etc.).
-
-•App.js: Main application component.
-
-•index.js: Entry point for the React application.
-
-9. Scripts
-
-•webscraper.py: Python script for scraping job data from external websites. This script can be triggered by the Node.js server or run independently.
