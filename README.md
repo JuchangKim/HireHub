@@ -47,6 +47,3 @@ npm run
 | Akshay Silswal     | <div style="display: flex; align-items: center;"> <a href="https://github.com/AkkiSilswal">GitHub</a> <img src="https://img.icons8.com/?size=100&id=16318&format=png&color=000000" alt="Icon" width="30" height="30" style="margin-left: 5px;"/> </div> |
 | David Li           | <div style="display: flex; align-items: center;"> <a href="https://github.com/ljld12315">GitHub</a> <img src="https://img.icons8.com/?size=100&id=16318&format=png&color=000000" alt="Icon" width="30" height="30" style="margin-left: 5px;"/> </div> |
 | Jc Kim             | <div style="display: flex; align-items: center;"> <a href="https://github.com/JuchangKim">GitHub</a> <img src="https://img.icons8.com/?size=100&id=16318&format=png&color=000000" alt="Icon" width="30" height="30" style="margin-left: 5px;"/> </div> |
-
-
-
