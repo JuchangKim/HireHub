@@ -10,12 +10,16 @@ function IndustryNewsDetail() {
     const [commentText, setCommentText] = useState('');  // For comment text input
     const [comments, setComments] = useState([]);  // For storing the comments
 
+
+    
     useEffect(() => {
         const fetchNewsArticle = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/api/news/${id}`);
                 setNewsArticle(response.data);
-                setComments(response.data.comments || []); // Set initial comments
+                // Sort comments by time in descending order (most recent first)
+                const sortedComments = response.data.comments.sort((a, b) => new Date(b.time) - new Date(a.time));
+                setComments(sortedComments || []);
             } catch (error) {
                 setError('Error fetching the news article');
             }
@@ -86,6 +90,24 @@ function IndustryNewsDetail() {
                         ))}
                     </div>
 
+                    {newsArticle.industry && newsArticle.industry.length > 0 && (
+                    <div className="related-industry mb-5">
+                        <h4>Industries</h4>
+                        <div className="row">
+                            <div className="col-12">
+                                <ul className="list-inline">
+                                    {newsArticle.industry.map((industry, index) => (
+                                        <li key={index} className="list-inline-item mb-2">
+                                            <span className="badge bg-primary p-2" style={{ fontSize: '1.1rem', padding: '0.75rem 1.25rem' }}>
+                                                {industry}
+                                            </span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                )}
                     {/* Relative Companies Section */}
                     {newsArticle.companies && newsArticle.companies.length > 0 && (
                         <div className="related-companies mb-5">
@@ -136,7 +158,7 @@ function IndustryNewsDetail() {
                         <h4>Comments</h4>
                         <ul className="list-unstyled">
                             {comments.length > 0 ? (
-                                comments.map((comment, index) => (
+                                comments.sort((a, b) => new Date(b.time) - new Date(a.time)).map((comment, index) => (
                                     <li key={index} className="media mb-4">
                                         <div className="card">
                                             <div className="card-header">
