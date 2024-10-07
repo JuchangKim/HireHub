@@ -10,21 +10,36 @@ function IndustryNewsDetail() {
     const [commentText, setCommentText] = useState('');  // For comment text input
     const [comments, setComments] = useState([]);  // For storing the comments
 
-
     
+    
+    // Fetch news article and comments
     useEffect(() => {
         const fetchNewsArticle = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/api/news/${id}`);
                 setNewsArticle(response.data);
+    
+                // Format time for each comment using 'en-GB' format (European)
+                const formattedComments = response.data.comments.map(comment => ({
+                    ...comment,
+                    time: new Date(comment.time).toLocaleString('en-GB', {
+                        day: 'numeric',
+                        month: 'numeric',
+                        year: 'numeric',
+                        hour: 'numeric',
+                        minute: 'numeric',
+                        second: 'numeric',
+                        hour12: true  // 24-hour format
+                    })
+                }));
+    
                 // Sort comments by time in descending order (most recent first)
-                const sortedComments = response.data.comments.sort((a, b) => new Date(b.time) - new Date(a.time));
+                const sortedComments = formattedComments.sort((a, b) => new Date(b.time) - new Date(a.time));
                 setComments(sortedComments || []);
             } catch (error) {
                 setError('Error fetching the news article');
             }
         };
-
         fetchNewsArticle();
     }, [id]);
 
@@ -49,19 +64,31 @@ function IndustryNewsDetail() {
     // Handle comment submission
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
+    
+        // Format the comment date in 'en-GB' format (day/month/year, 24-hour format)
         const newComment = {
             user: username,
             text: commentText,
-            time: new Date().toLocaleString(), // Capture current time
+            time: new Date().toLocaleString('en-GB', { 
+                day: 'numeric', 
+                month: 'numeric', 
+                year: 'numeric', 
+                hour: 'numeric', 
+                minute: 'numeric', 
+                second: 'numeric', 
+                hour12: false  // 24-hour format
+            }),
         };
-
-        // Update the comments state
-        setComments((prevComments) => [newComment, ...prevComments]);  // Add newest comment to the top
-
-        // Optionally send the new comment to the server
+    
         try {
-            await axios.post(`http://localhost:5000/api/news/${id}/comment`, newComment);
-            setCommentText('');  // Clear the comment input
+            // Post the new comment to the server
+            const response = await axios.post(`http://localhost:5000/api/news/${id}/comments`, newComment);
+            
+            // Update the comments with the newly added comment from the server response
+            setComments(response.data.comments);  // Get updated comments from the server response
+            
+            // Clear the comment input field
+            setCommentText('');
         } catch (error) {
             console.error('Error posting the comment:', error);
         }
