@@ -41,60 +41,65 @@ function IndustryNewsPage() {
     };
 
     return (
-        <div className="container mt-5">
-            {/* Search Form */}
-            <div className="row mb-4">
-                <div className="col-md-6">
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Search by keyword"
-                        value={keyword}
-                        onChange={(e) => setKeyword(e.target.value)}
-                    />
-                </div>
-                <div className="col-md-6">
-                    <select
-                        className="form-control"
-                        value={selectedIndustry}
-                        onChange={(e) => setSelectedIndustry(e.target.value)}
-                    >
-                        <option value="">All Industries</option>
-                        {industries.map((industry, index) => (
-                            <option key={index} value={industry}>
-                                {industry}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-            </div>
+      <div className="container mt-5">
+          {/* Search Form */}
+          <div className="row mb-4">
+              <div className="col-md-6">
+                  <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Search by keyword in news title"
+                      value={keyword}
+                      onChange={(e) => setKeyword(e.target.value)}
+                  />
+              </div>
+              <div className="col-md-6">
+                  <select
+                      className="form-control"
+                      value={selectedIndustry}
+                      onChange={(e) => setSelectedIndustry(e.target.value)}
+                  >
+                      <option value="">All Industries</option>
+                      {industries.map((industry, index) => (
+                          <option key={index} value={industry}>
+                              {industry}
+                          </option>
+                      ))}
+                  </select>
+              </div>
+          </div>
 
-            {/* News Articles */}
-            <div className="row">
-                {filteredArticles.length > 0 ? (
-                    filteredArticles.map((article) => (
-                        <div className="col-md-4 mb-4" key={article.id}>
-                            <div className="card" onClick={() => handleArticleClick(article)} style={{ cursor: 'pointer' }}>
-                                <img 
-                                    src={article.imageUrl} // Use article.imageUrl to display the image
-                                    alt={article.title} 
-                                    className="card-img-top" 
-                                    style={{ height: '200px', objectFit: 'cover' }} // Adjust size and fit
-                                />
-                                <div className="card-body">
-                                    <h5 className="card-title">{article.title}</h5>
-                                    <p className="card-text">{article.description}</p>
-                                    <p className="text-muted">{article.datePosted}</p>
-                                </div>
-                            </div>
+           {/* News Articles */}
+    <div className="row g-4 d-flex flex-wrap">
+        {filteredArticles.length > 0 ? (
+            filteredArticles.map((article) => (
+                <div className="col-md-6 mb-4 d-flex align-items-stretch" key={article.id} style={{ height: '450px'}}>
+                    <div className="card h-100" onClick={() => handleArticleClick(article)} style={{ cursor: 'pointer' }}>
+                        <img
+                            src={article.imageUrl}
+                            alt={article.title}
+                            className="img-fluid"
+                            style={{ height: '200px', objectFit: 'cover', width: '100%' }}
+                        />
+                        <div className="card-body d-flex flex-column">
+                            <h5 className="card-title" style={{ fontWeight: 'bold', color: 'black', padding: '10px' }}>
+                                {article.title}
+                            </h5>
+                            <p className="text-muted" style={{ padding: '10px' }}>
+                                <strong>{article.industry.join(' / ')}</strong> • {article.datePosted}
+                            </p>
+                            <p className="card-text" style={{ padding: '10px', flexGrow: 1 }}>{article.description}</p>
                         </div>
-                    ))
-                ) : (
-                    <p>No articles found.</p>
-                )}
-            </div>
-        </div>
-    );
+                    </div>
+                </div>
+            ))
+        ) : (
+            <p>No articles found.</p>
+        )}
+    </div>
+</div>
+  );
 }
+
 
 export default IndustryNewsPage;

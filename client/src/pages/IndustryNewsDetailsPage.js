@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function IndustryNewsDetail() {
@@ -107,7 +107,7 @@ function IndustryNewsDetail() {
             <div className="row">
                 <div className="col-md-8 offset-md-2">
                     <div className="mb-4">
-                        <h1 className="display-5">{newsArticle.title}</h1>
+                        <h1 className="display-5" style={{ fontWeight: 'bold' }}>{newsArticle.title}</h1>
                         <p className="text-muted">{newsArticle.datePosted}</p>
                         <img src={newsArticle.imageUrl} alt={newsArticle.title} className="img-fluid mb-4 rounded" />
                     </div>
@@ -142,9 +142,9 @@ function IndustryNewsDetail() {
                             <ul className="list-inline">
                                 {newsArticle.companies.map((company, index) => (
                                     <li key={index} className="list-inline-item">
-                                        <Link to={`/company-profile/${company}`} className="btn btn-outline-primary btn-sm">
-                                            {company}
-                                        </Link>
+                                        <a href={company.url} target="_blank" rel="noopener noreferrer" className="btn btn-outline-primary btn-sm">
+                                            {company.name}
+                                        </a>
                                     </li>
                                 ))}
                             </ul>
