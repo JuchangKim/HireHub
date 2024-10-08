@@ -94,7 +94,7 @@ function IndustryNewsPage() {
                 </div>
             ))
         ) : (
-            <p>No articles found.</p>
+            <p>No news found.</p>
         )}
     </div>
 </div>
