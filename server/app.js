@@ -19,6 +19,7 @@ app.use(express.json());
 app.use('/api', jobRoutes);
 app.use('/api', userRoutes); 
 app.use('/api', reviewRoutes);
+
 // Adding news route
 app.use('/api', newsRoutes); 
 
