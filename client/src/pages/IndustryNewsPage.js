@@ -16,8 +16,12 @@ function IndustryNewsPage() {
         const fetchNews = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/api/news');
-                setNewsArticles(response.data);
-                setFilteredArticles(response.data); // Initially, show all articles
+                
+                // Since `datePosted` is already formatted on the server side, we don't need to reformat it here
+                const sortedArticles = response.data;
+                
+                setNewsArticles(sortedArticles);
+                setFilteredArticles(sortedArticles); // Initially, show all articles
             } catch (error) {
                 console.error('Error fetching news:', error);
             }

@@ -9,41 +9,26 @@ function IndustryNewsDetail() {
     const [username, setUsername] = useState('');  // For logged-in user's name
     const [commentText, setCommentText] = useState('');  // For comment text input
     const [comments, setComments] = useState([]);  // For storing the comments
-
-    
     
     // Fetch news article and comments
     useEffect(() => {
         const fetchNewsArticle = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/api/news/${id}`);
-                console.log('Fetched News Article:', response.data); // Check if comments have `user` and `text`
-                setNewsArticle(response.data);
-    
-                // Format time for each comment using 'en-GB' format (European)
-                const formattedComments = response.data.comments.map(comment => ({
-                    ...comment,
-                    time: new Date(comment.time).toLocaleString('en-GB', {
-                        day: 'numeric',
-                        month: 'numeric',
-                        year: 'numeric',
-                        hour: 'numeric',
-                        minute: 'numeric',
-                        second: 'numeric',
-                        hour12: false  // 24-hour format
-                    }),
-                }));
-    
+                console.log('Fetched News Article:', response.data);
                 
-                // Sort comments by time in descending order (most recent first)
-                const sortedComments = formattedComments.sort((a, b) => new Date(b.time) - new Date(a.time));
-                setComments(sortedComments || []);
+                // Set the news article
+                setNewsArticle(response.data);
+        
+                // Use the comments directly from the response
+                setComments(response.data.comments);
             } catch (error) {
                 setError('Error fetching the news article');
             }
         };
         fetchNewsArticle();
     }, [id]);
+
 
     // Fetch the logged-in user's profile to get the username
     useEffect(() => {
@@ -71,29 +56,15 @@ function IndustryNewsDetail() {
         const newComment = {
             user: username,
             text: commentText,
-            time: new Date()  // Capture the current time in Date format to save in MongoDB
+            time: new Date().toISOString()  // Capture the current time in Date format to save in MongoDB
         };
 
         try {
-        // Post the new comment to the server
-        const response = await axios.post(`http://localhost:5000/api/news/${id}/comments`, newComment);
-    
-         // Format time for each comment in the response using 'en-GB' format
-         const formattedComments = response.data.comments.map(comment => ({
-            ...comment,
-            time: new Date(comment.time).toLocaleString('en-GB', {
-                day: 'numeric',
-                month: 'numeric',
-                year: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-                second: 'numeric',
-                hour12: false  // 24-hour format
-            }),
-        }));
-    
-            // Update the comments state with formatted comments
-            setComments(formattedComments);
+            // Post the new comment to the server
+            const response = await axios.post(`http://localhost:5000/api/news/${id}/comments`, newComment);
+
+            // Use the comments directly from the response
+            setComments(response.data.comments);
             
             // Clear the comment input field
             setCommentText('');
@@ -101,6 +72,7 @@ function IndustryNewsDetail() {
             console.error('Error posting the comment:', error);
         }
     };
+
 
     if (error) {
         return <p>{error}</p>;
@@ -193,19 +165,11 @@ function IndustryNewsDetail() {
                         <h4>Comments</h4>
                         <ul className="list-unstyled">
                             {comments.length > 0 ? (
-                                comments.sort((a, b) => new Date(b.time) - new Date(a.time)).map((comment, index) => (
+                                    comments.map((comment, index) => (
                                     <li key={index} className="media mb-4">
                                         <div className="card">
                                             <div className="card-header">
-                                                <strong>{comment.user}</strong> <span className="text-muted"> at {comment.time.toLocaleString('en-GB', {
-                                day: 'numeric',
-                                month: 'numeric',
-                                year: 'numeric',
-                                hour: 'numeric',
-                                minute: 'numeric',
-                                second: 'numeric',
-                                hour12: true
-                            })}</span>
+                                                <strong>{comment.user}</strong> <span className="text-muted"> at {comment.time}</span>
                                             </div>
                                             <div className="card-body">
                                                 <p className="card-text">{comment.text}</p>
