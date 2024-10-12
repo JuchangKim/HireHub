@@ -1,3 +1,5 @@
+// JC - JobPreferences.js - This is job preferences card which is using in the profile page and register page.
+
 import React from "react";
 import { Form, Card } from "react-bootstrap";
 
