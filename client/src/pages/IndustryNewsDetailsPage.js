@@ -17,6 +17,7 @@ function IndustryNewsDetail() {
         const fetchNewsArticle = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/api/news/${id}`);
+                console.log('Fetched News Article:', response.data); // Check if comments have `user` and `text`
                 setNewsArticle(response.data);
     
                 // Format time for each comment using 'en-GB' format (European)
@@ -29,10 +30,11 @@ function IndustryNewsDetail() {
                         hour: 'numeric',
                         minute: 'numeric',
                         second: 'numeric',
-                        hour12: true  // 24-hour format
-                    })
+                        hour12: false  // 24-hour format
+                    }),
                 }));
     
+                
                 // Sort comments by time in descending order (most recent first)
                 const sortedComments = formattedComments.sort((a, b) => new Date(b.time) - new Date(a.time));
                 setComments(sortedComments || []);
@@ -64,28 +66,34 @@ function IndustryNewsDetail() {
     // Handle comment submission
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
-    
-        // Format the comment date in 'en-GB' format (day/month/year, 24-hour format)
+
+        // Create the new comment object
         const newComment = {
             user: username,
             text: commentText,
-            time: new Date().toLocaleString('en-GB', { 
-                day: 'numeric', 
-                month: 'numeric', 
-                year: 'numeric', 
-                hour: 'numeric', 
-                minute: 'numeric', 
-                second: 'numeric', 
+            time: new Date()  // Capture the current time in Date format to save in MongoDB
+        };
+
+        try {
+        // Post the new comment to the server
+        const response = await axios.post(`http://localhost:5000/api/news/${id}/comments`, newComment);
+    
+         // Format time for each comment in the response using 'en-GB' format
+         const formattedComments = response.data.comments.map(comment => ({
+            ...comment,
+            time: new Date(comment.time).toLocaleString('en-GB', {
+                day: 'numeric',
+                month: 'numeric',
+                year: 'numeric',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
                 hour12: false  // 24-hour format
             }),
-        };
+        }));
     
-        try {
-            // Post the new comment to the server
-            const response = await axios.post(`http://localhost:5000/api/news/${id}/comments`, newComment);
-            
-            // Update the comments with the newly added comment from the server response
-            setComments(response.data.comments);  // Get updated comments from the server response
+            // Update the comments state with formatted comments
+            setComments(formattedComments);
             
             // Clear the comment input field
             setCommentText('');
@@ -189,7 +197,15 @@ function IndustryNewsDetail() {
                                     <li key={index} className="media mb-4">
                                         <div className="card">
                                             <div className="card-header">
-                                                <strong>{comment.user}</strong> <span className="text-muted">at {comment.time}</span>
+                                                <strong>{comment.user}</strong> <span className="text-muted"> at {comment.time.toLocaleString('en-GB', {
+                                day: 'numeric',
+                                month: 'numeric',
+                                year: 'numeric',
+                                hour: 'numeric',
+                                minute: 'numeric',
+                                second: 'numeric',
+                                hour12: true
+                            })}</span>
                                             </div>
                                             <div className="card-body">
                                                 <p className="card-text">{comment.text}</p>
