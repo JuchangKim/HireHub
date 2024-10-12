@@ -12,7 +12,7 @@ function JobListingPage() {
         workType: '',
     });
 
-    // JC - User jobPreferences
+    // User preferences
     const [userPreferences, setUserPreferences] = useState({
         jobTitle: "",
         location: "",
@@ -20,7 +20,7 @@ function JobListingPage() {
         salary: "",
     });
 
-    // JC - Track which preferences are selected
+    // Track which preferences are selected
     const [selectedPreferences, setSelectedPreferences] = useState({
         jobTitle: true,
         location: true,
@@ -28,7 +28,7 @@ function JobListingPage() {
         salary: true,
     });
 
-    // JC - Fetch user's job preferences
+    // Fetch user's job preferences
     useEffect(() => {
         const fetchUserPreferences = async () => {
             const token = localStorage.getItem('token');
@@ -37,7 +37,7 @@ function JobListingPage() {
                     const response = await axios.get('http://localhost:5000/api/profile', {
                         headers: { Authorization: `Bearer ${token}` },
                     });
-                    // JC - Set user preferences or default values if any preference is missing
+                    // Set user preferences or default values if any preference is missing
                     setUserPreferences({
                         jobTitle: response.data.jobPreferences?.jobTitle || "",
                         location: response.data.jobPreferences?.location || "",
@@ -52,31 +52,27 @@ function JobListingPage() {
         fetchUserPreferences();
     }, []);
     
-    // JC - Fetch jobs with filters and preferences
+    // Fetch jobs with filters and preferences
     useEffect(() => {
         const fetchJobs = async () => {
             try {
                 const filterParams = { ...filters };
 
-            // JC - Apply jobTitle if the job title preference is selected and not empty
-            if (selectedPreferences.jobTitle && userPreferences.jobTitle) {
-                filterParams.jobTitle = userPreferences.jobTitle;
-            }
+                // Apply jobTitle if the job title preference is selected
+                if (selectedPreferences.jobTitle && userPreferences.jobTitle) {
+                    filterParams.jobTitle = userPreferences.jobTitle; // Pass jobTitle to the backend
+                }
+                if (selectedPreferences.location) {
+                    filterParams.region = userPreferences.location;
+                }
+                if (selectedPreferences.industry) {
+                    filterParams.sector = userPreferences.industry;
+                }
+                if (selectedPreferences.salary) {
+                    filterParams.payRange = userPreferences.salary;
+                }
 
-            // JC - Apply location if the location preference is selected and not empty
-            if (selectedPreferences.location && userPreferences.location) {
-                filterParams.region = userPreferences.location;
-            }
-
-            // JC - Apply industry if the industry preference is selected and not empty
-            if (selectedPreferences.industry && userPreferences.industry) {
-                filterParams.sector = userPreferences.industry;
-            }
-
-            // JC - Apply salary if the salary preference is selected and not empty
-            if (selectedPreferences.salary && userPreferences.salary) {
-                filterParams.payRange = userPreferences.salary;
-            }
+                console.log(filterParams); // Log the filterParams before sending the request
 
                 const response = await axios.get('http://localhost:5000/api/jobs', {
                     params: filterParams
@@ -90,12 +86,11 @@ function JobListingPage() {
         fetchJobs();
     }, [filters, selectedPreferences, userPreferences]);
 
-    // JC - this filter interact with jobPreference and basic filter crieteria. 
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
 
         if (name === "region") {
-            // JC - If the user sets a region filter, uncheck the location preference
+            // If the user sets a region filter, uncheck the location preference
             setSelectedPreferences((prevSelected) => ({
                 ...prevSelected,
                 location: false,
@@ -103,7 +98,7 @@ function JobListingPage() {
         }
 
         if (name === "payRange") {
-            // JC - If the user sets a pay range filter, uncheck the salary preference
+            // If the user sets a pay range filter, uncheck the salary preference
             setSelectedPreferences((prevSelected) => ({
                 ...prevSelected,
                 salary: false,
@@ -111,7 +106,7 @@ function JobListingPage() {
         }
 
         if (name === "sector") {
-            // JC - If the user sets a sector filter, uncheck the industry preference
+            // If the user sets a sector filter, uncheck the industry preference
             setSelectedPreferences((prevSelected) => ({
                 ...prevSelected,
                 industry: false,
@@ -134,12 +129,11 @@ function JobListingPage() {
         });
     };
 
-    // JC - Creating checkbox with jobPreference data.
     const handlePreferenceToggle = (e) => {
         const { name, checked } = e.target;
 
         if (name === "location" && checked) {
-            // JC - If the user selects the location preference, clear the region filter
+            // If the user selects the location preference, clear the region filter
             setFilters((prevFilters) => ({
                 ...prevFilters,
                 region: "",
@@ -147,7 +141,7 @@ function JobListingPage() {
         }
 
         if (name === "salary" && checked) {
-            // JC - If the user selects the salary preference, clear the payRange filter
+            // If the user selects the salary preference, clear the payRange filter
             setFilters((prevFilters) => ({
                 ...prevFilters,
                 payRange: "",
@@ -155,7 +149,7 @@ function JobListingPage() {
         }
 
         if (name === "industry" && checked) {
-            // JC -If the user selects the location preference, clear the sector filter
+            // If the user selects the location preference, clear the sector filter
             setFilters((prevFilters) => ({
                 ...prevFilters,
                 sector: "",
@@ -245,7 +239,7 @@ function JobListingPage() {
                     </Form>
 
                     <hr />
-                    {/* Creating checkbox in the page with jobPreference data */}
+
                     <h5>Suggested Jobs by Preferences</h5>
                         <Form.Check
                             type="checkbox"

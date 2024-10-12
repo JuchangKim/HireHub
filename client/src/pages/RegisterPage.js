@@ -1,12 +1,9 @@
-// JC - this page has job preferences variables which are jobPrefences {jobTItle, location, industry, salary}
-
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, Alert, Card } from "react-bootstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import JobPreferences from "./JobPreferences"; // Import the new component
 
-// JC - initialising user data. The new user has additional job preference variable with jobTitle, location, industry, salary.
 function RegisterPage() {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -23,7 +20,6 @@ function RegisterPage() {
       salary: ""
     }
   });
-  // JC - initialising user data is done.
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -31,17 +27,17 @@ function RegisterPage() {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // JC - Handle changes for jobPreferences fields separately
+    // Handle changes for jobPreferences fields separately
     if (["jobTitle", "location", "industry", "salary"].includes(name)) {
       setFormData({
         ...formData,
         jobPreferences: {
           ...formData.jobPreferences,
-          [name]: value, // JC - Update the relevant jobPreferences field
+          [name]: value, // Update the relevant jobPreferences field
         },
       });
     } else {
-      // JC - For other fields outside jobPreferences
+      // For other fields outside jobPreferences
       setFormData({
         ...formData,
         [name]: value,
@@ -84,7 +80,8 @@ function RegisterPage() {
     return true;
   };
 
-// JC - when submit registering, jobPreferences variables are regitered together and post to backend.
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
@@ -100,16 +97,14 @@ function RegisterPage() {
         phoneNumber: formData.phoneNumber,
         username: formData.username,
         password: formData.password,
-        // JC - jobPrefences data is added
         jobPreferences: {
-          jobTitle: formData.jobPreferences.jobTitle,  
+          jobTitle: formData.jobPreferences.jobTitle,  // Access jobPreferences fields correctly
           location: formData.jobPreferences.location,
           industry: formData.jobPreferences.industry,
           salary: formData.jobPreferences.salary,
         }
       });
       setSuccess("Registration successful. You can now log in.");
-      // JC - After sumbitting, make it clear the input space.
       setFormData({
         firstName: "",
         lastName: "",
@@ -135,7 +130,6 @@ function RegisterPage() {
       }
     }
   };
-// JC - submit function is done with additional jobPreferences data.
 
   return (
     <Container className="d-flex align-items-center justify-content-center min-vh-100">
@@ -239,9 +233,9 @@ function RegisterPage() {
                 className="input-field"
               />
             </Form.Group>
-            {/* JC - JobPrefences card is added between confirm password and sing up button */}
+
             <JobPreferences formData={formData} handleChange={handleChange} />
-            
+
             <div className="d-flex justify-content-center">
               <Button variant="primary" type="submit" className="w-100">
                 Sign Up

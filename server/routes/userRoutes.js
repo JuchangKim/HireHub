@@ -6,10 +6,8 @@ const jwt = require('jsonwebtoken');
 const { authenticateToken } = require('../middleware/authenticateToken');
 
 // Register route
-// JC - the when user information pass through backend, jobPreferences data are included. Also, jobPreferences data are also register together.
 router.post('/register', async (req, res) => {
-    console.log(req.body);  
-    // JC - the user has job Preferences data.
+    console.log(req.body);  // Add this to check the request payload
     const { firstName, lastName, email, phoneNumber, username, password, jobPreferences} = req.body;
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -19,7 +17,7 @@ router.post('/register', async (req, res) => {
         if (existingUser) {
             return res.status(400).send('Username is already existed');
         }
-        // JC - new user has jobPreference data optionally.
+
         const newUser = new User({
             firstName,
             lastName,
@@ -27,7 +25,6 @@ router.post('/register', async (req, res) => {
             phoneNumber,
             username,
             password: hashedPassword,
-            // JC - jobPreferences data for user 
             jobPreferences: {
                 jobTitle: jobPreferences?.jobTitle || "",
                 location: jobPreferences?.location || "",
@@ -77,7 +74,6 @@ router.get('/profile', authenticateToken, async (req, res) => {
 });
 
 // Update user profile
-// JC - user's jobPreferences data are included when user update.
 router.put('/profile', authenticateToken, async (req, res) => {
     const { firstName, lastName, email, phoneNumber, resume, jobPreferences } = req.body; // Include resume in destructuring
     try {
@@ -90,12 +86,12 @@ router.put('/profile', authenticateToken, async (req, res) => {
         user.email = email || user.email;
         user.phoneNumber = phoneNumber || user.phoneNumber;
         user.resume = resume || user.resume; // Update resume
-         // JC - Update job preferences
-         user.jobPreferences = {
-            jobTitle: jobPreferences?.jobTitle !== undefined ? jobPreferences.jobTitle : user.jobPreferences.jobTitle,
-            location: jobPreferences?.location !== undefined ? jobPreferences.location : user.jobPreferences.location,
-            salary: jobPreferences?.salary !== undefined ? jobPreferences.salary : user.jobPreferences.salary,
-            industry: jobPreferences?.industry !== undefined ? jobPreferences.industry : user.jobPreferences.industry,
+         // Update job preferences
+        user.jobPreferences = {
+            jobTitle: jobPreferences?.jobTitle || user.jobPreferences.jobTitle,
+            location: jobPreferences?.location || user.jobPreferences.location,
+            salary: jobPreferences?.salary || user.jobPreferences.salary,
+            industry: jobPreferences?.industry || user.jobPreferences.industry,
         };
         await user.save(); // Save the updated user
         res.json({ message: 'Profile updated successfully' });

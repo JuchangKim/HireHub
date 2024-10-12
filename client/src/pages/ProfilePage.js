@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Form, Button, Alert, Card, Row, Col } from "react-bootstrap";
-import JobPreferences from "./JobPreferences"; // Import the JobPreferences card
+import JobPreferences from "./JobPreferences"; // Import the new component
 
-// JC - The user has jobpreferences data
 const Profile = () => {
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
@@ -12,7 +11,6 @@ const Profile = () => {
     email: "",
     phoneNumber: "",
     resume: "",
-    // JC - the job preferences is declared here.
     jobPreferences: {
       salary: "",
       location: "",
@@ -26,7 +24,6 @@ const Profile = () => {
   const [resumeSuccessMessage, setResumeSuccessMessage] = useState("");
   const [formErrors, setFormErrors] = useState({});
 
-  // JC - the job preferences data also will be represented.
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");
@@ -48,7 +45,6 @@ const Profile = () => {
           email: response.data.email,
           phoneNumber: response.data.phoneNumber,
           resume: response.data.resume || "",
-          // JC - the job Preferences data are added.
           jobPreferences: {
             jobTitle: response.data.jobPreferences?.jobTitle || "",
             location: response.data.jobPreferences?.location || "",
@@ -89,9 +85,9 @@ const Profile = () => {
     return Object.keys(errors).length === 0;
   };
 
-  // JC - the jobPreferences data is also added and show the previous jobPreferences data first.
   const handleChange = (e) => {
     const { name, value } = e.target;
+    
     
     if (['salary', 'location', 'industry', 'jobTitle'].includes(name)) {
       setFormData((prevFormData) => ({
@@ -110,7 +106,6 @@ const Profile = () => {
     }
   };
 
-  // JC - when submit, the jobPreferences data is submitted together.
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -120,15 +115,11 @@ const Profile = () => {
 
     const token = localStorage.getItem("token");
 
-     // Log the formData object to check its structure before submitting
-     console.log("Form Data to submit:", formData);
-
     try {
       await axios.put(
         "http://localhost:5000/api/profile",
         {
           ...formData,
-          // JC - Adding jobPreferences data when submit.
         jobPreferences: { 
           jobTitle: formData.jobPreferences.jobTitle || "", 
           location: formData.jobPreferences.location || "", 
@@ -276,7 +267,7 @@ const Profile = () => {
                 {formErrors.phoneNumber}
               </Form.Control.Feedback>
             </Form.Group>
-            {/* JobPreferences card is added between phone number and resume */}
+
             <JobPreferences formData={formData} handleChange={handleChange} />
             
             <Form.Group controlId="formResume">
