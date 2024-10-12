@@ -8,12 +8,13 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
     phoneNumber: { type: String, required: true }, // Phone number field
     resume: { type: String, default: '' }, // Add resume field
+    // JC - jobPreferences field in user data
     jobPreferences: {
         salary: { type: String, default: "" },
         location: { type: String, default: "" },
         industry: { type: String, default: "" },
         jobTitle: { type: String, default: "" }
-    } // Add job preference field
+    }
 });
 
 const User = mongoose.model('User', userSchema);
