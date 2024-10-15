@@ -1,27 +1,30 @@
+// JC - IndustryNewsPage.js - This page shows list of news, the news show image, title, description, industry, posted date.
+//      there are filtering by industry and searching by keyword to find specific news 
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function IndustryNewsPage() {
-    const [newsArticles, setNewsArticles] = useState([]); // Store the list of news articles
-    const [filteredArticles, setFilteredArticles] = useState([]); // Store the filtered list
-    const [keyword, setKeyword] = useState(""); // For searching by keyword
-    const [selectedIndustry, setSelectedIndustry] = useState(""); // For filtering by industry
-    const navigate = useNavigate(); // Use the navigate hook for navigation
+    const [newsArticles, setNewsArticles] = useState([]); // JC - Store the list of news articles
+    const [filteredArticles, setFilteredArticles] = useState([]); // JC - Store the filtered list
+    const [keyword, setKeyword] = useState(""); // JC - For searching by keyword
+    const [selectedIndustry, setSelectedIndustry] = useState(""); // JC - For filtering by industry
+    const navigate = useNavigate(); // JC - Use the navigate hook for navigation
 
     const industries = ["IT", "Finance", "Health", "Marketing", "Trades", "Engineering"];
 
-    // Fetch the list of news articles when the component mounts
+    // JC - Fetch the list of news articles when the component mounts
     useEffect(() => {
         const fetchNews = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/api/news');
                 
-                // Since `datePosted` is already formatted on the server side, we don't need to reformat it here
+                // JC - Since `datePosted` is already formatted on the server side, we don't need to reformat it here
                 const sortedArticles = response.data;
                 
                 setNewsArticles(sortedArticles);
-                setFilteredArticles(sortedArticles); // Initially, show all articles
+                setFilteredArticles(sortedArticles); // JC - Initially, show all articles
             } catch (error) {
                 console.error('Error fetching news:', error);
             }
@@ -29,7 +32,7 @@ function IndustryNewsPage() {
         fetchNews();
     }, []);
 
-    // Automatically filter the news articles based on keyword and industry when they change
+    // JC - Automatically filter the news articles based on keyword and industry when they change
     useEffect(() => {
         const filtered = newsArticles.filter(article => {
             const matchesKeyword = article.title.toLowerCase().includes(keyword.toLowerCase());
@@ -37,9 +40,9 @@ function IndustryNewsPage() {
             return matchesKeyword && matchesIndustry;
         });
         setFilteredArticles(filtered);
-    }, [keyword, selectedIndustry, newsArticles]); // Trigger the filtering whenever keyword, selectedIndustry, or newsArticles change
+    }, [keyword, selectedIndustry, newsArticles]); // JC - Trigger the filtering whenever keyword, selectedIndustry, or newsArticles change
 
-    // Handle clicking on an article by navigating to its detail page
+    // JC - Handle clicking on an article by navigating to its detail page
     const handleArticleClick = (article) => {
         navigate(`/industry-news/${article.id}`);
     };

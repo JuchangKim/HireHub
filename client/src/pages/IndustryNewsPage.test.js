@@ -1,3 +1,5 @@
+// JC - Testing the IndustryNewsPage and creating two dummy news to test
+
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import IndustryNewsPage from './IndustryNewsPage';

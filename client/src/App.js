@@ -6,7 +6,8 @@ import ApplicationsPage from './pages/ApplicationsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import CompanyReviewPage from './pages/CompanyReviewPage';
-// import IndustryNewsPage
+
+// JC - Import IndustryNewsPage and IndustryNewsDetailsPage
 import IndustryNewsPage from './pages/IndustryNewsPage';
 import IndustryNewsDetailsPage from './pages/IndustryNewsDetailsPage';
 
@@ -34,6 +35,7 @@ function App() {
                     <Route path="/signup" element={<RegisterPage />} />
                     <Route path="/company-reviews" element={<CompanyReviewPage />} />
 
+                    {/*JC - Adding IndustryNewsPage and IndustyNewsDeatilPage*/}
                     <Route path="/industry-news" element={<IndustryNewsPage />} />
                     <Route path="/industry-news/:id" element={<IndustryNewsDetailsPage />} />
                     

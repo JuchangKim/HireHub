@@ -1,3 +1,8 @@
+/* JC - IndustryNewsDeatilsPage.js - This page shows the specific news and the news details which are news title, 
+      posted date, imageUrl, description, relative companies, industry, comments.
+      There is comment posting functionality. the posted date of the news, comments time are formatted to make same form and readable. 
+*/
+
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -6,11 +11,11 @@ function IndustryNewsDetail() {
     const { id } = useParams();
     const [newsArticle, setNewsArticle] = useState(null);
     const [error, setError] = useState('');
-    const [username, setUsername] = useState('');  // For logged-in user's name
-    const [commentText, setCommentText] = useState('');  // For comment text input
-    const [comments, setComments] = useState([]);  // For storing the comments
+    const [username, setUsername] = useState('');  // JC - User's name
+    const [commentText, setCommentText] = useState('');  // JC - Comment text input
+    const [comments, setComments] = useState([]);  // JC - Storing the comments
     
-    // Function to format date in European style (DD/MM/YYYY HH:MM:SS)
+    // JC - Function to format date in European style (DD/MM/YYYY HH:MM:SS)
     const formatDate = (dateString) => {
         return new Date(dateString).toLocaleString('en-GB', {
             day: 'numeric',
@@ -23,17 +28,17 @@ function IndustryNewsDetail() {
         });
     };
 
-    // Fetch news article and comments
+    // JC - Fetch news article and comments
     useEffect(() => {
         const fetchNewsArticle = async () => {
             try {
                 const response = await axios.get(`http://localhost:5000/api/news/${id}`);
                 console.log('Fetched News Article:', response.data);
                 
-                // Set the news article
+                // JC - Set the news article
                 setNewsArticle(response.data);
         
-                // Use the comments directly from the response
+                // JC - Use the comments directly from the response
                 setComments(response.data.comments);
             } catch (error) {
                 setError('Error fetching the news article');
@@ -43,15 +48,15 @@ function IndustryNewsDetail() {
     }, [id]);
 
 
-    // Fetch the logged-in user's profile to get the username
+    // JC - Fetch the logged-in user's profile to get the username
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const token = localStorage.getItem('token'); // Get token from localStorage
+                const token = localStorage.getItem('token'); // JC - Get token from localStorage
                 const response = await axios.get('http://localhost:5000/api/profile', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-                setUsername(response.data.username); // Set the username from the user's profile
+                setUsername(response.data.username); // JC - Set the username from the user's profile
             } catch (error) {
                 console.error('Error fetching user profile:', error);
                 setError('Error fetching user profile');
@@ -61,31 +66,30 @@ function IndustryNewsDetail() {
         fetchUserProfile();
     }, []);
 
-    // Handle comment submission
+    // JC - Handle comment submission
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
 
-        // Create the new comment object
+        // JC - Create the new comment object
         const newComment = {
             user: username,
             text: commentText,
-            time: new Date().toISOString()  // Capture the current time in Date format to save in MongoDB
+            time: new Date().toISOString()  // JC - Capture the current time in Date format to save in MongoDB
         };
 
         try {
-            // Post the new comment to the server
+            // JC - Post the new comment to the server
             const response = await axios.post(`http://localhost:5000/api/news/${id}/comments`, newComment);
 
-            // Format the updated comments list
+            // JC - Format the updated comments list
             const formattedComments = response.data.comments.map(comment => ({
                 ...comment,
                 time: formatDate(comment.time)
             }));
 
-            // Update the comments state with formatted comments
+            // JC - Update the comments state with formatted comments
             setComments(formattedComments);
         
-            // Clear the comment input field
             setCommentText('');
         } catch (error) {
             console.error('Error posting the comment:', error);

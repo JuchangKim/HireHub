@@ -35,7 +35,7 @@ function Navbar() {
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/company-profile">Company Profile</Link>
                                 </li>
-                                
+                                {/*JC - Adding Industry News in the navigation bar */}
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/industry-news">Industry News</Link>
                                 </li>
