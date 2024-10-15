@@ -46,10 +46,8 @@ function SalaryEstimator() {
         } catch (error) {
             // Handle different types of errors
             if (error.response) {
-                // Server responded with a status other than 200
                 setErrorMessage(error.response.data.message || 'An unexpected error occurred. Please try again.');
             } else {
-                // Network error or request setup error
                 setErrorMessage('Unable to connect to the server. Please check your network connection.');
             }
             setSalaryEstimate(null); // Clear previous salary estimates
@@ -66,11 +64,17 @@ function SalaryEstimator() {
         setErrorMessage(''); // Clear previous error messages
     };
 
+    // Handle form submission
+    const handleSubmit = (e) => {
+        e.preventDefault(); // Prevent default form submission
+        handleEstimateSalary(); // Trigger the estimate salary function
+    };
+
     return (
         <Container fluid className="p-4">
             <Row>
                 <Col xs={12} md={6} className="mb-4">
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="formRole" className="mb-3">
                             <Form.Label>Role</Form.Label>
                             <Form.Control
@@ -120,7 +124,7 @@ function SalaryEstimator() {
                             />
                         </Form.Group>
                         <div className="text-center">
-                            <Button variant="primary" onClick={handleEstimateSalary} className="me-2">
+                            <Button type="submit" variant="primary" className="me-2">
                                 Estimate Salary
                             </Button>
                             <Button variant="secondary" onClick={resetFilters}>
@@ -138,8 +142,11 @@ function SalaryEstimator() {
                     {salaryEstimate && (
                         <Card className="mt-4">
                             <Card.Body>
-                                <Card.Title>Salary Estimate</Card.Title>
+                                <Card.Title>Salary Estimate for {selectedRole}</Card.Title>
                                 <Card.Text>
+                                    <strong>Location:</strong> {selectedLocation}<br />
+                                    <strong>Industry:</strong> {selectedIndustry}<br />
+                                    <strong>Experience:</strong> {experience} years<br />
                                     <strong>Minimum Salary:</strong> ${salaryEstimate.minSalary}<br />
                                     <strong>Maximum Salary:</strong> ${salaryEstimate.maxSalary}
                                 </Card.Text>
