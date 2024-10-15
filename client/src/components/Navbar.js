@@ -7,7 +7,7 @@ import './Navbar.css';
 
 function Navbar() {
     const { isAuthenticated } = useAuth();
-    const { theme } = useTheme(); // Get the current theme
+    const { theme, toggleTheme } = useTheme(); // Get the current theme and toggle function
 
     return (
         <nav className={`navbar navbar-expand-lg ${theme === 'dark' ? 'bg-dark text-light' : 'bg-light text-dark'}`}>
@@ -41,9 +41,6 @@ function Navbar() {
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/salary-estimator">Salary Estimator</Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/settings">Settings</Link>
-                                </li>
                             </>
                         )}
                         {isAuthenticated ? (
@@ -61,6 +58,15 @@ function Navbar() {
                             </>
                         )}
                     </ul>
+
+                    {/* Dark/Light Mode Toggle Button */}
+                    <button
+                        className={`btn btn-sm ${theme === 'dark' ? 'btn-light' : 'btn-dark'}`}
+                        onClick={toggleTheme}
+                        style={{ marginLeft: 'auto' }} // Ensures it aligns to the far right
+                    >
+                        {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+                    </button>
                 </div>
             </div>
         </nav>

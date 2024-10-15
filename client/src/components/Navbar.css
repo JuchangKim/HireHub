@@ -5,13 +5,15 @@
     position: relative; /* Required for absolute positioning of child elements */
     padding: 1rem;
     transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex; /* Make the navbar a flex container */
+    justify-content: center; /* Center the items horizontally */
 }
 
 /* Flex properties for navbar items */
 .navbar-nav {
     display: flex; /* Ensure the nav items are in a row */
     list-style-type: none; /* Remove default list styles */
-    margin-right: auto; /* Push items to the right */
+    margin: 0; /* Remove default margin */
 }
 
 /* Light mode styles */
@@ -74,22 +76,13 @@
     transition: color 0.3s ease, background-color 0.3s ease;
 }
 
-/* Make sure dropdowns are styled correctly in dark mode */
-.dropdown-menu {
-    background-color: #343a40; /* Dark background for dropdowns */
-    color: #ffffff; /* Light text */
+/* Centered flex container for navbar */
+.navbar-nav {
+    display: flex;
+    justify-content: center; /* Center the nav links horizontally */
 }
 
-.dropdown-item {
-    color: #ffffff; /* Light dropdown item text */
-}
-
-.dropdown-item:hover {
-    background-color: #1e90ff; /* Highlight on hover */
-    color: #ffffff; /* Keep text white */
-}
-
-/* Responsive adjustments */
+/* Responsive styling */
 @media (max-width: 768px) {
     .navbar-nav {
         flex-direction: column; /* Stack items vertically on small screens */
@@ -109,6 +102,6 @@
 
 @media (min-width: 769px) {
     .navbar-nav {
-        margin-left: auto; /* Push items to the right for larger screens */
+        justify-content: center; /* Center items on larger screens */
     }
 }
