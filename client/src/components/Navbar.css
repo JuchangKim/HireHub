@@ -1,0 +1,114 @@
+/* src/components/Navbar.css */
+
+/* Base styles for the navbar */
+.navbar {
+    position: relative; /* Required for absolute positioning of child elements */
+    padding: 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Flex properties for navbar items */
+.navbar-nav {
+    display: flex; /* Ensure the nav items are in a row */
+    list-style-type: none; /* Remove default list styles */
+    margin-right: auto; /* Push items to the right */
+}
+
+/* Light mode styles */
+.navbar.bg-light {
+    background-color: #f8f9fa; /* Light background */
+    color: #343a40; /* Dark text */
+}
+
+.navbar.bg-light .nav-link {
+    color: #343a40; /* Dark link color */
+}
+
+.navbar.bg-light .nav-link:hover {
+    color: #0056b3; /* Darker color on hover */
+}
+
+/* Dark mode styles */
+.navbar.bg-dark {
+    background-color: #343a40; /* Dark background */
+    color: #ffffff; /* Light text */
+}
+
+.navbar.bg-dark .nav-link {
+    color: #ffffff; /* Light link color */
+}
+
+.navbar.bg-dark .nav-link:hover {
+    color: #1e90ff; /* Lighter blue on hover */
+}
+
+/* Ensure the navbar brand text matches the nav links */
+.navbar-brand {
+    color: inherit; /* Inherit color from the navbar */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold; /* Make it bold if desired */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+/* For light mode */
+.navbar.bg-light .navbar-brand {
+    color: #343a40; /* Dark text for light mode */
+}
+
+/* For dark mode */
+.navbar.bg-dark .navbar-brand {
+    color: #ffffff; /* White text for dark mode */
+}
+
+.navbar-brand:hover {
+    color: #1e90ff; /* Change color on hover */
+}
+
+/* Responsive styling */
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Ensure transition effects for smooth changes */
+.navbar a {
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Make sure dropdowns are styled correctly in dark mode */
+.dropdown-menu {
+    background-color: #343a40; /* Dark background for dropdowns */
+    color: #ffffff; /* Light text */
+}
+
+.dropdown-item {
+    color: #ffffff; /* Light dropdown item text */
+}
+
+.dropdown-item:hover {
+    background-color: #1e90ff; /* Highlight on hover */
+    color: #ffffff; /* Keep text white */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column; /* Stack items vertically on small screens */
+        position: absolute; /* Position them absolutely for better control */
+        right: 0; /* Align to the right */
+        background-color: inherit; /* Use the navbar's background */
+        width: 100%; /* Full width for mobile */
+        padding: 0; /* Remove padding */
+        z-index: 10; /* Ensure it's on top */
+    }
+
+    .nav-item {
+        text-align: center; /* Center text on small screens */
+        width: 100%; /* Full width for each item */
+    }
+}
+
+@media (min-width: 769px) {
+    .navbar-nav {
+        margin-left: auto; /* Push items to the right for larger screens */
+    }
+}
