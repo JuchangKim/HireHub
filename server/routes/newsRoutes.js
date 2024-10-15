@@ -74,6 +74,14 @@ router.post('/news/:id/comments', async (req, res) => {
                 article.comments.push(newComment);
                 await article.save();
 
+                // Format the `time` for each comment
+                const formattedComments = article.comments
+                    .sort((a, b) => new Date(b.time) - new Date(a.time))
+                    .map(comment => ({
+                        ...comment,
+                        time: formatDate(comment.time)
+                    }));
+
                 // Respond with the updated comments list
                 res.status(201).json({ message: 'Comment added successfully', comments: article.comments });
             } else {
