@@ -47,8 +47,6 @@ router.get('/estimate', async (req, res) => {
 
         // Find jobs that match the query
         const jobs = await Job.find(query);
-        console.log('Query:', query); // Log the query
-        console.log('Jobs Found:', jobs); // Log the jobs found
 
         // Handle case where no jobs are found
         if (jobs.length === 0) {
