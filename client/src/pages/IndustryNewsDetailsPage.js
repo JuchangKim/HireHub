@@ -10,6 +10,19 @@ function IndustryNewsDetail() {
     const [commentText, setCommentText] = useState('');  // For comment text input
     const [comments, setComments] = useState([]);  // For storing the comments
     
+    // Function to format date in European style (DD/MM/YYYY HH:MM:SS)
+    const formatDate = (dateString) => {
+        return new Date(dateString).toLocaleString('en-GB', {
+            day: 'numeric',
+            month: 'numeric',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            hour12: false
+        });
+    };
+
     // Fetch news article and comments
     useEffect(() => {
         const fetchNewsArticle = async () => {
@@ -63,9 +76,15 @@ function IndustryNewsDetail() {
             // Post the new comment to the server
             const response = await axios.post(`http://localhost:5000/api/news/${id}/comments`, newComment);
 
-            // Use the comments directly from the response
-            setComments(response.data.comments);
-            
+            // Format the updated comments list
+            const formattedComments = response.data.comments.map(comment => ({
+                ...comment,
+                time: formatDate(comment.time)
+            }));
+
+            // Update the comments state with formatted comments
+            setComments(formattedComments);
+        
             // Clear the comment input field
             setCommentText('');
         } catch (error) {
