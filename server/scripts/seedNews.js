@@ -1,3 +1,5 @@
+// JC - seedNews.js file - seed news information and those are connect to MongoDB.
+
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const News = require('../models/News');
@@ -9,7 +11,7 @@ mongoose.connect(uri)
   .then(() => console.log('Connected to MongoDB'))
   .catch((error) => console.error('Error connecting to MongoDB:', error));
 
-// Define the sample news data to seed
+// JC - Define the sample news data to seed
 const news = [
   {
     id: 1,

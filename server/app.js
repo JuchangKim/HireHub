@@ -5,7 +5,7 @@ const cors = require('cors');
 const jobRoutes = require('./routes/jobRoutes');
 const userRoutes = require('./routes/userRoutes'); 
 const reviewRoutes = require('./routes/reviewRoutes'); 
-// news routes
+// JC - Adding newsRoutes to handle news and news comments
 const newsRoutes = require('./routes/newsRoutes');
 
 // Connect to MongoDB
@@ -20,7 +20,7 @@ app.use('/api', jobRoutes);
 app.use('/api', userRoutes); 
 app.use('/api', reviewRoutes);
 
-// Adding news route
+// JC - Adding newsRoutes to handle news and news comments
 app.use('/api', newsRoutes); 
 
 const PORT = process.env.PORT || 5000;

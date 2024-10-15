@@ -1,8 +1,10 @@
+// JC - newsRoutes.js - Handle news and comments to store, post, get to MongoDB
+
 const express = require('express');
 const router = express.Router();
 const News = require('../models/News'); // Import the News model
 
-// Function to format date in European style (DD/MM/YYYY HH:MM:SS)
+// JC - Function to format date in European style (DD/MM/YYYY HH:MM:SS) to make same date.
 const formatDate = (dateString) => {
     return new Date(dateString).toLocaleString('en-GB', {
         day: 'numeric',
@@ -15,12 +17,12 @@ const formatDate = (dateString) => {
     });
 };
 
-// Get all news articles
+// JC - Get all news articles
 router.get('/news', async (req, res) => {
     try {
         const newsArticles = await News.find().sort({ datePosted: -1 }).lean(); // Use .lean() to get plain JavaScript objects
 
-        // Format the `datePosted` for each news article
+        // JC - Format the `datePosted` for each news article
         const formattedArticles = newsArticles.map(article => ({
             ...article,
             datePosted: formatDate(article.datePosted)
@@ -32,15 +34,15 @@ router.get('/news', async (req, res) => {
     }
 });
 
-// Get a specific news article by ID
+// JC - Get a specific news article by ID
 router.get('/news/:id', async (req, res) => {
     try {
         const article = await News.findOne({ id: parseInt(req.params.id, 10) }).lean();
         if (article) {
-            // Format the `datePosted` for the news article
+            // JC - Format the `datePosted` for the news article
             article.datePosted = formatDate(article.datePosted);
 
-            // Sort comments by time in descending order (most recent first)
+            // JC - Sort comments by time in descending order (most recent first)
             article.comments = article.comments
                 .sort((a, b) => new Date(b.time) - new Date(a.time))
                 .map(comment => ({
@@ -57,7 +59,7 @@ router.get('/news/:id', async (req, res) => {
     }
 });
 
-// Post a comment to a specific news article
+// JC - Post a comment to a specific news article
 router.post('/news/:id/comments', async (req, res) => {
     try {
         const article = await News.findOne({ id: parseInt(req.params.id, 10) });
@@ -70,11 +72,11 @@ router.post('/news/:id/comments', async (req, res) => {
                     time: new Date()  // Capture current time
                 };
 
-                // Add the new comment to the article's comments
+                // JC - Add the new comment to the article's comments
                 article.comments.push(newComment);
                 await article.save();
 
-                // Format the `time` for each comment
+                // JC - Format the `time` for each comment
                 const formattedComments = article.comments
                     .sort((a, b) => new Date(b.time) - new Date(a.time))
                     .map(comment => ({
@@ -82,7 +84,7 @@ router.post('/news/:id/comments', async (req, res) => {
                         time: formatDate(comment.time)
                     }));
 
-                // Respond with the updated comments list
+                // JC - Respond with the updated comments list
                 res.status(201).json({ message: 'Comment added successfully', comments: article.comments });
             } else {
                 res.status(400).json({ message: 'Invalid comment data' });

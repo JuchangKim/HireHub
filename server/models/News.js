@@ -1,6 +1,8 @@
+// JC - News.js - there is mongodb news schema attributes which are id, title, description, content, datePosted, imageUrl, industry, companies, comments
+
 const mongoose = require('mongoose');
 
-// Define the schema for news articles
+// JC - Define the schema for news articles
 const newsSchema = new mongoose.Schema({
   id: { type: Number, required: true, unique: true },
   title: { type: String, required: true },
@@ -20,7 +22,7 @@ const newsSchema = new mongoose.Schema({
   }]
 });
 
-// Create and export the news model
+// JC - Create and export the news model
 const News = mongoose.model('news', newsSchema);
 
 module.exports = News;
