@@ -22,12 +22,21 @@ const JobPreferences = ({ formData, handleChange }) => {
         <Form.Group controlId="location" className="mb-3">
           <Form.Label>Preferred Location</Form.Label>
           <Form.Control
-            type="text"
+            as="select"
             name="location"
-            value={formData.jobPreferences.location || ""}
+            value={formData.jobPreferences.location}
             onChange={handleChange}
-            placeholder="Enter preferred location"
-          />
+          >
+          <option value="">Select Location</option>
+          <option value="Auckland">Auckland</option>
+          <option value="Wellington">Wellington</option>
+          <option value="Christchurch">Christchurch</option>
+          <option value="Dunedin">Dunedin</option>
+          <option value="Napier">Napier</option>
+          <option value="Hamilton">Hamilton</option>
+          <option value="Tauranga">Tauranga</option>
+          <option value="Queenstown">Queenstown</option>
+          </Form.Control>
         </Form.Group>
 
         <Form.Group controlId="salary" className="mb-3">
@@ -53,12 +62,19 @@ const JobPreferences = ({ formData, handleChange }) => {
         <Form.Group controlId="industry" className="mb-3">
           <Form.Label>Preferred Industry</Form.Label>
           <Form.Control
-            type="text"
+            as="select"
             name="industry"
-            value={formData.jobPreferences.industry || ""}
+            value={formData.jobPreferences.industry}
             onChange={handleChange}
-            placeholder="Enter preferred industry"
-          />
+          >
+          <option value="">Select Industry</option>
+          <option value="IT">IT</option>
+          <option value="Finance">Finance</option>
+          <option value="Health">Health</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Trades">Trades</option>
+          <option value="Engineering">Engineering</option>
+          </Form.Control>
         </Form.Group>
       </Card.Body>
     </Card>
