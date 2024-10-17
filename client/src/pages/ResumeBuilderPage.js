@@ -8,10 +8,10 @@ function ResumeBuilderPage() {
     name: "",
     email: "",
     phone: "",
-    education: [""], // Start with one empty education field
-    experience: [""], // Start with one empty experience field
-    skills: [""], // Start with one empty skills field
-    references: [""], // Start with one empty references field
+    education: [""],
+    experience: [""],
+    skills: [""],
+    references: [""],
   };
 
   const [formData, setFormData] = useState(initialFormData);
@@ -97,7 +97,7 @@ function ResumeBuilderPage() {
     doc.line(10, 35, 200, 35); // Line below contact info
 
     // Function to add a section with title and content
-    const addSection = (title, content, startY) => {
+    const addSection = (title, content, startY, extraSpacing = 0) => {
       doc.setFontSize(18);
       doc.setFont("helvetica", "bold");
       doc.text(title, 14, startY);
@@ -105,7 +105,7 @@ function ResumeBuilderPage() {
       doc.setFontSize(12);
       doc.setFont("helvetica", "normal");
 
-      const itemStartY = startY + 8; // Start position after title
+      const itemStartY = startY + 8 + extraSpacing; // Start position after title, with optional extra spacing
       content.forEach((item, index) => {
         if (item) {
           doc.text(`• ${item}`, 14, itemStartY + index * 6);
@@ -123,7 +123,7 @@ function ResumeBuilderPage() {
     addSection("Education", formData.education, 50);
     addSection("Experience", formData.experience, 90);
     addSection("Skills", formData.skills, 130);
-    addSection("References", formData.references, 160);
+    addSection("References", formData.references, 170, 5); // Extra spacing for "References"
 
     // Adding Footer
     doc.setFontSize(10);
@@ -277,7 +277,7 @@ function ResumeBuilderPage() {
               type="text"
               value={ref}
               onChange={(e) => handleReferenceChange(index, e.target.value)}
-              placeholder="Enter reference"
+              placeholder="Enter your reference"
               required
             />
           </Form.Group>
@@ -291,7 +291,7 @@ function ResumeBuilderPage() {
           </Button>
         </div>
 
-        <Button type="submit" variant="success">
+        <Button variant="success" type="submit">
           Generate PDF
         </Button>
       </Form>
