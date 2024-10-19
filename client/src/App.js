@@ -11,7 +11,11 @@ import LogoutPage from './pages/LogoutPage';
 import PostJobPage from './pages/PostJobPage';
 import CompyProfilePage from './pages/CompanyProfilePage';
 import ProfilePage from './pages/ProfilePage';
-
+import AddCompanyInfoPage from './pages/AddCompanyInfoPage';
+import EditJobPage from './pages/EditJobPage';
+import EditJobForm from './pages/EditJobForm';
+import EditCompanyForm from './pages/EditCompanyForm';
+import EditCompyInfoPage from './pages/EditCompyInfo';
 import Navbar from './components/Navbar';
 
 import { AuthProvider } from './context/AuthContext';
@@ -33,6 +37,12 @@ function App() {
                     <Route path="/post-job" element={<PostJobPage />} />
                     <Route path="/company-profile" element={<CompyProfilePage />} />
                     <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/addcompaniesinfo" element={<AddCompanyInfoPage />} />
+                    <Route path="/editjob" element={<EditJobPage />} />
+                    <Route path="/editjob/:jobId" element={<EditJobForm />} />
+                    <Route path="/editcompyinfo" element={<EditCompyInfoPage />} />
+                    <Route path="/editcompany/:companyId" element={<EditCompanyForm />} />
+
 
                 </Routes>
             </Router>
