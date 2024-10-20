@@ -1,4 +1,3 @@
-// src/components/Navbar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -6,8 +5,14 @@ import { useTheme } from '../context/ThemeContext'; // Import useTheme
 import './Navbar.css';
 
 function Navbar() {
-    const { isAuthenticated, userType } = useAuth(); // Get userType from AuthContext
+    const { isAuthenticated, userType, setIsAuthenticated } = useAuth(); // Get userType and setIsAuthenticated from AuthContext
     const { theme, toggleTheme } = useTheme(); // Get the current theme and toggle function
+
+    const handleLogout = () => {
+        // Optional: Add logic to handle logout before navigating
+        localStorage.removeItem('token');
+        setIsAuthenticated(false);
+    };
 
     return (
         <nav className={`navbar navbar-expand-lg ${theme === 'dark' ? 'bg-dark text-light' : 'bg-light text-dark'}`}>
@@ -47,16 +52,18 @@ function Navbar() {
                                         <li className="nav-item">
                                             <Link className="nav-link" to="/salary-estimator">Salary Estimator</Link>
                                         </li>
-                                        <li className="nav-item">
-                                            <Link className="nav-link" to="/company-profile">Company Profile</Link>
-                                        </li>
                                     </>
                                 )}
                             </>
                         )}
                         {isAuthenticated ? (
                             <li className="nav-item">
-                                <Link className="nav-link" to="/logout">Logout</Link>
+                                <button 
+                                    className="btn btn-danger" // Red button style
+                                    onClick={handleLogout}
+                                >
+                                    Logout
+                                </button>
                             </li>
                         ) : (
                             <>
@@ -72,7 +79,7 @@ function Navbar() {
 
                     {/* Dark/Light Mode Toggle Button */}
                     <button
-                        className={`btn btn-sm ${theme === 'dark' ? 'btn-light' : 'btn-dark'}`}
+                        className={`btn ${theme === 'dark' ? 'btn-light' : 'btn-dark'}`} // Changed to btn
                         onClick={toggleTheme}
                         style={{ marginLeft: 'auto' }} // Ensures it aligns to the far right
                     >
