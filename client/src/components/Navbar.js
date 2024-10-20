@@ -6,7 +6,7 @@ import { useTheme } from '../context/ThemeContext'; // Import useTheme
 import './Navbar.css';
 
 function Navbar() {
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, userType } = useAuth(); // Get userType from AuthContext
     const { theme, toggleTheme } = useTheme(); // Get the current theme and toggle function
 
     return (
@@ -26,21 +26,32 @@ function Navbar() {
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/jobs">Job Listings</Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/post-job">Post Job</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/profile">My Profile</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/company-reviews">Company Reviews</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/company-profile">Company Profile</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link" to="/salary-estimator">Salary Estimator</Link>
-                                </li>
+                                {userType === 'company' && (
+                                    <>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/post-job">Post Job</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/company-profile">Company Profile</Link>
+                                        </li>
+                                    </>
+                                )}
+                                {userType === 'user' && (
+                                    <>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/profile">My Profile</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/company-reviews">Company Reviews</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/salary-estimator">Salary Estimator</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/company-profile">Company Profile</Link>
+                                        </li>
+                                    </>
+                                )}
                             </>
                         )}
                         {isAuthenticated ? (

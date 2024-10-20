@@ -8,10 +8,11 @@ function LoginPage() {
     const [formData, setFormData] = useState({
         username: '',
         password: '',
+        userType: 'user' // Default to 'user'
     });
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-    const { setIsAuthenticated } = useAuth();
+    const { setIsAuthenticated, setUserType } = useAuth(); // Include setUserType
     const navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -26,7 +27,9 @@ function LoginPage() {
         try {
             const response = await axios.post('http://localhost:5000/api/login', formData);
             localStorage.setItem('token', response.data.token); // Save token to local storage
+            localStorage.setItem('userType', formData.userType); // Save user type (user/company)
             setIsAuthenticated(true); // Update authentication status
+            setUserType(formData.userType); // Set user type in auth context
             setSuccess('Login successful. Redirecting...');
             navigate('/'); // Redirect to home 
         } catch (err) {
@@ -67,6 +70,19 @@ function LoginPage() {
                                     required
                                     style={{ height: '50px', fontSize: '16px' }}
                                 />
+                            </Form.Group>
+
+                            <Form.Group controlId="formUserType" className="mb-3">
+                                <Form.Label>Login as</Form.Label>
+                                <Form.Select
+                                    name="userType"
+                                    value={formData.userType}
+                                    onChange={handleChange}
+                                    style={{ height: '50px', fontSize: '16px' }}
+                                >
+                                    <option value="user">User</option>
+                                    <option value="company">Company</option>
+                                </Form.Select>
                             </Form.Group>
 
                             <Button variant="primary" type="submit" className="w-100" style={{ padding: '12px' }}>

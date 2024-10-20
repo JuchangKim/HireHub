@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 function RegisterPage() {
   const [formData, setFormData] = useState({
+    userType: "user", // Default user type
     firstName: "",
     lastName: "",
     email: "",
@@ -64,6 +65,7 @@ function RegisterPage() {
 
     try {
       await axios.post("http://localhost:5000/api/register", {
+        userType: formData.userType, // Include userType in registration data
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
@@ -73,6 +75,7 @@ function RegisterPage() {
       });
       setSuccess("Registration successful. You can now log in.");
       setFormData({
+        userType: "user", // Reset userType to default after successful registration
         firstName: "",
         lastName: "",
         email: "",
@@ -83,7 +86,7 @@ function RegisterPage() {
       });
     } catch (err) {
       console.error("Registration error:", err);
-      setError(err.response?.data || "Registration failed");
+      setError(err.response?.data?.message || "Registration failed");
     }
   };
 
@@ -95,6 +98,20 @@ function RegisterPage() {
           {error && <Alert variant="danger">{error}</Alert>}
           {success && <Alert variant="success">{success}</Alert>}
           <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="formUserType" className="mb-3">
+              <Form.Label>User Type</Form.Label>
+              <Form.Select
+                name="userType"
+                value={formData.userType}
+                onChange={handleChange}
+                required
+                className="input-field"
+              >
+                <option value="user">User</option>
+                <option value="company">Company</option>
+              </Form.Select>
+            </Form.Group>
+
             <Row>
               <Col md={6}>
                 <Form.Group controlId="formFirstName" className="mb-3">
@@ -125,6 +142,7 @@ function RegisterPage() {
                 </Form.Group>
               </Col>
             </Row>
+
             <Form.Group controlId="formEmail" className="mb-3">
               <Form.Label>Email Address</Form.Label>
               <Form.Control
