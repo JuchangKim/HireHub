@@ -14,6 +14,7 @@ import CompanyProfilePage from './pages/CompanyProfilePage';
 import ProfilePage from './pages/ProfilePage';
 import SalaryEstimator from './pages/SalaryEstimator';
 import LeisurePage from './pages/LeisurePage';
+import ResumeBuilderPage from './pages/ResumeBuilderPage';
 
 import './App.css';
 import Navbar from './components/Navbar';
@@ -74,6 +75,7 @@ function AuthBasedRoutes() {
             <Routes>
                 <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
                 <Route path="/applications" element={<ProtectedRoute><ApplicationsPage /></ProtectedRoute>} />
+                <Route path="/resume-builder" element={<ProtectedRoute><ResumeBuilderPage /></ProtectedRoute>} />
                 {/* Add more user-specific routes if needed */}
             </Routes>
         );

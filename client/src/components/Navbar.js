@@ -52,6 +52,9 @@ function Navbar() {
                                         <li className="nav-item">
                                             <Link className="nav-link" to="/salary-estimator">Salary Estimator</Link>
                                         </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/resume-builder">Resume Builder</Link>
+                                        </li>
                                     </>
                                 )}
                             </>
