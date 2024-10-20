@@ -73,6 +73,9 @@ function Navbar() {
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/signup">Register</Link>
                                 </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/leisure">Leisure</Link>
+                                </li>
                             </>
                         )}
                     </ul>

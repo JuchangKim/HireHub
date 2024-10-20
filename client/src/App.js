@@ -13,6 +13,7 @@ import PostJobPage from './pages/PostJobPage';
 import CompanyProfilePage from './pages/CompanyProfilePage';
 import ProfilePage from './pages/ProfilePage';
 import SalaryEstimator from './pages/SalaryEstimator';
+import LeisurePage from './pages/LeisurePage';
 
 import './App.css';
 import Navbar from './components/Navbar';
@@ -43,6 +44,7 @@ function App() {
                         <Route path="/logout" element={<LogoutPage />} />
                         <Route path="/salary-estimator" element={<ProtectedRoute><SalaryEstimator /></ProtectedRoute>} />
                         <Route path="/company-profile" element={<ProtectedRoute><CompanyProfilePage /></ProtectedRoute>} />
+                        <Route path="/leisure" element={<LeisurePage />} />
 
                         {/* Conditionally render user or company routes based on userType */}
                         <Route path="/*" element={<AuthBasedRoutes />} />
