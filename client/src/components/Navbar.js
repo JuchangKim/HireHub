@@ -149,11 +149,18 @@ function Navbar() {
                                 </li>
 
                                 
+<<<<<<< HEAD
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/industry-news">Industry News</Link>
+                                </li>
+
+=======
 =======
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/salary-estimator">Salary Estimator</Link>
                                 </li>
 >>>>>>> merge-branch-sprint-2
+>>>>>>> 327ade07a98c6260a2a2e8c184923453c911f21d
                             </>
                         )}
                         {isAuthenticated ? (
