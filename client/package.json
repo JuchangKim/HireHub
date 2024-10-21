@@ -3,11 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
+=======
+    "@babel/core": "^7.25.2",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+>>>>>>> 327ade07a98c6260a2a2e8c184923453c911f21d
     "axios": "^1.7.7",
+    "axios-mock-adapter": "^2.0.0",
     "bootstrap": "^5.3.3",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.3",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.5",
     "react-dom": "^18.3.1",
@@ -41,8 +51,14 @@
     ]
   },
   "devDependencies": {
+<<<<<<< HEAD
     "@babel/preset-env": "^7.25.7",
     "@babel/preset-react": "^7.25.7",
+=======
+    "@babel/preset-env": "^7.25.4",
+    "@babel/preset-react": "^7.24.7",
+    "@types/testing-library__jest-dom": "^6.0.0",
+>>>>>>> 327ade07a98c6260a2a2e8c184923453c911f21d
     "babel-jest": "^29.7.0"
   },
   "jest": {
@@ -51,9 +67,13 @@
     },
     "transformIgnorePatterns": [
       "/node_modules/(?!axios)"
+<<<<<<< HEAD
     ],
     "moduleNameMapper": {
       "\\.(css|less|scss|sass)$": "identity-obj-proxy"
     }
+=======
+    ]
+>>>>>>> 327ade07a98c6260a2a2e8c184923453c911f21d
   }
 }
