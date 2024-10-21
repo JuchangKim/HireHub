@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Form, Button, Alert, Card, Row, Col } from "react-bootstrap";
+import JobPreferences from "./JobPreferences"; // Import the JobPreferences card
 
+// JC - The user has jobpreferences data
 const Profile = () => {
   const [error, setError] = useState(null);
   const [formData, setFormData] = useState({
@@ -10,6 +12,13 @@ const Profile = () => {
     email: "",
     phoneNumber: "",
     resume: "",
+    // JC - the job preferences is declared here.
+    jobPreferences: {
+      salary: "",
+      location: "",
+      industry: "",
+      jobTitle: ""
+    } // Updating job preference
   });
   const [resumeFileName, setResumeFileName] = useState("");
   const [message, setMessage] = useState("");
@@ -17,6 +26,7 @@ const Profile = () => {
   const [resumeSuccessMessage, setResumeSuccessMessage] = useState("");
   const [formErrors, setFormErrors] = useState({});
 
+  // JC - the job preferences data also will be represented.
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem("token");
@@ -38,6 +48,14 @@ const Profile = () => {
           email: response.data.email,
           phoneNumber: response.data.phoneNumber,
           resume: response.data.resume || "",
+          // JC - the job Preferences data are added.
+          jobPreferences: {
+            jobTitle: response.data.jobPreferences?.jobTitle || "",
+            location: response.data.jobPreferences?.location || "",
+            salary: response.data.jobPreferences?.salary || "",
+            industry: response.data.jobPreferences?.industry || "",
+          },
+
         });
         setResumeFileName(response.data.resumeFileName || "");
       } catch (err) {
@@ -71,11 +89,28 @@ const Profile = () => {
     return Object.keys(errors).length === 0;
   };
 
+  // JC - the jobPreferences data is also added and show the previous jobPreferences data first.
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    
+    if (['salary', 'location', 'industry', 'jobTitle'].includes(name)) {
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        jobPreferences: {
+          ...prevFormData.jobPreferences,
+          [name]: value
+        }
+      }));
+    } else {
+      // JC - For other fields outside jobPreferences
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        [name]: value
+      }));
+    }
   };
 
+  // JC - when submit, the jobPreferences data is submitted together.
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -85,11 +120,21 @@ const Profile = () => {
 
     const token = localStorage.getItem("token");
 
+
     try {
       await axios.put(
         "http://localhost:5000/api/profile",
-        formData,
         {
+          ...formData,
+          // JC - Adding jobPreferences data when submit.
+        jobPreferences: { 
+          jobTitle: formData.jobPreferences.jobTitle || "", 
+          location: formData.jobPreferences.location || "", 
+          industry: formData.jobPreferences.industry || "", 
+          salary: formData.jobPreferences.salary || ""
+        }
+      },
+      {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -168,6 +213,7 @@ const Profile = () => {
           <h2 className="text-center mb-4">Profile</h2>
           {message && <Alert variant="info">{message}</Alert>}
           <Form onSubmit={handleSubmit}>
+            
             <Form.Group controlId="formFirstName">
               <Form.Label>First Name</Form.Label>
               <Form.Control
@@ -228,6 +274,9 @@ const Profile = () => {
                 {formErrors.phoneNumber}
               </Form.Control.Feedback>
             </Form.Group>
+            {/* JobPreferences card is added between phone number and resume */}
+            <JobPreferences formData={formData} handleChange={handleChange} />
+            
             <Form.Group controlId="formResume">
               <Form.Label>Upload Resume (10MB PDF Only)</Form.Label>
               <Form.Control
