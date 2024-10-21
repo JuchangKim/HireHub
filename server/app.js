@@ -5,7 +5,12 @@ const cors = require('cors');
 const jobRoutes = require('./routes/jobRoutes');
 const userRoutes = require('./routes/userRoutes'); 
 const reviewRoutes = require('./routes/reviewRoutes'); 
+<<<<<<< HEAD
 const companyRoutes = require('./routes/companyRoutes');
+=======
+const salaryRoutes = require('./routes/salaryRoutes');
+
+>>>>>>> merge-branch-sprint-2
 // Connect to MongoDB
 connectDB();
 
@@ -17,7 +22,11 @@ app.use(express.json());
 app.use('/api', jobRoutes);
 app.use('/api', userRoutes); 
 app.use('/api', reviewRoutes); 
+<<<<<<< HEAD
 app.use('/api/companies', companyRoutes);
+=======
+app.use('/api/salary', salaryRoutes);
+>>>>>>> merge-branch-sprint-2
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
