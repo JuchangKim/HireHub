@@ -74,13 +74,13 @@ mongoose.connect(uri)
         datePosted: new Date('2024-08-25')
     },
     {
-        title: 'Marketing Manager',
-        company: 'AdPro',
+        title: 'Marketing Coordinator - ANZ',
+        company: 'ADInstruments',
         location: 'Dunedin',
         salary: '90-100k',
         sector: 'Marketing',
         workType: 'Full-Time',
-        description: 'Lead marketing campaigns and strategies to increase brand visibility and customer engagement.',
+        description: 'The position is based in Dunedin and works closely with the Global Marketing team and the ANZ Sales and Support teams, based in Sydney. As the ANZ Marketing Coordinator, you will coordinate and execute marketing plans and activities for the ANZ region that will grow awareness, generate inquiries, and create ongoing engagement with our products and people. A major element of the role is coordinating with our Sydney-based Sales and Support teams on their requirements for attending in-person events and conferences. This could involve organising logistics, sending emails to encourage visitors to engage with us at the event, and coordinating booth graphics and swag.You will need to be organised and able to multitask. Some travel domestically and to Australia to attend conferences and events will be required. You will also support the sales teams with their email and digital marketing. This includes creating invitations for workshops and webinars, and putting out an interesting and click-worthy monthly e-newsletter for the ANZ region. You will be self-motivated to own and drive digital marketing initiatives for the region, from making compelling social media campaigns to creating digital content like e-books or customer stories.',
         datePosted: new Date('2024-09-05')
     },
     {
