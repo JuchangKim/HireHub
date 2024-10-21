@@ -56,26 +56,22 @@ function CompanyProfilePage() {
             {filteredCompanies.length > 0 ? (
                 <Row>
                     {filteredCompanies.map(company => (
-                        <Col md={6} key={company.id} className="mb-4 d-flex align-items-stretch">
+                        <Col md={6} key={company._id} className="mb-4 d-flex align-items-stretch">
                             <Card className="w-100">
                                 <Card.Img variant="top" src={company.image} />
                                 <Card.Body>
                                     <Card.Title className="mb-3">{company.name}</Card.Title>
                                     <Card.Text>
-                                       
-                                            <strong>Contact Information:</strong>
-                                            <br />
-                                                Phone: {company.phone}<br />
-                                                Email: {company.email}<br />
-                                                Location: {company.location}
-                                            
+                                        <strong>Contact Information:</strong>
+                                        <br />
+                                        Phone: {company.phone}<br />
+                                        Email: {company.email}<br />
+                                        Location: {company.location}
                                     </Card.Text>
                                     <Card.Text>
-                                        
                                         <strong>Background:</strong><br />
                                         {company.background}<br /><br />
-                                        
-                                        <strong>Mission:</strong><br /> 
+                                        <strong>Mission:</strong><br />
                                         {company.mission}
                                     </Card.Text>
                                     <Card.Text>
@@ -88,7 +84,7 @@ function CompanyProfilePage() {
                                     </Card.Text>
                                     <Card.Text>
                                         <strong>Testimonials:</strong><br />
-                                        {company.testimonials.map((test, index) => (
+                                        {company.testimonials && company.testimonials.map((test, index) => (
                                             <p key={index} style={{ marginBottom: '0.5rem' }}>{test}</p>
                                         ))}
                                     </Card.Text>
@@ -98,7 +94,7 @@ function CompanyProfilePage() {
                                             <iframe
                                                 width="100%"
                                                 height="200"
-                                                src={company.video}
+                                                src={company.video} 
                                                 title={`Video about ${company.name}`}
                                                 frameBorder="0"
                                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -106,6 +102,7 @@ function CompanyProfilePage() {
                                             ></iframe>
                                         </div>
                                     )}
+
                                 </Card.Body>
                             </Card>
                         </Col>
@@ -118,4 +115,8 @@ function CompanyProfilePage() {
     );
 }
 
+<<<<<<< HEAD
 export default CompanyProfilePage;
+=======
+export default CompanyProfilePage;
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4

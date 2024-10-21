@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+<<<<<<< HEAD
 import { Container, Row, Col, Table, Button, Alert, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
@@ -19,6 +20,17 @@ function EditJobPage() {
     const [formData, setFormData] = useState(initialFormData);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+=======
+import { Table, Button, Container, Alert } from 'react-bootstrap';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import './EditJobPage.css';
+
+function EditJobPage() {
+    const [jobs, setJobs] = useState([]);
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null); 
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -31,6 +43,7 @@ function EditJobPage() {
             }
         };
         fetchJobs();
+<<<<<<< HEAD
         // If jobId exists, fetch job data for editing
         if (jobId) {
             const fetchJob = async () => {
@@ -74,6 +87,9 @@ function EditJobPage() {
             setError('Error saving job information');
         }
     };
+=======
+    }, []);
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
 
     const handleEdit = (jobId) => {
         navigate(`/editjob/${jobId}`); 
@@ -91,6 +107,7 @@ function EditJobPage() {
         }
     };
 
+<<<<<<< HEAD
     return (
         <Container className="mt-5">
             <Row>
@@ -246,6 +263,52 @@ function EditJobPage() {
                     font-size: 1rem;
                 }
             `}</style>
+=======
+    if (error) {
+        return <Alert variant="danger">{error}</Alert>;
+    }
+
+    return (
+        <Container className="mt-5">
+            <h2 className="text-center mb-4">Edit Job Listings</h2>
+            {success && <Alert variant="success">{success}</Alert>}
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Company</th>
+                        <th>Location</th>
+                        <th>Salary</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {jobs.map(job => (
+                        <tr key={job._id}>
+                            <td>{job.title}</td>
+                            <td>{job.company}</td>
+                            <td>{job.location}</td>
+                            <td>{job.salary}</td>
+                            <td>
+                                <Button
+                                    variant="warning"
+                                    onClick={() => handleEdit(job._id)}
+                                    className="me-2"
+                                >
+                                    Edit
+                                </Button>
+                                <Button
+                                    variant="danger"
+                                    onClick={() => handleDelete(job._id)}
+                                >
+                                    Delete
+                                </Button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </Table>
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
         </Container>
     );
 }

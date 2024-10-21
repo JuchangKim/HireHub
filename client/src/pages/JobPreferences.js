@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 // obPreferences.js - This is job preferences card which is using in the profile page and register page.
+=======
+// JC - JobPreferences.js - This is job preferences card which is using in the profile page and register page.
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
 
 import React from "react";
 import { Form, Card } from "react-bootstrap";
@@ -65,4 +69,8 @@ const JobPreferences = ({ formData, handleChange }) => {
   );
 };
 
+<<<<<<< HEAD
 export default JobPreferences;
+=======
+export default JobPreferences;
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
