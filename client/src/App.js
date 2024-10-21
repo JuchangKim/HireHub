@@ -17,6 +17,8 @@ import LeisurePage from './pages/LeisurePage';
 import ResumeBuilderPage from './pages/ResumeBuilderPage';
 import EditJobPage from './pages/EditJobPage';
 import ManageCompanyInfo from './pages/ManageCompanyInfo';
+import IndustryNewsPage from './pages/IndustryNewsPage';
+import IndustryNewsDetailsPage from './pages/IndustryNewsDetailsPage';
 
 import './App.css';
 import Navbar from './components/Navbar';
@@ -82,6 +84,8 @@ function AuthBasedRoutes() {
                 <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
                 <Route path="/applications" element={<ProtectedRoute><ApplicationsPage /></ProtectedRoute>} />
                 <Route path="/resume-builder" element={<ProtectedRoute><ResumeBuilderPage /></ProtectedRoute>} />
+                <Route path="/industry-news" element={<ProtectedRoute><IndustryNewsPage /></ProtectedRoute>} />
+                <Route path="/industry-news/:id" element={<ProtectedRoute><IndustryNewsDetailsPage /></ProtectedRoute>} />
                 {/* Add more user-specific routes if needed */}
             </Routes>
         );
