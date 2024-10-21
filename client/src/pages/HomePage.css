@@ -1,62 +1,128 @@
 /* HomePage.css */
 
+/* Make the search bar responsive and dynamic */
 .search-bar {
     width: 100%;
-    max-width: 1000px; /* Adjust width as needed */
+    max-width: 1000px; /* Maximum width for larger screens */
+    flex-grow: 1; /* Grow with available space */
+    margin: 0 auto; /* Center the search bar */
+    padding: 0.5rem;
 }
 
+/* Make job card fully responsive */
 .job-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+    padding: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    margin-bottom: 1rem; /* Spacing between job cards */
+}
+
+/* Ensure the card body takes full height and is responsive */
+.job-card .card-body {
     display: flex;
     flex-direction: column;
     height: 100%;
     justify-content: space-between;
 }
 
-.job-card .card-body {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
+/* Grow the card text to take up space */
 .job-card .card-body .card-text {
     flex-grow: 1;
 }
 
+/* Adjust margins for title and subtitle */
 .card-title, .card-subtitle {
     margin-bottom: 0.5rem;
 }
 
+/* Dynamically adjust the text size */
 .card-text {
     font-size: 0.9rem;
 }
 
+/* Make label and value alignment more flexible */
 .card-text strong {
     display: inline-block;
-    width: 120px; /* Adjust width to align the labels and values */
+    min-width: 120px; /* Minimum width to align labels and values */
+    max-width: 200px; /* Ensure it doesn’t stretch too much */
+    width: auto;
+    margin-right: 0.5rem; /* Add space between label and value */
 }
 
+/* Add margin between lines */
 .card-text br {
     margin-bottom: 0.5rem;
 }
 
-/* Align dropdown and search button */
+/* Remove default dropdown arrow */
 .dropdown-toggle::after {
-    display: none; /* Hide default dropdown arrow */
+    display: none; /* Hide the default dropdown arrow */
 }
 
+/* Use flexbox for search bar layout */
 .d-flex {
     display: flex;
     align-items: center;
+    justify-content: space-between; /* Ensure button stays aligned to the right */
 }
 
+/* Adjust margin dynamically */
 .ml-3 {
     margin-left: 1rem;
 }
 
+/* Flex-grow for the search bar */
 .search-bar {
     flex-grow: 1;
+    padding: 0.5rem;
+    margin-right: 1rem;
 }
 
+/* Ensure button doesn't shrink */
 button {
     flex-shrink: 0;
+    padding: 0.5rem 1rem;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .search-bar {
+        max-width: 100%; /* Take full width on small screens */
+        padding: 0.5rem;
+    }
+
+    /* Stack job card elements for smaller screens */
+    .job-card {
+        flex-direction: column;
+    }
+
+    /* Adjust card text size for better readability on smaller screens */
+    .card-text {
+        font-size: 0.85rem;
+    }
+
+    /* Adjust strong tag alignment on small screens */
+    .card-text strong {
+        min-width: 100px; /* Reduce width on small screens */
+    }
+
+    .d-flex {
+        flex-direction: column; /* Stack search bar and button vertically */
+    }
+
+    button {
+        margin-top: 1rem; /* Add margin on top for better spacing */
+        width: 100%; /* Make button full width */
+    }
+}
+
+/* Responsive design for larger screens */
+@media (min-width: 1200px) {
+    .search-bar {
+        max-width: 80%; /* Restrict width on large screens */
+    }
 }

@@ -1,0 +1,49 @@
+
+.edit-job-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.edit-job-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.edit-job-table th, 
+.edit-job-table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.edit-job-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.edit-job-table td {
+    background-color: #ffffff;
+}
+
+.edit-button {
+    background-color: #ffc107;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+    background-color: #e0a800;
+}
+
+.edit-job-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
