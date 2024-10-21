@@ -16,6 +16,7 @@ import SalaryEstimator from './pages/SalaryEstimator';
 import LeisurePage from './pages/LeisurePage';
 import ResumeBuilderPage from './pages/ResumeBuilderPage';
 import EditJobPage from './pages/EditJobPage';
+import ManageCompanyInfo from './pages/ManageCompanyInfo';
 
 import './App.css';
 import Navbar from './components/Navbar';
@@ -68,6 +69,8 @@ function AuthBasedRoutes() {
                 <Route path="/post-job" element={<ProtectedRoute><PostJobPage /></ProtectedRoute>} />
                 <Route path="/editjob" element={<ProtectedRoute><EditJobPage/></ProtectedRoute>} />
                 <Route path="/editjob/:jobId" element={<ProtectedRoute><EditJobPage /></ProtectedRoute>} />
+                <Route path="/editcompyinfo" element={<ProtectedRoute><ManageCompanyInfo/></ProtectedRoute>} />
+                <Route path="/editcompany/:companyId" element={<ProtectedRoute><ManageCompanyInfo /></ProtectedRoute>} />
                 {/* Add more company-specific routes if needed */}
             </Routes>
         );

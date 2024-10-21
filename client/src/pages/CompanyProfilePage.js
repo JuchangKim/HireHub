@@ -1,83 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Card, Alert } from 'react-bootstrap';
-import './CompyProfilePage.css';  // Optional: For any custom CSS
+import axios from 'axios';
+import './CompyProfilePage.css';
 
-const companiesData = [
-    {
-        id: 1,
-        name: 'Xero',
-        phone: '04-901-5050',
-        email: 'info@xero.com',
-        location: 'Level 1, 20 Customhouse Quay, Wellington',
-        background: 'Xero is a New Zealand-based software company that develops cloud-based accounting software.',
-        mission: 'To make life better for small businesses.',
-        benefits: 'Health insurance, Flexible working hours, Employee stock options.',
-        culture: 'Xero promotes a culture of inclusivity and innovation.',
-        testimonials: [
-            '“Xero is a great place for growth!” - Jane Smith, Software Engineer',
-            '“The team spirit here is unbeatable.” - John Doe, Customer Support'
-        ],
-        image: 'https://www.a2xaccounting.com/img/content/xero.jpg',
-        video: 'https://www.youtube.com/embed/QwmGlkomnLs' 
-    },
-    {
-        id: 2,
-        name: 'Fisher & Paykel Healthcare',
-        phone: '09-574-0100',
-        email: 'info@fphcare.co.nz',
-        location: '15 Maurice Paykel Place, East Tamaki, Auckland',
-        background: 'Fisher & Paykel Healthcare is a leader in the design and manufacture of innovative products for respiratory care.',
-        mission: 'To improve the lives of patients worldwide.',
-        benefits: 'Paid parental leave, Health and wellness programs, Professional development opportunities.',
-        culture: 'We embrace diversity and encourage employee growth.',
-        testimonials: [
-            '“The innovation here is inspiring!” - Alice Brown, Product Manager',
-            '“A supportive and dynamic workplace.” - Mark Wilson, R&D Specialist'
-        ],
-        image: 'https://connect-assets.prosple.com/cdn/ff/rIVrNCdceKs6-Sc-TVF6E8U9Zt_jcpQfKqYxbGRJ19w/1715665898/public/styles/scale_and_crop_center_890x320/public/2024-05/Banner%20%2831%29.jpg?itok=Mqn7-aHx',
-        video: 'https://www.youtube.com/embed/6Tfg_Puj-jI'
-    },
-    {
-        id: 3,
-        name: 'Air New Zealand',
-        phone: '0800 737 000',
-        email: 'customer.service@airnz.co.nz',
-        location: 'Private Bag 92007, Auckland Airport, Auckland',
-        background: 'Air New Zealand is the national airline and flag carrier of New Zealand.',
-        mission: 'To be New Zealand’s most loved airline.',
-        benefits: 'Travel discounts, Health insurance, Employee recognition programs.',
-        culture: 'We focus on safety and customer service while fostering a friendly work environment.',
-        testimonials: [
-            '“Flying with Air New Zealand feels like home!” - Sarah Johnson, Cabin Crew',
-            '“Fantastic team and amazing experiences!” - Tom Green, Pilot'
-        ],
-        image: 'https://flywith.virginatlantic.com/content/dam/HelpCentre/banner-air-new-zealand.jpg.transform/1280x708/image.jpg',
-        video: 'https://www.youtube.com/embed/X84SuT5gAV0' 
-    },
-    {
-        id: 4,
-        name: 'Rocket Lab',
-        phone: '0800 762 538',
-        email: 'info@rocketlabusa.com',
-        location: '13 Seddon Street, Mt Wellington, Auckland',
-        background: 'Rocket Lab is a private American aerospace manufacturer and small satellite launch service.',
-        mission: 'To open access to space for small satellites.',
-        benefits: 'Comprehensive health benefits, Team outings, Career development opportunities.',
-        culture: 'Rocket Lab fosters a culture of innovation and collaboration.',
-        testimonials: [
-            '“Working at Rocket Lab is a dream come true for any space enthusiast!” - Lisa White, Mission Manager',
-            '“The environment here is fast-paced and inspiring.” - David Brown, Engineer'
-        ],
-        image: 'https://gohireher.com/wp-content/uploads/2023/08/RL_Logo_2022_-_Twitter_Banner_1-1692067200-1140x400.jpg',
-        video: 'https://www.youtube.com/embed/PKVaOht_stI' 
-    }
-];
-
-function CompyProfilePage() {
+function CompanyProfilePage() {
     const [searchTerm, setSearchTerm] = useState('');
-    const filteredCompanies = companiesData.filter(company =>
+    const [companies, setCompanies] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+
+    useEffect(() => {
+        const fetchCompanies = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/companies');
+                setCompanies(response.data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching company data:', error);
+                setError('Failed to load company data');
+                setLoading(false);
+            }
+        };
+        fetchCompanies();
+    }, []);
+
+
+    const filteredCompanies = companies.filter(company =>
         company.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>{error}</div>;
+    }
 
     return (
         <Container className="mt-5">
@@ -159,4 +118,4 @@ function CompyProfilePage() {
     );
 }
 
-export default CompyProfilePage;
+export default CompanyProfilePage;
