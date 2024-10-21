@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const JobListing = require('../models/JobListing');
+const { getJobs, getJobById, updateJob, deleteJob } = require('../controllers/jobController');
 const { authenticateToken } = require('../middleware/authenticateToken'); // Import authentication middleware
 
 // Route to get all jobs with filters and sorting
@@ -94,5 +95,35 @@ router.post('/jobs', async (req, res) => {
         res.status(500).json({ message: 'Error posting job' });
     }
 });
+
+// Route to update job by ID
+router.put('/jobs/:id', async (req, res) => {
+    try {
+        const updatedJob = await JobListing.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updatedJob) {
+            return res.status(404).json({ message: 'Job not found' });
+        }
+        res.json({ message: 'Job updated successfully', job: updatedJob });
+    } catch (error) {
+        console.error('Error updating job:', error);
+        res.status(500).json({ message: 'Error updating job' });
+    }
+});
+
+
+// Route to delete job by ID
+router.delete('/jobs/:id', async (req, res) => {
+    try {
+        const job = await JobListing.findByIdAndDelete(req.params.id);
+        if (!job) {
+            return res.status(404).json({ message: 'Job not found' });
+        }
+        res.json({ message: 'Job deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting job:', error);
+        res.status(500).json({ message: 'Error deleting job' });
+    }
+});
+
 
 module.exports = router;
