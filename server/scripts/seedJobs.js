@@ -12,42 +12,65 @@ mongoose.connect(uri)
   const jobs = [
     {
         title: 'Software Engineer',
-        company: 'TechCorp',
-        location: 'Auckland',
+        company: 'Oceania Aerospace Ventures Limited',
+        location: 'Christchurch',
         salary: '80-90k',
-        sector: 'IT',
+        sector: 'Engineering',
         workType: 'Full-Time',
-        description: 'Develop and maintain software applications. Work closely with product teams to deliver high-quality software solutions.',
+        description: 'Fiso Engineering & Aerospace is seeking a skilled, experienced, and highly motivated Software Engineer to join our team. The position involves working collaboratively with an interdisciplinary engineering team to create, develop, and implement innovative engineering solutions across a range of industries & sectors. The software engineer is expected to solve problems within the software scope of our projects, both current, and future. These include projects in civil development and aerospace along with cross-industry technology development. These include projects in education, civil development, healthcare, alternative energy, and aerospace. Overall, the software engineer is expected to be a leader in software development at Fiso Engineering & Aerospace. Recognising the supported start-up environment that we operate in, the position demands the ability to rapidly prototype and collaborate with the hardware engineering team to deliver solutions efficiently.',
         datePosted: new Date('2024-09-01')
+    },
+
+    {
+        title: 'Software Engineer - Payments',
+        company: 'ASB Bank Limited',
+        location: 'Auckland',
+        salary: '90-100k',
+        sector: 'Engineering',
+        workType: 'Full-Time',
+        description: 'We are looking for an individual who can work independently and provide guidance to growing developers. You are pragmatic and design effective solutions. You can document and present your technical designs to a wide range of audience. You have the ability and drive to deliver Card Payment change through to the production environment. You will be given opportunities to extend your sphere of influence beyond your squad to other squads and platforms, both to share your knowledge and experience and to extend it by drawing on the knowledge and experience of others. You will work collaboratively with our squads and stakeholders to be the voice of engineering and deliver products that delight our customers.',
+        datePosted: new Date('2024-08-15')
     },
     {
         title: 'Financial Analyst',
-        company: 'FinanceCo',
+        company: 'Northpower Ltd',
         location: 'Wellington',
         salary: '60-70k',
         sector: 'Finance',
         workType: 'Full-Time',
-        description: 'Analyze financial data and create financial models for decision support. Report on financial performance and prepare for regular leadership reviews.',
+        description: 'We are seeking a proactive financial professional with ability to thrive in a fast-paced environment, supporting with gathering, analysing and reporting on large amounts of information. This role will support our Group Commercial team and Corporate budget holders with high quality financial analysis, modelling, reporting and management accounting services to aid managerial planning and commercial decision-making.',
         datePosted: new Date('2024-08-15')
     },
+
     {
-        title: 'Registered Nurse',
-        company: 'HealthCare Plus',
-        location: 'Christchurch',
+        title: 'Business Partner',
+        company: 'BNZ',
+        location: 'Queenstown',
+        salary: '90-100k',
+        sector: 'Finance',
+        workType: 'Full-Time',
+        description: 'We are looking for someone with a great attitude and desire to contribute to a high performing team!Ideally you will have existing strong business acumen and business development skills. You may already have an established professional network, or a proven ability to grow a network, in order to acquire new business. You will also have excellent attention to detail and an overwhelming desire to serve our customers brilliantly.',
+        datePosted: new Date('2024-08-20')
+    },
+
+    {
+        title: 'NURSE PRACTITIONER',
+        company: 'CICADA HEALTH LTD',
+        location: 'Tauranga',
         salary: '40-50k',
         sector: 'Health',
         workType: 'Part-Time',
-        description: 'Provide patient care and support in a healthcare facility. Collaborate with healthcare professionals to deliver quality patient care.',
+        description: 'NZ Registered Nurse Practitioner required for 2-4 days per week ( negotiable ).Providing clinics into Aged Residential Care facilities.  Weekends and evenings 1:5 on call. No overnight on call. Full drivers license required.  Other bonus funding streams also available for additional income.Clinics based from Te Puke through to Omokoroa.Collegial team with GP / NP support.  Full orientation provided. Aged Care / Palliative Care experience desirable.  ',
         datePosted: new Date('2024-08-20')
     },
     {
-        title: 'Civil Engineer',
-        company: 'BuildNZ',
-        location: 'Hamilton',
+        title: 'Graphic Designer',
+        company: 'New Zealand Taxpayers Union Inc.',
+        location: 'Wellington',
         salary: '70-80k',
-        sector: 'Engineering',
+        sector: 'IT',
         workType: 'Full-Time',
-        description: 'Plan, design, and oversee construction projects including roads, bridges, and infrastructure.',
+        description: 'We are seeking a Graphic Designer. You will play a vital role as our in-house designer in visually conveying our organisation’s mission of Lower Taxes, Less Waste and More Accountability.',
         datePosted: new Date('2024-08-25')
     },
     {
@@ -61,33 +84,33 @@ mongoose.connect(uri)
         datePosted: new Date('2024-09-05')
     },
     {
-        title: 'Electrician',
-        company: 'PowerUp Services',
-        location: 'Tauranga',
+        title: 'Electrician Required',
+        company: 'Power Jointing (2018) Limited',
+        location: 'Christchurch ',
         salary: '50-60k',
         sector: 'Trades',
         workType: 'Full-Time',
-        description: 'Install, maintain, and repair electrical systems in residential and commercial buildings.',
+        description: 'Power Jointing (2018) Limited is an electrical distribution and civil construction contractor carrying out projects across the Christchurch, Waimakariri, and Hurunui Districts. We are Currently seeking Electricians to join the team! ',
         datePosted: new Date('2024-08-30')
     },
     {
-        title: 'Teacher',
-        company: 'LearnNZ',
+        title: 'Early Childhood Teacher',
+        company: 'Childsteps Early Learning Centre',
         location: 'Napier',
-        salary: '40-50k',
+        salary: '60-70k',
         sector: 'Education',
         workType: 'Full-Time',
-        description: 'Teach primary school students and create lesson plans to meet educational objectives.',
+        description: 'Your job description involves discharging the Standards for the Teaching Profession and the Code of Professional Responsibility as set down by the Teaching Council of Aotearoa New Zealand. Joining the journey as a Childsteps teacher will provide you with meaningful learning experiences and opportunities for professional and personal development along with collaborative team learning that will grow your teaching capacity. When combined with a passionate teacher, our aesthetic and purposeful environment creates a wonderful place for nurturing the development of young children.  We would love someone who enjoys setting up fun activities and messy play, who takes pride in their environment and is strong in planning, assessment and evaluation.',
         datePosted: new Date('2024-08-10')
     },
     {
-        title: 'Chef',
-        company: 'Taste of NZ',
-        location: 'Queenstown',
+        title: 'Kitchen Assistant',
+        company: 'Arvida The Cascades ',
+        location: 'Hamilton ',
         salary: '50-60k',
         sector: 'Hospitality',
         workType: 'Full-Time',
-        description: 'Prepare and cook meals in a high-end restaurant. Work with a team to deliver a high-quality dining experience.',
+        description: 'We develop and operate communities that provide independent living and aged care services to older New Zealanders - with a resident-led approach. Each day, our interactions with our team and residents are guided by three values: Being There | In it Together | Look for a Way.',
         datePosted: new Date('2024-09-03')
     }
 ];
