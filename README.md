@@ -32,7 +32,7 @@ node .\app.js
 ```
 6. In the `Hirehub/client` directory 
 ```
-npm run
+npm start
 ```
 7. Enter ` http://localhost:3000` in your favorite browser (Chrome is recommended) or your `http://your IP address:3000` on your network
 
