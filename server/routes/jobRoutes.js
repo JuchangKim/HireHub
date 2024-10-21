@@ -1,14 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const JobListing = require('../models/JobListing');
+const { getJobs, getJobById, updateJob, deleteJob } = require('../controllers/jobController');
 const { authenticateToken } = require('../middleware/authenticateToken'); // Import authentication middleware
 
 // Route to get all jobs with filters and sorting
 router.get('/jobs', async (req, res) => {
     try {
-        const { keyword, region, sector, payRange, workType, sort } = req.query;
+        const { keyword, jobTitle, region, sector, payRange, workType, sort } = req.query;
 
         let filter = {};
+
+        // If jobTitle exists, use it to filter job titles only
+        if (jobTitle) {
+            filter.title = { $regex: jobTitle, $options: 'i' }; // Case-insensitive search in the job title only
+        }
 
         if (keyword) {
             filter.$or = [
@@ -46,7 +52,7 @@ router.get('/jobs', async (req, res) => {
                 sortOption = { datePosted: -1 }; // Descending by date posted
             }
         }
-
+        console.log('Filter used:', filter);
         const jobs = await JobListing.find(filter).sort(sortOption);
         res.json(jobs);
     } catch (error) {
@@ -92,6 +98,35 @@ router.post('/jobs', async (req, res) => {
     } catch (error) {
         console.error('Error posting job:', error); // Log error details
         res.status(500).json({ message: 'Error posting job' });
+    }
+});
+
+// Route to update job by ID
+router.put('/jobs/:id', async (req, res) => {
+    try {
+        const updatedJob = await JobListing.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!updatedJob) {
+            return res.status(404).json({ message: 'Job not found' });
+        }
+        res.json({ message: 'Job updated successfully', job: updatedJob });
+    } catch (error) {
+        console.error('Error updating job:', error);
+        res.status(500).json({ message: 'Error updating job' });
+    }
+});
+
+
+// Route to delete job by ID
+router.delete('/jobs/:id', async (req, res) => {
+    try {
+        const job = await JobListing.findByIdAndDelete(req.params.id);
+        if (!job) {
+            return res.status(404).json({ message: 'Job not found' });
+        }
+        res.json({ message: 'Job deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting job:', error);
+        res.status(500).json({ message: 'Error deleting job' });
     }
 });
 

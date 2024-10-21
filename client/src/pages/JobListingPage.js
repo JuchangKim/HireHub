@@ -12,12 +12,74 @@ function JobListingPage() {
         workType: '',
     });
 
-    // Fetch jobs with filters
+    // JC - User jobPreferences
+    const [userPreferences, setUserPreferences] = useState({
+        jobTitle: "",
+        location: "",
+        industry: "",
+        salary: "",
+    });
+
+    // JC - Track which preferences are selected
+    const [selectedPreferences, setSelectedPreferences] = useState({
+        jobTitle: true,
+        location: true,
+        industry: true,
+        salary: true,
+    });
+
+    // JC - Fetch user's job preferences
+    useEffect(() => {
+        const fetchUserPreferences = async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    const response = await axios.get('http://localhost:5000/api/profile', {
+                        headers: { Authorization: `Bearer ${token}` },
+                    });
+                    // JC - Set user preferences or default values if any preference is missing
+                    setUserPreferences({
+                        jobTitle: response.data.jobPreferences?.jobTitle || "",
+                        location: response.data.jobPreferences?.location || "",
+                        industry: response.data.jobPreferences?.industry || "",
+                        salary: response.data.jobPreferences?.salary || "",
+                    });
+                } catch (error) {
+                    console.error('Error fetching user preferences:', error);
+                }
+            }
+        };
+        fetchUserPreferences();
+    }, []);
+    
+    // JC - Fetch jobs with filters and preferences
     useEffect(() => {
         const fetchJobs = async () => {
             try {
+                const filterParams = { ...filters };
+
+            // JC - Apply jobTitle if the job title preference is selected and not empty
+            if (selectedPreferences.jobTitle && userPreferences.jobTitle) {
+                filterParams.jobTitle = userPreferences.jobTitle;
+            }
+
+            // JC - Apply location if the location preference is selected and not empty
+            if (selectedPreferences.location && userPreferences.location) {
+                filterParams.region = userPreferences.location;
+            }
+
+            // JC - Apply industry if the industry preference is selected and not empty
+            if (selectedPreferences.industry && userPreferences.industry) {
+                filterParams.sector = userPreferences.industry;
+            }
+
+            // JC - Apply salary if the salary preference is selected and not empty
+            if (selectedPreferences.salary && userPreferences.salary) {
+                filterParams.payRange = userPreferences.salary;
+            }
+
                 const response = await axios.get('http://localhost:5000/api/jobs', {
-                    params: filters
+                    params: filterParams
                 });
                 setJobs(response.data);
             } catch (error) {
@@ -26,14 +88,42 @@ function JobListingPage() {
         };
 
         fetchJobs();
-    }, [filters]);
+    }, [filters, selectedPreferences, userPreferences]);
 
+    // JC - this filter interact with jobPreference and basic filter crieteria. 
     const handleFilterChange = (e) => {
+        const { name, value } = e.target;
+
+        if (name === "region") {
+            // JC - If the user sets a region filter, uncheck the location preference
+            setSelectedPreferences((prevSelected) => ({
+                ...prevSelected,
+                location: false,
+            }));
+        }
+
+        if (name === "payRange") {
+            // JC - If the user sets a pay range filter, uncheck the salary preference
+            setSelectedPreferences((prevSelected) => ({
+                ...prevSelected,
+                salary: false,
+            }));
+        }
+
+        if (name === "sector") {
+            // JC - If the user sets a sector filter, uncheck the industry preference
+            setSelectedPreferences((prevSelected) => ({
+                ...prevSelected,
+                industry: false,
+            }));
+        }
+
         setFilters({
             ...filters,
-            [e.target.name]: e.target.value
+            [name]: value
         });
     };
+
 
     const handleClearFilters = () => {
         setFilters({
@@ -42,6 +132,40 @@ function JobListingPage() {
             payRange: '',
             workType: '',
         });
+    };
+
+    // JC - Creating checkbox with jobPreference data.
+    const handlePreferenceToggle = (e) => {
+        const { name, checked } = e.target;
+
+        if (name === "location" && checked) {
+            // JC - If the user selects the location preference, clear the region filter
+            setFilters((prevFilters) => ({
+                ...prevFilters,
+                region: "",
+            }));
+        }
+
+        if (name === "salary" && checked) {
+            // JC - If the user selects the salary preference, clear the payRange filter
+            setFilters((prevFilters) => ({
+                ...prevFilters,
+                payRange: "",
+            }));
+        }
+
+        if (name === "industry" && checked) {
+            // JC -If the user selects the location preference, clear the sector filter
+            setFilters((prevFilters) => ({
+                ...prevFilters,
+                sector: "",
+            }));
+        }
+
+        setSelectedPreferences((prevSelected) => ({
+            ...prevSelected,
+            [name]: checked,
+        }));
     };
 
     return (
@@ -119,6 +243,42 @@ function JobListingPage() {
                         </Form.Group>
                         <Button variant="secondary" onClick={handleClearFilters} className="mt-3">Clear Filters</Button>
                     </Form>
+
+                    <hr />
+                    {/* JC - Creating checkbox in the page with jobPreference data */}
+                    <h5>Suggested Jobs by Preferences</h5>
+                        <Form.Check
+                            type="checkbox"
+                            id="jobTitleCheckbox" 
+                            label={`Job Title (${userPreferences.jobTitle || 'N/A'})`}
+                            name="jobTitle"
+                            checked={selectedPreferences.jobTitle}
+                            onChange={handlePreferenceToggle}
+                        />
+                        <Form.Check
+                            type="checkbox"
+                            id="LocationCheckbox"
+                            label={`Location (${userPreferences.location || 'N/A'})`}
+                            name="location"
+                            checked={selectedPreferences.location}
+                            onChange={handlePreferenceToggle}
+                        />
+                        <Form.Check
+                            type="checkbox"
+                            id="IndustryCheckbox"
+                            label={`Industry (${userPreferences.industry || 'N/A'})`}
+                            name="industry"
+                            checked={selectedPreferences.industry}
+                            onChange={handlePreferenceToggle}
+                        />
+                        <Form.Check
+                            type="checkbox"
+                            id="SalaryCheckbox"
+                            label={`Salary (${userPreferences.salary || 'N/A'})`}
+                            name="salary"
+                            checked={selectedPreferences.salary}
+                            onChange={handlePreferenceToggle}
+                        />
                 </Col>
                 <Col xs={12} md={8} lg={9}>
                     <Row>
@@ -134,7 +294,7 @@ function JobListingPage() {
                                                 <strong>Salary:</strong> {job.salary}<br />
                                                 <strong>Sector:</strong> {job.sector}<br />
                                                 <strong>Work Type:</strong> {job.workType}<br />
-                                                <strong>Description:</strong> {job.description.substring(0, 100)}...<br />
+                                                <strong>Description:</strong> {job.description ? job.description.substring(0, 100) : "No description available"}...<br />
                                                 <strong>Date Posted:</strong> {new Date(job.datePosted).toLocaleDateString()} {/* Display datePosted */}
                                             </Card.Text>
                                             <Button variant="primary" href={`/job/${job._id}`}>View Details</Button>
@@ -144,7 +304,7 @@ function JobListingPage() {
                             ))
                         ) : (
                             <Col xs={12} className="text-center">
-                                <p>No job listings match your criteria. Please adjust your filters.</p>
+                                <p>No job listings match your criteria or preferences. Please adjust your filters or preferences.</p>
                             </Col>
                         )}
                     </Row>

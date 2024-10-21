@@ -1,0 +1,68 @@
+
+
+.edit-compy-info-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+.edit-compy-info-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.edit-compy-info-table th, 
+.edit-compy-info-table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.edit-compy-info-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.edit-compy-info-table td {
+    background-color: #ffffff;
+}
+
+
+.edit-compy-info .btn-warning, 
+.edit-compy-info .btn-danger {
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.edit-compy-info .btn-warning {
+    background-color: #ffc107;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.edit-compy-info .btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.edit-compy-info .btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.edit-compy-info .btn-danger:hover {
+    background-color: #c82333;
+}
+
+
+.edit-compy-info-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+}

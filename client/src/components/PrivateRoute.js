@@ -1,9 +1,14 @@
 import React from 'react';
 import { Route, Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext'; 
+import { useAuth } from '../context/AuthContext';
 
-const PrivateRoute = ({ element: Component, ...rest }) => {
-  const { isAuthenticated } = useAuth();
+const PrivateRoute = ({ element: Component, companyOnly = false, ...rest }) => {
+  const { isAuthenticated, userType } = useAuth();
+
+  // Check if the route is restricted to companies
+  if (companyOnly && userType !== 'company') {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <Route
