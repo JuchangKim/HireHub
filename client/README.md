@@ -1,70 +1,48 @@
-# Getting Started with Create React App
+# HireHub
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+HireHub is the best place to find a job and grow your career. HireHub is committed to connecting job seekers with top businesses, and it provides a seamless and efficient platform geared to your professional goals. Whether you're looking for your first job, want to advance your career, or want to change careers entirely, HireHub has comprehensive resources, professional advice, and an easy-to-use design to help you succeed. Discover the greatest job prospects, improve your skills, and achieve your professional objectives with HireHub—where no one does it better.
 
-## Available Scripts
+![alt text](https://imgur.com/jdZqRUV.png "HireHub homepage")
 
-In the project directory, you can run:
+## Getting Started
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+|Dependencies                 |![Package Icon](https://img.icons8.com/?size=40&id=sv4jxkTtS0tm&format=png&color=000000)|
+|-----------------------------------|-------------------------------------------------------------------------------------------|
+| Recent version of Windows          | ![Windows Icon](https://img.icons8.com/?size=40&id=gXoJoyTtYXFg&format=png&color=000000) |
+| Recent version of [Node.js](https://nodejs.org/en/) | ![Node.js Icon](https://img.icons8.com/?size=40&id=54087&format=png&color=000000) |
+| Recent version of React using npm  | ![React Icon](https://img.icons8.com/?size=40&id=123603&format=png&color=000000) |
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Installation
 
-### `npm test`
+#### Windows
+1. Clone the repo
+```
+https://github.com/JuchangKim/HireHub.git
+```
+2. Open a terminal window and cd to `Hirehub/server`
+3. Open another terminal window and cd to `Hirehub/client`
+4. Install npm packages in both directories
+```
+npm install
+```
+5. In the `Hirehub/server` directory 
+```
+node .\app.js
+```
+6. In the `Hirehub/client` directory 
+```
+npm run
+```
+7. Enter ` http://localhost:3000` in your favorite browser (Chrome is recommended) or your `http://your IP address:3000` on your network
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+8. Enjoy
 
-### `npm run build`
+## Authors
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+| Name               | GitHub Link                                                                                                                       |
+|--------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| Abdulmalik Alnasra | [GitHub](https://github.com/Abdul-was-here) ![GitHub Icon](https://img.icons8.com/?size=25&id=16318&format=png&color=000000) |
+| Akshay Silswal     | [GitHub](https://github.com/AkkiSilswal) ![GitHub Icon](https://img.icons8.com/?size=25&id=16318&format=png&color=000000) |
+| David Li           | [GitHub](https://github.com/ljld12315) ![GitHub Icon](https://img.icons8.com/?size=25&id=16318&format=png&color=000000) |
+| Jc Kim             | [GitHub](https://github.com/JuchangKim) ![GitHub Icon](https://img.icons8.com/?size=25&id=16318&format=png&color=000000) |

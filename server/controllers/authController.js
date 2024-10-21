@@ -1,5 +1,5 @@
 
-const users = []; // In-memory storage for users
+const users = [];
 
 // Register
 const register = (req, res) => {
