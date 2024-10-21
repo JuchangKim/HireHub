@@ -13,6 +13,7 @@ import PostJobPage from "./pages/PostJobPage";
 import CompyProfilePage from "./pages/CompanyProfilePage";
 import ProfilePage from "./pages/ProfilePage";
 import LeisurePage from "./pages/LeisurePage";
+import ResumeBuilderPage from "./pages/ResumeBuilderPage";
 
 import Navbar from "./components/Navbar";
 
@@ -36,6 +37,7 @@ function App() {
           <Route path="/company-profile" element={<CompyProfilePage />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/leisure" element={<LeisurePage />} />
+          <Route path="/resume-builder" element={<ResumeBuilderPage />} />
         </Routes>
       </Router>
     </AuthProvider>
