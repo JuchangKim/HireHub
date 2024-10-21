@@ -1,35 +1,6 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-
-.DS_STORE
-node_modules
-.eslintcache
-node_modules/.cache/
-scripts/flow/*/.flowconfig
-.flowconfig
-*~
-*.pyc
-.grunt
-_SpecRunner.html
-__benchmarks__
-build/
-remote-repo/
-coverage/
-.module-cache
-fixtures/dom/public/react-dom.js
-fixtures/dom/public/react.js
-test/the-files-to-test.generated.js
-*.log*
-chrome-user-data
-*.sublime-project
-*.sublime-workspace
-.idea
-*.iml
-.vscode
-*.swp
-*.swo
-
-=======
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
 /.pnp
@@ -82,7 +53,6 @@ chrome-user-data
 *.swo
 
 
-
 packages/react-devtools-core/dist
 packages/react-devtools-extensions/chrome/build
 packages/react-devtools-extensions/chrome/*.crx
@@ -99,4 +69,3 @@ packages/react-devtools-shell/dist
 packages/react-devtools-timeline/dist
 =======
 packages/react-devtools-timeline/dist
-

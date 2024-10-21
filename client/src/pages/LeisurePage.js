@@ -7,6 +7,10 @@ const LeisurePage = () => {
   const [board, setBoard] = useState(initialBoard);
   const [isGameOver, setIsGameOver] = useState(false);
   const [winner, setWinner] = useState(null);
+<<<<<<< HEAD
+  const [gameStats, setGameStats] = useState({ gamesPlayed: 0, xWins: 0, oWins: 0 });
+=======
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
 
   const checkWinner = (squares) => {
     const lines = [
@@ -31,7 +35,11 @@ const LeisurePage = () => {
       }
     }
 
+<<<<<<< HEAD
+    return squares.every((square) => square) ? "Draw" : null;
+=======
     return squares.every((square) => square) ? "Draw" : null; // Check for draw
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
   };
 
   const handleUserMove = (index) => {
@@ -43,8 +51,12 @@ const LeisurePage = () => {
     const result = checkWinner(newBoard);
 
     if (result) {
+<<<<<<< HEAD
+      handleGameOver(result);
+=======
       setWinner(result);
       setIsGameOver(true);
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
       return;
     }
 
@@ -62,12 +74,31 @@ const LeisurePage = () => {
       const result = checkWinner(newBoard);
 
       if (result) {
+<<<<<<< HEAD
+        handleGameOver(result);
+=======
         setWinner(result);
         setIsGameOver(true);
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
       }
     }
   };
 
+<<<<<<< HEAD
+  const handleGameOver = (result) => {
+    setWinner(result);
+    setIsGameOver(true);
+    
+    // Update the game stats
+    setGameStats((prevStats) => ({
+      gamesPlayed: prevStats.gamesPlayed + 1,
+      xWins: result === "X" ? prevStats.xWins + 1 : prevStats.xWins,
+      oWins: result === "O" ? prevStats.oWins + 1 : prevStats.oWins,
+    }));
+  };
+
+=======
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
   const resetGame = () => {
     setBoard(initialBoard);
     setIsGameOver(false);
@@ -77,7 +108,11 @@ const LeisurePage = () => {
   return (
     <Container className="mt-5">
       <Row className="justify-content-center">
+<<<<<<< HEAD
+        <Col xs={12} md={6} lg={5}>
+=======
         <Col xs={12} md={8} lg={6}>
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
           <h2 className="text-center mb-4">Tic Tac Toe</h2>
           {winner && (
             <Alert variant={winner === "Draw" ? "warning" : "success"}>
@@ -108,32 +143,55 @@ const LeisurePage = () => {
                       key={index}
                       variant="outline-primary"
                       style={{
+<<<<<<< HEAD
+                        width: "120px",
+                        height: "120px",
+                        fontSize: "48px",
+                        margin: "5px",
+                        backgroundColor: "#f0f0f0",
+                        transition: "background-color 0.3s",
+=======
                         width: "120px", // Increased button size
                         height: "120px", // Increased button size
                         fontSize: "48px", // Increased font size
                         margin: "5px",
                         backgroundColor: "#f0f0f0",
                         transition: "background-color 0.3s", // Added transition for hover effect
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
                         color:
                           square === "X"
                             ? "#FF5733"
                             : square === "O"
                             ? "#007BFF"
+<<<<<<< HEAD
+                            : "black",
+                        border:
+                          square === "X"
+                            ? "2px solid #FF5733"
+=======
                             : "black", // Different colors for X and O
                         border:
                           square === "X"
                             ? "2px solid #FF5733"
                             : square === "O"
                             ? "2px solid #007BFF"
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
                             : "2px solid #007BFF",
                       }}
                       onClick={() => handleUserMove(rowIndex * 3 + index)}
                       onMouseEnter={(e) =>
                         (e.target.style.backgroundColor = "#d0e7ff")
+<<<<<<< HEAD
+                      }
+                      onMouseLeave={(e) =>
+                        (e.target.style.backgroundColor = "#f0f0f0")
+                      }
+=======
                       } // Hover effect
                       onMouseLeave={(e) =>
                         (e.target.style.backgroundColor = "#f0f0f0")
                       } // Reset hover effect
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
                     >
                       {square}
                     </Button>
@@ -150,6 +208,36 @@ const LeisurePage = () => {
             Restart Game
           </Button>
         </Col>
+<<<<<<< HEAD
+        {/* Game Statistics Section */}
+        <Col xs={12} md={4} lg={3} className="mt-3 mt-md-0">
+          <div
+            className="game-stats"
+            style={{
+              padding: "20px",
+              borderRadius: "8px",
+              backgroundColor: "#f9f9f9",
+              border: "1px solid #ddd",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+              marginLeft: "30px", // Spacing from the board
+              marginTop: "70px", // Add vertical spacing to lower the statistics section
+            }}
+          >
+            <h4 className="text-center">Game Statistics</h4>
+            <hr />
+            <p>
+              <strong>Games Played:</strong> {gameStats.gamesPlayed}
+            </p>
+            <p>
+              <strong>X Wins:</strong> {gameStats.xWins}
+            </p>
+            <p>
+              <strong>O Wins:</strong> {gameStats.oWins}
+            </p>
+          </div>
+        </Col>
+=======
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
       </Row>
     </Container>
   );

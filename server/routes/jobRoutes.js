@@ -130,5 +130,4 @@ router.delete('/jobs/:id', async (req, res) => {
     }
 });
 
-
 module.exports = router;

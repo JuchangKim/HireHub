@@ -1,4 +1,6 @@
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -96,6 +98,7 @@ function Navbar() {
   );
 =======
 // src/components/Navbar.js
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -103,8 +106,14 @@ import { useTheme } from '../context/ThemeContext'; // Import useTheme
 import './Navbar.css';
 
 function Navbar() {
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, userType, setIsAuthenticated } = useAuth(); // Get userType and setIsAuthenticated from AuthContext
     const { theme, toggleTheme } = useTheme(); // Get the current theme and toggle function
+
+    const handleLogout = () => {
+        // Optional: Add logic to handle logout before navigating
+        localStorage.removeItem('token');
+        setIsAuthenticated(false);
+    };
 
     return (
         <nav className={`navbar navbar-expand-lg ${theme === 'dark' ? 'bg-dark text-light' : 'bg-light text-dark'}`}>
@@ -123,6 +132,45 @@ function Navbar() {
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/jobs">Job Listings</Link>
                                 </li>
+<<<<<<< HEAD
+                                {userType === 'company' && (
+                                    <>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/post-job">Post Job</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/editjob">Edit Job</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/company-profile">Company Profile</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/editcompyinfo">Manage Company Profile</Link>
+                                        </li>
+                                    </>
+                                )}
+                                {userType === 'user' && (
+                                    <>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/profile">My Profile</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/company-reviews">Company Reviews</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/salary-estimator">Salary Estimator</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/resume-builder">Resume Builder</Link>
+                                        </li>
+
+                                        <li className="nav-item">
+                                            <Link className="nav-link" to="/industry-news">Industry News</Link>
+                                        </li>
+                                        
+                                    </>
+                                )}
+=======
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/editjob">EditJob </Link>
                                 </li>
@@ -161,11 +209,17 @@ function Navbar() {
                                 </li>
 >>>>>>> merge-branch-sprint-2
 >>>>>>> 327ade07a98c6260a2a2e8c184923453c911f21d
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
                             </>
                         )}
                         {isAuthenticated ? (
                             <li className="nav-item">
-                                <Link className="nav-link" to="/logout">Logout</Link>
+                                <button 
+                                    className="btn btn-danger" // Red button style
+                                    onClick={handleLogout}
+                                >
+                                    Logout
+                                </button>
                             </li>
                         ) : (
                             <>
@@ -175,13 +229,16 @@ function Navbar() {
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/signup">Register</Link>
                                 </li>
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/leisure">Leisure</Link>
+                                </li>
                             </>
                         )}
                     </ul>
 
                     {/* Dark/Light Mode Toggle Button */}
                     <button
-                        className={`btn btn-sm ${theme === 'dark' ? 'btn-light' : 'btn-dark'}`}
+                        className={`btn ${theme === 'dark' ? 'btn-light' : 'btn-dark'}`} // Changed to btn
                         onClick={toggleTheme}
                         style={{ marginLeft: 'auto' }} // Ensures it aligns to the far right
                     >

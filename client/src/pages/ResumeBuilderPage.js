@@ -29,6 +29,10 @@ function ResumeBuilderPage() {
     setFormData({ ...formData, phone: value });
   };
 
+<<<<<<< HEAD
+  // Add functions
+=======
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
   const addEducation = () => {
     setFormData((prevData) => ({
       ...prevData,
@@ -36,17 +40,93 @@ function ResumeBuilderPage() {
     }));
   };
 
+<<<<<<< HEAD
+=======
   const handleEducationChange = (index, value) => {
     const updatedEducation = [...formData.education];
     updatedEducation[index] = value;
     setFormData({ ...formData, education: updatedEducation });
   };
 
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
   const addExperience = () => {
     setFormData((prevData) => ({
       ...prevData,
       experience: [...prevData.experience, ""],
     }));
+  };
+
+<<<<<<< HEAD
+=======
+  const handleExperienceChange = (index, value) => {
+    const updatedExperience = [...formData.experience];
+    updatedExperience[index] = value;
+    setFormData({ ...formData, experience: updatedExperience });
+  };
+
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
+  const addSkill = () => {
+    setFormData((prevData) => ({
+      ...prevData,
+      skills: [...prevData.skills, ""],
+    }));
+  };
+
+<<<<<<< HEAD
+=======
+  const handleSkillChange = (index, value) => {
+    const updatedSkills = [...formData.skills];
+    updatedSkills[index] = value;
+    setFormData({ ...formData, skills: updatedSkills });
+  };
+
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
+  const addReference = () => {
+    setFormData((prevData) => ({
+      ...prevData,
+      references: [...prevData.references, ""],
+    }));
+  };
+
+<<<<<<< HEAD
+  // Remove functions
+  const removeEducation = (index) => {
+    if (formData.education.length > 1) {
+      const updatedEducation = [...formData.education];
+      updatedEducation.splice(index, 1);
+      setFormData({ ...formData, education: updatedEducation });
+    }
+  };
+
+  const removeExperience = (index) => {
+    if (formData.experience.length > 1) {
+      const updatedExperience = [...formData.experience];
+      updatedExperience.splice(index, 1);
+      setFormData({ ...formData, experience: updatedExperience });
+    }
+  };
+
+  const removeSkill = (index) => {
+    if (formData.skills.length > 1) {
+      const updatedSkills = [...formData.skills];
+      updatedSkills.splice(index, 1);
+      setFormData({ ...formData, skills: updatedSkills });
+    }
+  };
+
+  const removeReference = (index) => {
+    if (formData.references.length > 1) {
+      const updatedReferences = [...formData.references];
+      updatedReferences.splice(index, 1);
+      setFormData({ ...formData, references: updatedReferences });
+    }
+  };
+
+  // Handle input changes
+  const handleEducationChange = (index, value) => {
+    const updatedEducation = [...formData.education];
+    updatedEducation[index] = value;
+    setFormData({ ...formData, education: updatedEducation });
   };
 
   const handleExperienceChange = (index, value) => {
@@ -55,26 +135,14 @@ function ResumeBuilderPage() {
     setFormData({ ...formData, experience: updatedExperience });
   };
 
-  const addSkill = () => {
-    setFormData((prevData) => ({
-      ...prevData,
-      skills: [...prevData.skills, ""],
-    }));
-  };
-
   const handleSkillChange = (index, value) => {
     const updatedSkills = [...formData.skills];
     updatedSkills[index] = value;
     setFormData({ ...formData, skills: updatedSkills });
   };
 
-  const addReference = () => {
-    setFormData((prevData) => ({
-      ...prevData,
-      references: [...prevData.references, ""],
-    }));
-  };
-
+=======
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
   const handleReferenceChange = (index, value) => {
     const updatedReferences = [...formData.references];
     updatedReferences[index] = value;
@@ -191,6 +259,10 @@ function ResumeBuilderPage() {
           />
         </Form.Group>
 
+<<<<<<< HEAD
+        {/* Education Section */}
+=======
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
         <Form.Label>Education</Form.Label>
         {formData.education.map((edu, index) => (
           <Form.Group
@@ -207,6 +279,22 @@ function ResumeBuilderPage() {
             />
           </Form.Group>
         ))}
+<<<<<<< HEAD
+        <div className="d-flex justify-content-end mb-3">
+          <Button variant="primary" onClick={addEducation} className="me-2">
+            + Add Education
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => removeEducation(formData.education.length - 1)}
+            disabled={formData.education.length === 1}
+          >
+            - Remove Education
+          </Button>
+        </div>
+
+        {/* Experience Section */}
+=======
         <div
           className="d-flex align-items-center mb-4"
           style={{ justifyContent: "flex-end" }}
@@ -216,6 +304,7 @@ function ResumeBuilderPage() {
           </Button>
         </div>
 
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
         <Form.Label>Experience</Form.Label>
         {formData.experience.map((exp, index) => (
           <Form.Group
@@ -232,6 +321,22 @@ function ResumeBuilderPage() {
             />
           </Form.Group>
         ))}
+<<<<<<< HEAD
+        <div className="d-flex justify-content-end mb-3">
+          <Button variant="primary" onClick={addExperience} className="me-2">
+            + Add Experience
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => removeExperience(formData.experience.length - 1)}
+            disabled={formData.experience.length === 1}
+          >
+            - Remove Experience
+          </Button>
+        </div>
+
+        {/* Skills Section */}
+=======
         <div
           className="d-flex align-items-center mb-4"
           style={{ justifyContent: "flex-end" }}
@@ -241,6 +346,7 @@ function ResumeBuilderPage() {
           </Button>
         </div>
 
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
         <Form.Label>Skills</Form.Label>
         {formData.skills.map((skill, index) => (
           <Form.Group
@@ -257,6 +363,22 @@ function ResumeBuilderPage() {
             />
           </Form.Group>
         ))}
+<<<<<<< HEAD
+        <div className="d-flex justify-content-end mb-3">
+          <Button variant="primary" onClick={addSkill} className="me-2">
+            + Add Skill
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => removeSkill(formData.skills.length - 1)}
+            disabled={formData.skills.length === 1}
+          >
+            - Remove Skill
+          </Button>
+        </div>
+
+        {/* References Section */}
+=======
         <div
           className="d-flex align-items-center mb-4"
           style={{ justifyContent: "flex-end" }}
@@ -266,6 +388,7 @@ function ResumeBuilderPage() {
           </Button>
         </div>
 
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
         <Form.Label>References</Form.Label>
         {formData.references.map((ref, index) => (
           <Form.Group
@@ -282,6 +405,19 @@ function ResumeBuilderPage() {
             />
           </Form.Group>
         ))}
+<<<<<<< HEAD
+        <div className="d-flex justify-content-end mb-3">
+          <Button variant="primary" onClick={addReference} className="me-2">
+            + Add Reference
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => removeReference(formData.references.length - 1)}
+            disabled={formData.references.length === 1}
+          >
+            - Remove Reference
+          </Button>
+=======
         <div
           className="d-flex align-items-center mb-4"
           style={{ justifyContent: "flex-end" }}
@@ -289,6 +425,7 @@ function ResumeBuilderPage() {
           <Button variant="primary" onClick={addReference}>
             + Add Reference
           </Button>
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
         </div>
 
         <Button variant="success" type="submit">
@@ -299,4 +436,8 @@ function ResumeBuilderPage() {
   );
 }
 
+<<<<<<< HEAD
 export default ResumeBuilderPage;
+=======
+export default ResumeBuilderPage;
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4

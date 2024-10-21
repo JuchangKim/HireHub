@@ -207,4 +207,8 @@ function IndustryNewsDetail() {
     );
 }
 
+<<<<<<< HEAD
 export default IndustryNewsDetail;
+=======
+export default IndustryNewsDetail;
+>>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
