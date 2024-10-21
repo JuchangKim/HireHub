@@ -37,6 +37,9 @@ function Navbar() {
                                             <Link className="nav-link" to="/post-job">Post Job</Link>
                                         </li>
                                         <li className="nav-item">
+                                            <Link className="nav-link" to="/editjob">Edit Job</Link>
+                                        </li>
+                                        <li className="nav-item">
                                             <Link className="nav-link" to="/company-profile">Company Profile</Link>
                                         </li>
                                     </>
