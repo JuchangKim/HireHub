@@ -27,6 +27,9 @@ function Navbar() {
                                     <Link className="nav-link" to="/jobs">Job Listings</Link>
                                 </li>
                                 <li className="nav-item">
+                                    <Link className="nav-link" to="/editjob">EditJob </Link>
+                                </li>
+                                <li className="nav-item">
                                     <Link className="nav-link" to="/post-job">Post Job</Link>
                                 </li>
                                 <li className="nav-item">
@@ -38,9 +41,22 @@ function Navbar() {
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/company-profile">Company Profile</Link>
                                 </li>
+<<<<<<< HEAD
+
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/addcompaniesinfo">Add Company Info </Link>
+                                </li>
+
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/editcompyinfo">Edit CompanyInfo</Link>
+                                </li>
+
+                                
+=======
                                 <li className="nav-item">
                                     <Link className="nav-link" to="/salary-estimator">Salary Estimator</Link>
                                 </li>
+>>>>>>> merge-branch-sprint-2
                             </>
                         )}
                         {isAuthenticated ? (
