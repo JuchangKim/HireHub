@@ -1,83 +1,40 @@
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import JobDetailsPage from './pages/JobDetailsPage';
+import ApplicationsPage from './pages/ApplicationsPage';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import CompanyReviewPage from './pages/CompanyReviewPage';
+import JobListingPage from './pages/JobListingPage';
+import LogoutPage from './pages/LogoutPage';
+import PostJobPage from './pages/PostJobPage';
+import CompanyProfilePage from './pages/CompanyProfilePage';
+import ProfilePage from './pages/ProfilePage';
+import SalaryEstimator from './pages/SalaryEstimator';
+import LeisurePage from './pages/LeisurePage';
+import ResumeBuilderPage from './pages/ResumeBuilderPage';
+import EditJobPage from './pages/EditJobPage';
+import ManageCompanyInfo from './pages/ManageCompanyInfo';
+import IndustryNewsPage from './pages/IndustryNewsPage';
+import IndustryNewsDetailsPage from './pages/IndustryNewsDetailsPage';
 
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import JobDetailsPage from "./pages/JobDetailsPage";
-import ApplicationsPage from "./pages/ApplicationsPage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import CompanyReviewPage from "./pages/CompanyReviewPage";
-import JobListingPage from "./pages/JobListingPage";
-import LogoutPage from "./pages/LogoutPage";
-import PostJobPage from "./pages/PostJobPage";
-import CompyProfilePage from "./pages/CompanyProfilePage";
-import ProfilePage from "./pages/ProfilePage";
-import LeisurePage from "./pages/LeisurePage";
-import ResumeBuilderPage from "./pages/ResumeBuilderPage";
+import './App.css';
+import Navbar from './components/Navbar';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 
-import Navbar from "./components/Navbar";
-
-import { AuthProvider } from "./context/AuthContext";
-
-function App() {
-  return (
-    <AuthProvider>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/job/:id" element={<JobDetailsPage />} />
-          <Route path="/jobs" element={<JobListingPage />} />
-          <Route path="/applications" element={<ApplicationsPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<RegisterPage />} />
-          <Route path="/company-reviews" element={<CompanyReviewPage />} />
-          <Route path="/logout" element={<LogoutPage />} />
-          <Route path="/post-job" element={<PostJobPage />} />
-          <Route path="/company-profile" element={<CompyProfilePage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/leisure" element={<LeisurePage />} />
-          <Route path="/resume-builder" element={<ResumeBuilderPage />} />
-        </Routes>
-      </Router>
-    </AuthProvider>
-  );
-
-
+// ProtectedRoute component to protect specific routes
+function ProtectedRoute({ children }) {
+    const { isAuthenticated } = useAuth();
+    return isAuthenticated ? children : <Navigate to="/login" />;
+}
 
 // Main App component
 function App() {
     return (
         <AuthProvider>
-
-            <Router>
-                <Navbar />
-                <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/job/:id" element={<JobDetailsPage />} />
-                    <Route path="/jobs" element={<JobListingPage />} />
-                    <Route path="/applications" element={<ApplicationsPage />} />
-                    <Route path="/login" element={<LoginPage />} />
-                    <Route path="/signup" element={<RegisterPage />} />
-                    <Route path="/company-reviews" element={<CompanyReviewPage />} />
-
-                    <Route path="/industry-news" element={<IndustryNewsPage />} />
-                    <Route path="/industry-news/:id" element={<IndustryNewsDetailsPage />} />
-                    
-                    <Route path="/logout" element={<LogoutPage />} />
-                    <Route path="/post-job" element={<PostJobPage />} />
-                    <Route path="/company-profile" element={<CompyProfilePage />} />
-                    <Route path="/profile" element={<ProfilePage />} />
-                    <Route path="/addcompaniesinfo" element={<AddCompanyInfoPage />} />
-                    <Route path="/editjob" element={<EditJobPage />} />
-                    <Route path="/editjob/:jobId" element={<EditJobForm />} />
-                    <Route path="/editcompyinfo" element={<EditCompyInfoPage />} />
-                    <Route path="/editcompany/:companyId" element={<EditCompanyForm />} />
-
-
-                </Routes>
-            </Router>
-
             <ThemeProvider>
                 <Router>
                     <Navbar />
@@ -99,7 +56,6 @@ function App() {
                     </Routes>
                 </Router>
             </ThemeProvider>
-
         </AuthProvider>
     );
 }
@@ -137,6 +93,6 @@ function AuthBasedRoutes() {
 
     // Default behavior for unauthorized access or unknown userType
     return <Navigate to="/login" />;
-}}
+}
 
 export default App;

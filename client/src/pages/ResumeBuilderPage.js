@@ -29,10 +29,7 @@ function ResumeBuilderPage() {
     setFormData({ ...formData, phone: value });
   };
 
-<<<<<<< HEAD
   // Add functions
-=======
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
   const addEducation = () => {
     setFormData((prevData) => ({
       ...prevData,
@@ -40,15 +37,6 @@ function ResumeBuilderPage() {
     }));
   };
 
-<<<<<<< HEAD
-=======
-  const handleEducationChange = (index, value) => {
-    const updatedEducation = [...formData.education];
-    updatedEducation[index] = value;
-    setFormData({ ...formData, education: updatedEducation });
-  };
-
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
   const addExperience = () => {
     setFormData((prevData) => ({
       ...prevData,
@@ -56,15 +44,6 @@ function ResumeBuilderPage() {
     }));
   };
 
-<<<<<<< HEAD
-=======
-  const handleExperienceChange = (index, value) => {
-    const updatedExperience = [...formData.experience];
-    updatedExperience[index] = value;
-    setFormData({ ...formData, experience: updatedExperience });
-  };
-
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
   const addSkill = () => {
     setFormData((prevData) => ({
       ...prevData,
@@ -72,15 +51,6 @@ function ResumeBuilderPage() {
     }));
   };
 
-<<<<<<< HEAD
-=======
-  const handleSkillChange = (index, value) => {
-    const updatedSkills = [...formData.skills];
-    updatedSkills[index] = value;
-    setFormData({ ...formData, skills: updatedSkills });
-  };
-
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
   const addReference = () => {
     setFormData((prevData) => ({
       ...prevData,
@@ -88,7 +58,6 @@ function ResumeBuilderPage() {
     }));
   };
 
-<<<<<<< HEAD
   // Remove functions
   const removeEducation = (index) => {
     if (formData.education.length > 1) {
@@ -141,8 +110,6 @@ function ResumeBuilderPage() {
     setFormData({ ...formData, skills: updatedSkills });
   };
 
-=======
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
   const handleReferenceChange = (index, value) => {
     const updatedReferences = [...formData.references];
     updatedReferences[index] = value;
@@ -259,10 +226,7 @@ function ResumeBuilderPage() {
           />
         </Form.Group>
 
-<<<<<<< HEAD
         {/* Education Section */}
-=======
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
         <Form.Label>Education</Form.Label>
         {formData.education.map((edu, index) => (
           <Form.Group
@@ -279,7 +243,6 @@ function ResumeBuilderPage() {
             />
           </Form.Group>
         ))}
-<<<<<<< HEAD
         <div className="d-flex justify-content-end mb-3">
           <Button variant="primary" onClick={addEducation} className="me-2">
             + Add Education
@@ -294,17 +257,6 @@ function ResumeBuilderPage() {
         </div>
 
         {/* Experience Section */}
-=======
-        <div
-          className="d-flex align-items-center mb-4"
-          style={{ justifyContent: "flex-end" }}
-        >
-          <Button variant="primary" onClick={addEducation}>
-            + Add Education
-          </Button>
-        </div>
-
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
         <Form.Label>Experience</Form.Label>
         {formData.experience.map((exp, index) => (
           <Form.Group
@@ -321,7 +273,6 @@ function ResumeBuilderPage() {
             />
           </Form.Group>
         ))}
-<<<<<<< HEAD
         <div className="d-flex justify-content-end mb-3">
           <Button variant="primary" onClick={addExperience} className="me-2">
             + Add Experience
@@ -336,17 +287,6 @@ function ResumeBuilderPage() {
         </div>
 
         {/* Skills Section */}
-=======
-        <div
-          className="d-flex align-items-center mb-4"
-          style={{ justifyContent: "flex-end" }}
-        >
-          <Button variant="primary" onClick={addExperience}>
-            + Add Experience
-          </Button>
-        </div>
-
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
         <Form.Label>Skills</Form.Label>
         {formData.skills.map((skill, index) => (
           <Form.Group
@@ -363,7 +303,6 @@ function ResumeBuilderPage() {
             />
           </Form.Group>
         ))}
-<<<<<<< HEAD
         <div className="d-flex justify-content-end mb-3">
           <Button variant="primary" onClick={addSkill} className="me-2">
             + Add Skill
@@ -378,17 +317,6 @@ function ResumeBuilderPage() {
         </div>
 
         {/* References Section */}
-=======
-        <div
-          className="d-flex align-items-center mb-4"
-          style={{ justifyContent: "flex-end" }}
-        >
-          <Button variant="primary" onClick={addSkill}>
-            + Add Skill
-          </Button>
-        </div>
-
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
         <Form.Label>References</Form.Label>
         {formData.references.map((ref, index) => (
           <Form.Group
@@ -405,7 +333,6 @@ function ResumeBuilderPage() {
             />
           </Form.Group>
         ))}
-<<<<<<< HEAD
         <div className="d-flex justify-content-end mb-3">
           <Button variant="primary" onClick={addReference} className="me-2">
             + Add Reference
@@ -417,15 +344,6 @@ function ResumeBuilderPage() {
           >
             - Remove Reference
           </Button>
-=======
-        <div
-          className="d-flex align-items-center mb-4"
-          style={{ justifyContent: "flex-end" }}
-        >
-          <Button variant="primary" onClick={addReference}>
-            + Add Reference
-          </Button>
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
         </div>
 
         <Button variant="success" type="submit">
@@ -436,8 +354,4 @@ function ResumeBuilderPage() {
   );
 }
 
-<<<<<<< HEAD
 export default ResumeBuilderPage;
-=======
-export default ResumeBuilderPage;
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4

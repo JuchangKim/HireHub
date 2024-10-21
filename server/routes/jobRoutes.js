@@ -1,20 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const JobListing = require('../models/JobListing');
-const { getJobs, getJobById, updateJob, deleteJob } = require('../controllers/jobController');
 const { authenticateToken } = require('../middleware/authenticateToken'); // Import authentication middleware
 
 // Route to get all jobs with filters and sorting
 router.get('/jobs', async (req, res) => {
     try {
-        const { keyword, jobTitle, region, sector, payRange, workType, sort } = req.query;
+        const { keyword, region, sector, payRange, workType, sort } = req.query;
 
         let filter = {};
-
-        // If jobTitle exists, use it to filter job titles only
-        if (jobTitle) {
-            filter.title = { $regex: jobTitle, $options: 'i' }; // Case-insensitive search in the job title only
-        }
 
         if (keyword) {
             filter.$or = [
@@ -52,7 +46,7 @@ router.get('/jobs', async (req, res) => {
                 sortOption = { datePosted: -1 }; // Descending by date posted
             }
         }
-        console.log('Filter used:', filter);
+
         const jobs = await JobListing.find(filter).sort(sortOption);
         res.json(jobs);
     } catch (error) {

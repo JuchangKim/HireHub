@@ -1,12 +1,9 @@
-// JC - this page has job preferences variables which are jobPrefences {jobTItle, location, industry, salary}
-
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, Alert, Card } from "react-bootstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import JobPreferences from "./JobPreferences"; // Import the new component
 
-// JC - initialising user data. The new user has additional job preference variable with jobTitle, location, industry, salary.
 function RegisterPage() {
   const [formData, setFormData] = useState({
     userType: "user", // Default user type
@@ -17,58 +14,36 @@ function RegisterPage() {
     username: "",
     password: "",
     confirmPassword: "",
-<<<<<<< HEAD
     jobPreferences: {   // Initialize jobPreferences object
-=======
-    jobPreferences: {   // Initialize jobPreferences object properly
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
       jobTitle: "",
       location: "",
       industry: "",
       salary: ""
     }
   });
-  // JC - initialising user data is done.
-
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-<<<<<<< HEAD
     // Handle changes for jobPreferences fields separately
-=======
-    // JC - Handle changes for jobPreferences fields separately
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
     if (["jobTitle", "location", "industry", "salary"].includes(name)) {
       setFormData({
         ...formData,
         jobPreferences: {
           ...formData.jobPreferences,
-<<<<<<< HEAD
           [name]: value, // Update the relevant jobPreferences field
         },
       });
     } else {
       // For other fields outside jobPreferences
-=======
-          [name]: value, // JC - Update the relevant jobPreferences field
-        },
-      });
-    } else {
-      // JC - For other fields outside jobPreferences
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
       setFormData({
         ...formData,
         [name]: value,
       });
     }
-<<<<<<< HEAD
   };
-=======
-};
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
 
   const validateForm = () => {
     const {
@@ -105,13 +80,9 @@ function RegisterPage() {
     return true;
   };
 
-// JC - when submit registering, jobPreferences variables are regitered together and post to backend.
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-
-    // Debug: Log the formData before sending the request
-    console.log(formData);
 
     try {
       await axios.post("http://localhost:5000/api/register", {
@@ -122,22 +93,15 @@ function RegisterPage() {
         phoneNumber: formData.phoneNumber,
         username: formData.username,
         password: formData.password,
-<<<<<<< HEAD
         // Include jobPreferences in registration data
         jobPreferences: {
           jobTitle: formData.jobPreferences.jobTitle,
-=======
-        // JC - jobPrefences data is added
-        jobPreferences: {
-          jobTitle: formData.jobPreferences.jobTitle,  
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
           location: formData.jobPreferences.location,
           industry: formData.jobPreferences.industry,
           salary: formData.jobPreferences.salary,
         }
       });
       setSuccess("Registration successful. You can now log in.");
-      // JC - After sumbitting, make it clear the input space.
       setFormData({
         userType: "user", // Reset userType to default after successful registration
         firstName: "",
@@ -155,21 +119,10 @@ function RegisterPage() {
         }
       });
     } catch (err) {
-<<<<<<< HEAD
       console.error("Registration error:", err);
       setError(err.response?.data?.message || "Registration failed");
-=======
-      // Show specific error if username is already taken
-      if (err.response && err.response.status === 400) {
-        setError("Username is already existed");
-      } else {
-        console.error("Registration error:", err);
-        setError("Registration failed");
-      }
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
     }
   };
-// JC - submit function is done with additional jobPreferences data.
 
   return (
     <Container className="d-flex align-items-center justify-content-center min-vh-100">
@@ -288,16 +241,10 @@ function RegisterPage() {
                 className="input-field"
               />
             </Form.Group>
-<<<<<<< HEAD
 
             {/* Include the Job Preferences component */}
             <JobPreferences formData={formData} handleChange={handleChange} />
 
-=======
-            {/* JC - JobPrefences card is added between confirm password and sing up button */}
-            <JobPreferences formData={formData} handleChange={handleChange} />
-            
->>>>>>> fe1700b0b81b50068870bfab3627aa55a7c455f4
             <div className="d-flex justify-content-center">
               <Button variant="primary" type="submit" className="w-100">
                 Sign Up
