@@ -86,7 +86,7 @@ mongoose.connect(uri)
     {
         title: 'Electrician Required',
         company: 'Power Jointing (2018) Limited',
-        location: 'Christchurch ',
+        location: 'Christchurch',
         salary: '50-60k',
         sector: 'Trades',
         workType: 'Full-Time',
