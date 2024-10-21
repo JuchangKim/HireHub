@@ -36,6 +36,9 @@ function Navbar() {
                                     <Link className="nav-link" to="/company-profile">Company Profile</Link>
                                 </li>
                                 
+                                <li className="nav-item">
+                                    <Link className="nav-link" to="/salary-estimator">Salary Estimator</Link>
+                                </li>
                             </>
                         )}
                         {isAuthenticated ? (

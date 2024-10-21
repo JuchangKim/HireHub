@@ -11,6 +11,7 @@ import LogoutPage from './pages/LogoutPage';
 import PostJobPage from './pages/PostJobPage';
 import CompyProfilePage from './pages/CompanyProfilePage';
 import ProfilePage from './pages/ProfilePage';
+import SalaryEstimator from './pages/SalaryEstimator';
 
 import Navbar from './components/Navbar';
 
@@ -33,6 +34,7 @@ function App() {
                     <Route path="/post-job" element={<PostJobPage />} />
                     <Route path="/company-profile" element={<CompyProfilePage />} />
                     <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/salary-estimator" element={<SalaryEstimator />} />
 
                 </Routes>
             </Router>
